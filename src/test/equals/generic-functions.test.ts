@@ -37,6 +37,12 @@ it("doesn't tell apart empty constraints from unconstrained", () => {
         .equals<<T extends any>() => void>(true)
 })
 
+it("doesn't get confused by empty constraints", () => {
+    the_type<<T extends S & unknown, S extends unknown>() => void>().equals<
+        <T extends S, S>() => void
+    >(true)
+})
+
 it("tells apart overloaded call signatures from function types", () => {
     the_type<() => void>().equals<{ (): void; (): 1 }>(false)
 })

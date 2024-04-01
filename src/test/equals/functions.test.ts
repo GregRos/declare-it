@@ -29,5 +29,14 @@ it("doesn't tell call signature from function type", () => {
 })
 
 it("tells optional parameter from disjunction with undefined", () => {
-    the_type<(a?: 1) => void>().equals<(a: 1 | undefined) => void>(false)
-}
+    the_type<(a?: 1) => void>()
+        .equals<(a: 1 | undefined) => void>(false)
+        .equals<(a?: 1 | undefined) => void>(true)
+})
+
+it("tells apart Function and specific function types, even with any", () => {
+    the_type<Function>()
+        .equals<() => void>(false)
+        .equals<(...x: any) => any>(false)
+        .equals<Function>(true)
+})

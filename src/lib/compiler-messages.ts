@@ -24,7 +24,8 @@ export declare abstract class 𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕�
     Message,
     Right
 > extends BinaryMessage<Left, Message, Right> {}
-export declare abstract class 𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦<
+// FAILED_EQUALS:
+export declare abstract class 𝗔𝗥𝗘_𝗡𝗢𝗧_𝗘𝗤𝗨𝗔𝗟<
     Left,
     Message,
     Right

@@ -33,3 +33,11 @@ it("does not check intersection order", () => {
     // @ts-expect-error
     the_type<{ a: 1 } & { b: 2 }>().equals<{ b: 2 } & { a: 1 }>(false)
 })
+
+it("doesn't tell method from function property", () => {
+    the_type<{ a(): void }>().equals<{ a: () => void }>(true)
+})
+
+it("doesn't tell generic method from function property", () => {
+    the_type<{ a<T>(): void }>().equals<{ a: <T>() => void }>(true)
+})
