@@ -2,13 +2,12 @@
   "compilerOptions": {
     "composite": true,
     "module": "CommonJS",
-    "target": "ES2022",
+    "target": "es2020",
     "lib": ["ES2022"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "declarationMap": true,
     "sourceMap": true,
     "noEmit": true,
     "strict": true

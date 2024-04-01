@@ -1,1 +1,1 @@
-export const Five = 5
+export { the_type } from "./wrapper"
