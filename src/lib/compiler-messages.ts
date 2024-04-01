@@ -1,31 +1,36 @@
-export abstract class UnaryMessage<Type, Message> {
-    constructor(
-        private _type: Type,
-        private _message: Message
-    ) {}
+export declare abstract class UnaryMessage<Type, Message> {
+    private _type: Type
+    private _message: Message
 }
-export abstract class BinaryMessage<Left, Message, Right> {
-    constructor(
-        private _left: Left,
-        private _right: Right,
-        private _message: Message
-    ) {}
+export declare abstract class BinaryMessage<Left, Message, Right> {
+    private _left: Left
+    private _message: Message
+    private _right: Right
 }
-export abstract class 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗧𝗼<Left, Message, Right> extends BinaryMessage<
+export declare abstract class 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<
     Left,
     Message,
     Right
-> {}
+> extends BinaryMessage<Left, Message, Right> {}
 
-export abstract class 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗙𝗿𝗼𝗺<Left, Message, Right> extends BinaryMessage<
+export declare abstract class 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<
     Left,
     Message,
     Right
-> {}
-export abstract class 𝗘𝗾𝘂𝗮𝗹𝘀<Left, Message, Right> extends BinaryMessage<
-    Left,
-    Message,
-    Right
-> {}
+> extends BinaryMessage<Left, Message, Right> {}
 
-export class 𝗜𝘀𝑨𝒏𝒚<T, Message> extends UnaryMessage<T, Message> {}
+export declare abstract class 𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦<
+    Left,
+    Message,
+    Right
+> extends BinaryMessage<Left, Message, Right> {}
+export declare abstract class 𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦<
+    Left,
+    Message,
+    Right
+> extends BinaryMessage<Left, Message, Right> {}
+
+export declare class TheType_IsAny<T, Message> extends UnaryMessage<
+    T,
+    Message
+> {}

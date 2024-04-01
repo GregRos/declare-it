@@ -1,64 +1,71 @@
-import { 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗙𝗿𝗼𝗺, 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗧𝗼, 𝗘𝗾𝘂𝗮𝗹𝘀, 𝗜𝘀𝑨𝒏𝒚 } from "./compiler-messages"
 import {
-    Txt_AreBothAny,
-    Txt_AreEqual,
-    Txt_IsAny,
-    Txt_IsAnyButNot,
-    Txt_IsAssignableFrom,
-    Txt_IsAssignableTo,
-    Txt_IsNotAny,
-    Txt_IsNotAnyBut,
-    Txt_IsNotAssignableFrom,
-    Txt_IsNotAssignableTo,
-    Txt_NotExact
-} from "./texts"
+    TheType_IsAny,
+    𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦,
+    𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦,
+    𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦,
+    𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦
+} from "./compiler-messages"
+import { Texts } from "./texts"
+
 // Inspired by Alec Larson's work https://github.com/aleclarson/spec.ts
 // Shamelessly stolen under the MIT license.
 
 // // Conditional returns can enforce identical types.
 // // See here: https://github.com/Microsoft/TypeScript/issues/27024#issuecomment-421529650
 
-export type Assert_Equals<Expected, Target> =
-    IsAny<Expected> extends 1
-        ? IsAny<Target> extends 1
-            ? 𝗘𝗾𝘂𝗮𝗹𝘀<Expected, Txt_AreBothAny, Target> | true
-            : 𝗘𝗾𝘂𝗮𝗹𝘀<Expected, Txt_IsAnyButNot, Target> | false
-        : IsAny<Target> extends 1
-          ? 𝗘𝗾𝘂𝗮𝗹𝘀<Expected, Txt_IsNotAnyBut, Target> | false
-          : [Expected] extends [Target]
-            ? [Target] extends [Expected]
-                ? Any extends TestExact<Expected, Target>
-                    ? 𝗘𝗾𝘂𝗮𝗹𝘀<Expected, Txt_AreEqual, Target> | true
-                    : 𝗘𝗾𝘂𝗮𝗹𝘀<Expected, Txt_NotExact, Target> | false
-                : false | 𝗘𝗾𝘂𝗮𝗹𝘀<Expected, Txt_IsNotAssignableFrom, Target>
-            : false | 𝗘𝗾𝘂𝗮𝗹𝘀<Expected, Txt_IsNotAssignableTo, Target>
+export type Compute_Resembles<L, R> =
+    IsAny<L> extends 1
+        ? IsAny<R> extends 1
+            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦<L, Texts["are_both_any"], R> | true
+            : 𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦<L, Texts["is_any_but_not"], R> | false
+        : IsAny<R> extends 1
+          ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦<L, Texts["is_not_any_but"], R> | false
+          : [L] extends [R]
+            ? [R] extends [L]
+                ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦<L, Texts["equals"], R> | true
+                : false | 𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦<L, Texts["not_assignable_from"], R>
+            : false | 𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦<L, Texts["not_assignable_to"], R>
+export type Compute_Equals<L, R> =
+    IsAny<L> extends 1
+        ? IsAny<R> extends 1
+            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦<L, Texts["are_both_any"], R> | true
+            : 𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦<L, Texts["is_any_but_not"], R> | false
+        : IsAny<R> extends 1
+          ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦<L, Texts["is_not_any_but"], R> | false
+          : [L] extends [R]
+            ? [R] extends [L]
+                ? Any extends TestExact<L, R>
+                    ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦<L, Texts["equals"], R> | true
+                    : 𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦<L, Texts["not_exactly"], R> | false
+                : false | 𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦<L, Texts["not_assignable_from"], R>
+            : false | 𝗔𝗦𝗦𝗘𝗥𝗧_𝗘𝗤𝗨𝗔𝗟𝗦<L, Texts["not_assignable_to"], R>
 
-export type Assert_AssignsFrom<Expected, Target> =
-    IsAny<Expected> extends 1
-        ? IsAny<Target> extends 1
-            ? 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗙𝗿𝗼𝗺<Expected, Txt_AreBothAny, Target> | true
-            : 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗙𝗿𝗼𝗺<Expected, Txt_IsAnyButNot, Target> | false
-        : IsAny<Target> extends 1
-          ? 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗙𝗿𝗼𝗺<Expected, Txt_IsNotAnyBut, Target> | false
-          : [Target] extends [Expected]
-            ? 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗙𝗿𝗼𝗺<Expected, Txt_IsAssignableFrom, Target> | true
-            : false | 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗙𝗿𝗼𝗺<Expected, Txt_IsNotAssignableFrom, Target>
+export type Compute_AssignsFrom<L, R> =
+    IsAny<L> extends 1
+        ? IsAny<R> extends 1
+            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["are_both_any"], R> | true
+            : 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["is_any_but_not"], R> | false
+        : IsAny<R> extends 1
+          ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["is_not_any_but"], R> | false
+          : [R] extends [L]
+            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["assignable_from"], R> | true
+            : false | 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["not_assignable_from"], R>
 
-export type Assert_AssignsTo<Expected, Target> =
-    IsAny<Target> extends 1
-        ? IsAny<Expected> extends 1
-            ? 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗧𝗼<Expected, Txt_AreBothAny, Target> | true
-            : 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗧𝗼<Expected, Txt_IsNotAnyBut, Target> | false
-        : IsAny<Expected> extends 1
-          ? 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗧𝗼<Expected, Txt_IsNotAnyBut, Target> | false
-          : [Expected] extends [Target]
-            ? 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗧𝗼<Expected, Txt_IsAssignableTo, Target> | true
-            : false | 𝗔𝘀𝘀𝗶𝗴𝗻𝘀𝗧𝗼<Expected, Txt_IsNotAssignableTo, Target>
+export type Compute_AssignsTo<L, R> =
+    IsAny<R> extends 1
+        ? IsAny<L> extends 1
+            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["are_both_any"], R> | true
+            : 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["is_not_any_but"], R> | false
+        : IsAny<L> extends 1
+          ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["is_not_any_but"], R> | false
+          : [L] extends [R]
+            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["assignable_to"], R> | true
+            : false | 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["not_assignable_to"], R>
 
 export type Assert_IsAny<T> =
     IsAny<T> extends 1
-        ? true | 𝗜𝘀𝑨𝒏𝒚<T, Txt_IsAny>
-        : false | 𝗜𝘀𝑨𝒏𝒚<T, Txt_IsNotAny>
+        ? true | TheType_IsAny<T, Texts["is_any"]>
+        : false | TheType_IsAny<T, Texts["is_not_any"]>
 
 export type IsAny<T> = Any extends T ? ([T] extends [Any] ? 1 : 0) : 0
 export type TestExact<Left, Right> =

@@ -5,7 +5,13 @@ const config = {
     testEnvironment: "node",
     testPathIgnorePatterns: ["dist"],
     transform: {
-        "^.+\\.tsx?$": ["@swc/jest"]
+        "^.+\\.tsx?$": [
+            "ts-jest",
+            {
+                tsconfig: "<rootDir>/src/test/tsconfig.json",
+                transpileOnly: true
+            }
+        ]
     },
     rootDir: ".",
     testMatch: ["<rootDir>/src/test/**/*.test.ts"],
@@ -21,6 +27,6 @@ const config = {
     globals: {
         defaults: {}
     }
-};
+}
 
 export default config;
