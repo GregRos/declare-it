@@ -1,48 +1,53 @@
-import { the_type } from "@lib"
+import { declare_test, expect_type } from "@lib"
 
-it("checks type parameters", () => {
-    the_type<<T>() => void>().equals<() => void>(false)
-})
+declare_test(
+    "checks type parameters",
+    expect_type<<T>() => void>().not.to_equal<() => void>()
+)
 
-it("does not check type parameter names", () => {
-    the_type<<T>() => void>().equals<<U>() => void>(true)
-})
+declare_test(
+    "does not check type parameter names",
+    expect_type<<T>() => void>().to_equal<<U>() => void>(true)
+)
 
-it("checks type parameter number", () => {
-    the_type<<T, U>() => void>().equals<<T>() => void>(false)
+declare_test(
+    "checks type parameter number",
+    expect_type<<T, U>() => void>().not.to_equal<<T>() => void>(true)
+)
+
+declare_test(
+    "checks type parameter default",
+    expect_type<<T = 1>() => void>().not.to_equal<<T>() => void>(),
     // @ts-expect-error
-    the_type<<T, U>() => void>().equals<<T>() => void>(true)
-})
+    expect_type<<T = 1>() => void>().to_equal<<T = 2>() => void>(),
+    expect_type<<T, S = T>() => void>().to_equal<<X, Y = X>() => void>()
+)
 
-it("checks type parameter default", () => {
-    the_type<<T = 1>() => void>().equals<<T>() => void>(false)
+declare_test(
+    "checks type parameter constraints",
+    expect_type<<T extends 1>() => void>().not.to_equal<
+        <T extends 2>() => void
+    >(),
     // @ts-expect-error
-    the_type<<T = 1>() => void>().equals<<T = 2>() => void>(true)
-    the_type<<T, S = T>() => void>().equals<<X, Y = X>() => void>(true)
-})
-
-it("checks type parameter constraints", () => {
-    the_type<<T extends 1>() => void>()
-        .equals<<T extends 2>() => void>(false)
-        // @ts-expect-error
-        .equals<<T extends 2>() => void>(true)
-    the_type<<T extends 1, U extends T>() => void>().equals<
+    expect_type<<T extends 1>() => void>().to_equal<<T extends 2>() => void>(),
+    expect_type<<T extends 1, U extends T>() => void>().not.to_equal<
         <T extends 1, U extends 2>() => void
-    >(false)
-})
+    >()
+)
 
-it("doesn't tell apart empty constraints from unconstrained", () => {
-    the_type<<T extends unknown>() => void>()
-        .equals<<T>() => void>(true)
-        .equals<<T extends any>() => void>(true)
-})
+declare_test(
+    "doesn't tell apart empty constraints from unconstrained",
+    expect_type<<T extends unknown>() => void>().to_equal<<T>() => void>()
+)
 
-it("doesn't get confused by empty constraints", () => {
-    the_type<<T extends S & unknown, S extends unknown>() => void>().equals<
-        <T extends S, S>() => void
-    >(true)
-})
+declare_test(
+    "doesn't get confused by empty constraints",
+    expect_type<
+        <T extends S & unknown, S extends unknown>() => void
+    >().to_equal<<T extends S, S>() => void>()
+)
 
-it("tells apart overloaded call signatures from function types", () => {
-    the_type<() => void>().equals<{ (): void; (): 1 }>(false)
-})
+declare_test(
+    "tells apart overloaded call signatures from function types",
+    expect_type<() => void>().not.to_equal<{ (): void; (): 1 }>()
+)

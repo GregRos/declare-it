@@ -1,16 +1,20 @@
-import { the_type } from "@lib"
+import { declare_test, expect_type } from "@lib"
 
-it("Identical aliases don't matter", () => {
+{
     type A = 1
     type B = 1
-    the_type<A>().equals<B>(true)
-})
-it("does not check type name even in recursive types", () => {
-    type C = {
-        a: C
+    declare_test("checks named type", expect_type<A>().to_equal<B>())
+}
+
+{
+    type A = {
+        a: A
     }
-    type D = {
-        a: D
+    type B = {
+        a: B
     }
-    the_type<C>().equals<D>(true)
-})
+    declare_test(
+        "checks named type in recursive type",
+        expect_type<A>().to_equal<B>()
+    )
+}

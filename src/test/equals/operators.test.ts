@@ -1,17 +1,29 @@
-import { the_type } from "@lib"
+import { declare_test, expect_type } from "@lib"
 
-it("disjunction type is different from non-disjunction", () => {
-    the_type<1 | 2>().equals<1>(false).equals<2>(false)
-})
+declare_test(
+    "checks disjunction type",
+    expect_type<1 | 2>().to_equal<1 | 2>(),
+    expect_type<1 | 2>().not.to_equal<1 | 3>(),
+    // @ts-expect-error
+    expect_type<1 | 2>().to_equal<1>()
+)
 
-it("impossible conjunction is never", () => {
-    the_type<1 & 2>().equals<never>(true).equals<1>(false).equals<2>(false)
-})
+declare_test(
+    "checks conjunction type",
+    expect_type<1 & 2>().to_equal<1 & 2>(),
+    expect_type<1 & 2>().to_equal<1 & 3>(),
+    // @ts-expect-error
+    expect_type<1 & 2>().to_equal<1>()
+)
 
-it("disjunction type is the same if both operands are the same literal type", () => {
-    the_type<1 | 1>().equals<1>(true)
-})
+declare_test(
+    "disjunction type is the same if both operands are the same literal type",
+    expect_type<1 | 1>().to_equal<1>(),
+    expect_type<1 | 1>().not.to_equal<2>()
+)
 
-it("conjunction type is the same if both operands are the same literal type", () => {
-    the_type<1 & 1>().equals<1>(true)
-})
+declare_test(
+    "conjunction type is the same if both operands are the same literal type",
+    expect_type<1 & 1>().to_equal<1>(),
+    expect_type<1 & 1>().not.to_equal<2>()
+)

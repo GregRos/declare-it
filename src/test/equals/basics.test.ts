@@ -1,54 +1,57 @@
-import { expect_type, the_type, type_test } from "@lib"
+import { declare_test, expect_type } from "@lib"
 
-it("tells apart literal types", () => {
-    the_type<1>().equals<2>(false)
-})
-
-it("tells apart literal types from other types", () => {
-    the_type<1>().equals<number>(false)
-})
-
-it("tells apart any from other types", () => {
-    the_type<any>()
-        .equals<number>(false)
-        .equals<string>(false)
-        .equals<unknown>(false)
-        .equals<never>(false)
-        .equals<1>(false)
-        .equals<void>(false)
-})
-
-it("tells apart unknown from other types", () => {
-    the_type<unknown>()
-        .equals<number>(false)
-        .equals<string>(false)
-        .equals<any>(false)
-        .equals<never>(false)
-        .equals<1>(false)
-        .equals<void>(false)
-})
-
-type_test(
-    "tells apart unknown from other types",
-    expect_type<unknown>().not.to_equal<number>()
+declare_test(
+    "tells apart literal types from other types",
+    expect_type<1>().not.to_equal<number>()
 )
-it("tells apart never from other types", () => {
-    the_type<never>()
-        .equals<number>(false)
-        .equals<string>(false)
-        .equals<any>(false)
-        .equals<unknown>(false)
-        .equals<1>(false)
-        .equals<void>(false)
-})
 
-it("tells apart void from other types", () => {
-    the_type<void>()
-        .equals<number>(false)
-        .equals<string>(false)
-        .equals<any>(false)
-        .equals<unknown>(false)
-        .equals<never>(false)
-        .equals<1>(false)
-        .equals<undefined>(false)
-})
+declare_test(
+    "tells apart unknown from other types",
+    expect_type<unknown>().not.to_equal<number>(),
+    expect_type<unknown>().not.to_equal<string>(),
+    expect_type<unknown>().not.to_equal<never>(),
+    expect_type<unknown>().not.to_equal<void>(),
+    expect_type<unknown>().not.to_equal<1>(),
+    expect_type<unknown>().not.to_equal<undefined>()
+)
+
+declare_test(
+    "tells apart never from other types",
+    expect_type<never>().not.to_equal<number>(),
+    expect_type<never>().not.to_equal<string>(),
+    expect_type<never>().not.to_equal<unknown>(),
+    expect_type<never>().not.to_equal<void>(),
+    expect_type<never>().not.to_equal<1>(),
+    expect_type<never>().not.to_equal<undefined>()
+)
+
+declare_test(
+    "tells apart void from other types",
+    expect_type<void>().not.to_equal<number>(),
+    expect_type<void>().not.to_equal<string>(),
+    expect_type<void>().not.to_equal<unknown>(),
+    expect_type<void>().not.to_equal<never>(),
+    expect_type<void>().not.to_equal<1>(),
+    expect_type<void>().not.to_equal<undefined>()
+)
+
+declare_test(
+    "tells apart undefined from other types",
+    expect_type<undefined>().not.to_equal<number>(),
+    expect_type<undefined>().not.to_equal<string>(),
+    expect_type<undefined>().not.to_equal<unknown>(),
+    expect_type<undefined>().not.to_equal<never>(),
+    expect_type<undefined>().not.to_equal<void>(),
+    expect_type<undefined>().not.to_equal<1>()
+)
+
+declare_test(
+    "tells apart null from other types",
+    expect_type<null>().not.to_equal<number>(),
+    expect_type<null>().not.to_equal<string>(),
+    expect_type<null>().not.to_equal<unknown>(),
+    expect_type<null>().not.to_equal<never>(),
+    expect_type<null>().not.to_equal<void>(),
+    expect_type<null>().not.to_equal<undefined>(),
+    expect_type<null>().not.to_equal<1>()
+)

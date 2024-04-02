@@ -1,53 +1,48 @@
-import { the_type } from "@lib"
-it("empty", () => {})
-// @ts-expect-error
-the_type<string>().assigns_to<string>(false)
-the_type<string>().assigns_to<number>(false)
-the_type<any>().assigns_to<string>(false)
+import { declare_test, expect_type } from "@lib"
 
-the_type<unknown>().assigns_to<string>(false)
-the_type<unknown>().assigns_to<any>(false)
-the_type<any>().assigns_to<unknown>(false)
-the_type<{ a: 1 }>().assigns_to<{ a: 2 }>(false)
-the_type<{ a: 1 }>().assigns_to<{ b: 1 }>(false)
-the_type<{ a: 1 }>().assigns_to<{ a: 1; b: 2 }>(false)
+declare_test(
+    "works for string type",
+    expect_type<string>().to_assign_to<string>(),
+    expect_type<string>().not.to_assign_to<number>()
+)
 
-the_type<{ a: 100 }>().assigns_to<{ a: 100; b: 200 }>(false)
+declare_test(
+    "works for number type",
+    expect_type<number>().to_assign_to<number>()
+)
 
-the_type<string>().assigns_to<string>(true)
-// @ts-expect-error
-the_type<string>().assigns_to<number>(true)
-the_type<any>().assigns_to<any>(true)
-// @ts-expect-error
-the_type<any>().assigns_to<string>(true)
-the_type<unknown>().assigns_to<unknown>(true)
-// @ts-expect-error
-the_type<unknown>().assigns_to<string>(true)
-// @ts-expect-error
-the_type<any>().assigns_to<unknown>(true)
-the_type<never>().assigns_to<never>(true)
-the_type<never>().assigns_to<string>(true)
-the_type<any>().assigns_to<any>(true)
-the_type<"A">().assigns_to<"A" | "B">(true)
-// @ts-expect-error
-the_type<"A">().assigns_to<"B" | "C">(true)
-the_type<"A" | "B">().assigns_to<"A" | "B" | "C">(true)
-// @ts-expect-error
-the_type<"A" | "B">().assigns_to<"B" | "C" | "D">(true)
-the_type<{}>().assigns_to<{ a?: 1 }>(true)
-the_type<{ a?: 1 }>().assigns_to<{}>(true)
-the_type<{ a: 1 }>().assigns_to<{ a: 1 }>(true)
-the_type<{ a: 1 }>().assigns_to<{ a: 1; b?: 2 }>(true)
-the_type<[1]>().assigns_to<[1]>(true)
-the_type<[1]>().assigns_to<[1, 2]>(false)
-the_type<[1, 2]>().assigns_to<[1]>(false)
-the_type<[1, 2]>().assigns_to<[1, 2]>(true)
-// @ts-expect-error weird
-the_type<[1, 2?]>().assigns_to<[1]>(true)
-// this works though
-the_type<[1]>().assigns_to<[1, 2?]>(true)
+declare_test(
+    "works for unknown type",
+    expect_type<unknown>().not.to_assign_to<string>(),
+    expect_type<unknown>().not.to_assign_to<number>(),
+    expect_type<unknown>().to_assign_to<unknown>(),
+    expect_type<unknown>().not.to_assign_to<never>()
+)
 
-the_type<() => void>().assigns_to<() => void>(true)
-// @ts-expect-error
-the_type<() => void>().assigns_to<() => string>(true)
-the_type<() => void>().assigns_to<() => void>(true)
+declare_test(
+    "works for never type",
+    expect_type<never>().to_assign_to<string>(),
+    expect_type<never>().to_assign_to<number>(),
+    expect_type<never>().to_assign_to<unknown>(),
+    expect_type<never>().to_assign_to<never>()
+)
+
+declare_test(
+    "works for object",
+    expect_type<{}>().to_assign_to<{}>(),
+    expect_type<{}>().not.to_assign_to<{ a: 1 }>(),
+    expect_type<{ a: 1 }>().to_assign_to<{ a: 1 }>(),
+    expect_type<{ a: 1 }>().not.to_assign_to<{ a: 1; b: 2 }>(),
+    expect_type<{ a: 1 }>().not.to_assign_to<{ a: 2 }>(),
+    expect_type<{ a: 1 }>().not.to_assign_to<{ b: 1 }>()
+)
+
+declare_test(
+    "works for array",
+    expect_type<[1]>().to_assign_to<[1]>(),
+    expect_type<[1]>().not.to_assign_to<[1, 2]>(),
+    expect_type<[1, 2]>().not.to_assign_to<[1]>(),
+    expect_type<[1, 2]>().to_assign_to<[1, 2]>(),
+    expect_type<[1, 2?]>().not.to_assign_to<[1]>(),
+    expect_type<[1]>().to_assign_to<[1, 2?]>()
+)

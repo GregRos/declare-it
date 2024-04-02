@@ -1,2 +1,1 @@
-export { the_type, the_type_of } from "./wrapper"
-export { expect_type, type_test } from "./wrapper2"
+export { declare_test, expect_type } from "./wrapper2"

@@ -1,21 +1,26 @@
-import { the_type } from "@lib"
+import { declare_test, expect_type } from "@lib"
 
-it("FALSE NEGATIVE: Object intersection and resulting object not equal", () => {
-    the_type<{ a: 1 } & { b: 1 }>().equals<{ a: 1; b: 2 }>(false)
-})
+declare_test(
+    "FALSE NEGATIVE: Object intersection and resulting object not equal",
+    expect_type<{ a: 1 } & { b: 1 }>().not.to_equal<{ a: 1; b: 1 }>()
+)
 
-it("FALSE NEGATIVE: Disjunction between identical object types not equal to type", () => {
-    the_type<{ a: 1 } | { a: 1 }>().equals<{ a: 1 }>(false)
-})
+declare_test(
+    "FALSE NEGATIVE: Disjunction between identical object types not equal to type",
+    expect_type<{ a: 1 } | { a: 1 }>().not.to_equal<{ a: 1 }>()
+)
 
-it("FALSE NEGATIVE: Conjunction between identical object types not equal to type", () => {
-    the_type<{ a: 1 } & { a: 1 }>().equals<{ a: 1 }>(false)
-})
+declare_test(
+    "FALSE NEGATIVE: Conjunction between identical object types not equal to type",
+    expect_type<{ a: 1 } & { a: 1 }>().not.to_equal<{ a: 1 }>()
+)
 
-it("FALSE NEGATIVE: Multiple identical call signatures and function type not equal", () => {
-    the_type<() => void>().equals<{ (): void; (): void }>(false)
-})
+declare_test(
+    "FALSE NEGATIVE: Multiple identical call signatures and function type not equal",
+    expect_type<() => void>().not.to_equal<{ (): void; (): void }>()
+)
 
-it("FALSE POSITIVE: Assumes intersection order doesn't matter for call signature types", () => {
-    the_type<{ (): 1 } & { (): 2 }>().equals<{ (): 2 } & { (): 1 }>(true)
-})
+declare_test(
+    "FALSE POSITIVE: Assumes intersection order doesn't matter for call signature types",
+    expect_type<{ (): 1 } & { (): 2 }>().to_equal<{ (): 2 } & { (): 1 }>()
+)

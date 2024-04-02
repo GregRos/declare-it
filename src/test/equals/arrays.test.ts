@@ -1,36 +1,42 @@
-import { the_type } from "@lib"
+import { declare_test, expect_type } from "@lib"
 
-it("checks readonly array", () => {
-    the_type<readonly [1]>().equals<[1]>(false)
+declare_test("checks array", expect_type<[1]>().to_equal<[1]>())
 
+declare_test(
+    "checks readonly array",
+    expect_type<readonly [1]>().not.to_equal<[1]>(),
     // @ts-expect-error
-    the_type<readonly [1]>().equals<[1]>(true)
-})
+    expect_type<readonly [1]>().to_equal<[1]>()
+)
 
-it("readonly array is the same as applying Readonly on array", () => {
-    the_type<readonly [1]>()
-        .equals<Readonly<[1]>>(true)
-        .equals<Readonly<Readonly<[1]>>>(true)
-})
+declare_test(
+    "readonly array is the same as applying Readonly on array",
+    expect_type<readonly [1]>().to_equal<Readonly<[1]>>(),
+    expect_type<readonly [1]>().to_equal<Readonly<Readonly<[1]>>>()
+)
 
-it("square brackets array is the same as Array", () => {
-    the_type<1[]>().equals<Array<1>>(true)
-})
+declare_test(
+    "square brackets array is the same as Array",
+    expect_type<1[]>().to_equal<Array<1>>()
+)
 
-it("checks optional tuple element", () => {
-    the_type<[1?]>().equals<[1]>(false)
+declare_test(
+    "checks optional tuple element",
+    expect_type<[1?]>().not.to_equal<[1]>(),
     // @ts-expect-error
-    the_type<[1?]>().equals<[1]>(true)
-})
+    expect_type<[1?]>().to_equal<[1]>()
+)
 
-it("checks array order", () => {
-    the_type<[1, 2]>().equals<[2, 1]>(false)
+declare_test(
+    "checks array order",
+    expect_type<[1, 2]>().not.to_equal<[2, 1]>(),
     // @ts-expect-error
-    the_type<[1, 2]>().equals<[2, 1]>(true)
-})
+    expect_type<[1, 2]>().to_equal<[2, 1]>()
+)
 
-it("checks array length", () => {
-    the_type<[1]>().equals<[1, 2]>(false)
+declare_test(
+    "checks array length",
+    expect_type<[1]>().not.to_equal<[1, 2]>(),
     // @ts-expect-error
-    the_type<[1]>().equals<[1, 2]>(true)
-})
+    expect_type<[1]>().to_equal<[1, 2]>()
+)

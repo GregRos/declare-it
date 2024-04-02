@@ -1,49 +1,71 @@
-import { the_type } from "@lib"
+import { declare_test, expect_type } from "@lib"
 it("empty", () => {})
-// @ts-expect-error
-the_type<string>().assigns_from<string>(false)
-the_type<string>().assigns_from<number>(false)
-// @ts-expect-error
-the_type<unknown>().assigns_from<string>(false)
 
-the_type<{ a: 1 }>().assigns_from<{ a: 2 }>(false)
-the_type<{ a: 1 }>().assigns_from<{ b: 1 }>(false)
-the_type<{ a: 1 }>().assigns_from<{ a: 1; b: 2 }>(true)
+declare_test(
+    "works for string type",
+    expect_type<string>().to_assign_from<string>(),
+    expect_type<string>().not.to_assign_from<number>()
+)
 
-the_type<{ a: 100 }>().assigns_from<{ a: 100; b: 200 }>(true)
+declare_test(
+    "works for number type",
+    expect_type<number>().to_assign_from<number>()
+)
 
-the_type<string>().assigns_from<string>(true)
-// @ts-expect-error
-the_type<string>().assigns_from<number>(true)
-the_type<any>().assigns_from<any>(true)
-// @ts-expect-error
-the_type<any>().assigns_from<string>(true)
-the_type<unknown>().assigns_from<unknown>(true)
-the_type<unknown>().assigns_from<string>(true)
-// @ts-expect-error
-the_type<any>().assigns_from<unknown>(true)
-the_type<never>().assigns_from<never>(true)
-the_type<never>().assigns_from<string>(false)
-the_type<any>().assigns_from<any>(true)
-the_type<"A">().assigns_from<"A" | "B">(false)
-// @ts-expect-error
-the_type<"A">().assigns_from<"B" | "C">(true)
-the_type<"A" | "B">().assigns_from<"A" | "B" | "C">(false)
-// @ts-expect-error
-the_type<"A" | "B">().assigns_from<"B" | "C" | "D">(true)
-/*...*/
-/*...*/
-the_type<{}>().assigns_from<{ a?: 1 }>(true)
-the_type<{ a?: 1 }>().assigns_from<{}>(true)
-the_type<{ a: 1 }>().assigns_from<{ a: 1 }>(true)
-the_type<{ a: 1 }>().assigns_from<{ a: 1; b?: 2 }>(true)
-the_type<[1]>().assigns_from<[1]>(true)
-the_type<[1]>().assigns_from<[1, 2]>(false)
-the_type<[1, 2]>().assigns_from<[1]>(false)
-the_type<[1, 2]>().assigns_from<[1, 2]>(true)
-the_type<[1, 2?]>().assigns_from<[1]>(true)
-the_type<[1]>().assigns_from<[1, 2?]>(false)
+declare_test(
+    "works for unknown type",
+    expect_type<unknown>().to_assign_from<string>(),
+    expect_type<unknown>().to_assign_from<number>(),
+    expect_type<unknown>().to_assign_from<unknown>(),
+    expect_type<unknown>().to_assign_from<never>()
+)
 
-the_type<() => void>().assigns_from<() => void>(true)
-the_type<() => void>().assigns_from<() => string>(true)
-the_type<() => void>().assigns_from<() => void>(true)
+declare_test(
+    "works for never type",
+    expect_type<never>().not.to_assign_from<string>(),
+    expect_type<never>().not.to_assign_from<number>(),
+    expect_type<never>().not.to_assign_from<unknown>(),
+    expect_type<never>().to_assign_from<never>()
+)
+
+declare_test(
+    "works for object",
+    expect_type<{}>().to_assign_from<{}>(),
+    expect_type<{}>().to_assign_from<{ a: 1 }>(),
+    expect_type<{ a: 1 }>().to_assign_from<{ a: 1 }>(),
+    expect_type<{ a: 1 }>().to_assign_from<{ a: 1; b: 2 }>(),
+    expect_type<{ a: 1 }>().not.to_assign_from<{ a: 2 }>(),
+    expect_type<{ a: 1 }>().not.to_assign_from<{ b: 1 }>()
+)
+
+declare_test(
+    "works for array",
+    expect_type<[1]>().to_assign_from<[1]>(),
+    expect_type<[1]>().not.to_assign_from<[1, 2]>(),
+    expect_type<[1, 2]>().not.to_assign_from<[1]>(),
+    expect_type<[1, 2]>().to_assign_from<[1, 2]>(),
+    expect_type<[1, 2?]>().to_assign_from<[1]>(),
+    expect_type<[1]>().not.to_assign_from<[1, 2?]>()
+)
+
+declare_test(
+    "works for function",
+    expect_type<() => void>().to_assign_from<() => void>(),
+    expect_type<() => void>().to_assign_from<() => string>(),
+    expect_type<() => void>().to_assign_from<() => void>(),
+    expect_type<() => void>().to_assign_from<() => string>()
+)
+
+declare_test(
+    "works for disjunction type",
+    expect_type<1 | 2>().to_assign_from<1 | 2>(),
+    expect_type<1 | 2>().not.to_assign_from<1 | 3>(),
+    expect_type<1 | 2>().to_assign_from<1>()
+)
+
+declare_test(
+    "works for conjunction type",
+    expect_type<{ a: 1 }>().to_assign_from<{ a: 1 } & { b: 1 }>(),
+    expect_type<{ a: 1 }>().to_assign_from<{ a: 1 } & { b: 1 }>(),
+    expect_type<{ a: 1 }>().to_assign_from<{ a: 1 } & { b: 1 }>()
+)

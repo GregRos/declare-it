@@ -1,43 +1,62 @@
-import { the_type } from "@lib"
+import { declare_test, expect_type } from "@lib"
 
-it("checks readonly key", () => {
-    the_type<{ readonly a: 1 }>().equals<{ a: 1 }>(false)
+declare_test("checks object", expect_type<{ a: 1 }>().to_equal<{ a: 1 }>())
+
+declare_test(
+    "checks object with multiple keys",
+    expect_type<{ a: 1; b: 2 }>().to_equal<{ a: 1; b: 2 }>()
+)
+
+declare_test(
+    "checks object with different key types",
+    expect_type<{ a: 1; b: "2" }>().to_equal<{ a: 1; b: "2" }>()
+)
+
+declare_test(
+    "checks readonly key",
+    expect_type<{ readonly a: 1 }>().not.to_equal<{ a: 1 }>(),
     // @ts-expect-error
-    the_type<{ readonly a: 1 }>().equals<{ a: 1 }>(true)
-})
+    expect_type<{ readonly a: 1 }>().to_equal<{ a: 1 }>()
+)
 
-it("checks optional key", () => {
-    the_type<{ a?: 1 }>().equals<{ a: 1 }>(false)
+declare_test(
+    "checks optional key",
+    expect_type<{ a?: 1 }>().not.to_equal<{ a: 1 }>(),
     // @ts-expect-error
-    the_type<{ a?: 1 }>().equals<{ a: 1 }>(true)
-})
+    expect_type<{ a?: 1 }>().to_equal<{ a: 1 }>()
+)
 
-it("does not check key order", () => {
-    the_type<{ a: 1; b: 2 }>().equals<{ b: 2; a: 1 }>(true)
+declare_test(
+    "does not check key order",
+    expect_type<{ a: 1; b: 2 }>().to_equal<{ b: 2; a: 1 }>(),
     // @ts-expect-error
-    the_type<{ a: 1; b: 2 }>().equals<{ b: 2; a: 1 }>(false)
-})
+    expect_type<{ a: 1; b: 2 }>().not.to_equal<{ b: 2; a: 1 }>()
+)
 
-it("does not check number vs numeric keys", () => {
-    the_type<{ 1: 1 }>().equals<{ "1": 1 }>(true)
-})
+declare_test(
+    "does not check number vs numeric keys",
+    expect_type<{ 1: 1 }>().to_equal<{ "1": 1 }>()
+)
 
-it("does not check disjunction order", () => {
-    the_type<{ a: 1 } | { b: 2 }>().equals<{ b: 2 } | { a: 1 }>(true)
+declare_test(
+    "does not check disjunction order",
+    expect_type<{ a: 1 } | { b: 2 }>().to_equal<{ b: 2 } | { a: 1 }>(),
     // @ts-expect-error
-    the_type<{ a: 1 } | { b: 2 }>().equals<{ b: 2 } | { a: 1 }>(false)
-})
+    expect_type<{ a: 1 } | { b: 2 }>().not.to_equal<{ b: 2 } | { a: 1 }>()
+)
 
-it("does not check intersection order", () => {
-    the_type<{ a: 1 } & { b: 2 }>().equals<{ b: 2 } & { a: 1 }>(true)
+declare_test(
+    "does not check intersection order",
+    expect_type<{ a: 1 } & { b: 2 }>().to_equal<{ b: 2 } & { a: 1 }>(),
     // @ts-expect-error
-    the_type<{ a: 1 } & { b: 2 }>().equals<{ b: 2 } & { a: 1 }>(false)
-})
+    expect_type<{ a: 1 } & { b: 2 }>().not.to_equal<{ b: 2 } & { a: 1 }>()
+)
 
-it("doesn't tell method from function property", () => {
-    the_type<{ a(): void }>().equals<{ a: () => void }>(true)
-})
-
-it("doesn't tell generic method from function property", () => {
-    the_type<{ a<T>(): void }>().equals<{ a: <T>() => void }>(true)
-})
+declare_test(
+    "doesn't tell method from function property",
+    expect_type<{ a(): void }>().to_equal<{ a: () => void }>()
+)
+declare_test(
+    "doesn't tell generic method from function property",
+    expect_type<{ a<T>(): void }>().to_equal<{ a: <T>() => void }>()
+)
