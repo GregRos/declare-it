@@ -1,4 +1,4 @@
-import { declare_test, expect_type } from "@lib"
+import { declare_test, expect_type } from "@lib.js"
 
 declare_test(
     "checks type parameters",
@@ -36,7 +36,7 @@ declare_test(
 )
 
 declare_test(
-    "doesn't tell apart empty constraints from unconstrained",
+    "doesn't tell apart empty constraints from unconstrained.js",
     expect_type<<T extends unknown>() => void>().to_equal<<T>() => void>()
 )
 
@@ -48,6 +48,6 @@ declare_test(
 )
 
 declare_test(
-    "tells apart overloaded call signatures from function types",
+    "tells apart overloaded call signatures from function types.js",
     expect_type<() => void>().not.to_equal<{ (): void; (): 1 }>()
 )

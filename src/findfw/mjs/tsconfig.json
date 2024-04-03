@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/lib",
+    "rootDir": ".",
+    "noEmit": false,
+    "experimentalDecorators": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    
+  },
+  "include": ["**/*.ts", "../fake-packages.d.ts"],
+  "exclude": ["**/node_modules"]
+}

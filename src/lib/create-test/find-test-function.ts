@@ -1,5 +1,5 @@
-import { logTestCase } from "./log-test"
-import { FrameworkTestFunction, RegisterTestFunction } from "./types"
+import { logTestCase } from "./log-test.js"
+import { FrameworkTestFunction, RegisterTestFunction } from "./types.js"
 
 function* tryRequireUntilSuccess<T>(modules: string[]): any {
     for (const module of modules) {

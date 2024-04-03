@@ -4,8 +4,8 @@ import {
     𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦,
     𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦,
     𝗧𝗢_𝗘𝗤𝗨𝗔𝗟_𝗘𝗥𝗥𝗢𝗥
-} from "./compiler-messages"
-import { Texts } from "./texts"
+} from "./compiler-messages.js"
+import { Texts } from "./texts.js"
 
 // Inspired by Alec Larson's work https://github.com/aleclarson/spec.ts
 // Shamelessly stolen under the MIT license.

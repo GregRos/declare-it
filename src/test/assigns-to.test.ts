@@ -1,4 +1,4 @@
-import { declare_test, expect_type } from "@lib"
+import { declare_test, expect_type } from "@lib.js"
 
 declare_test(
     "works for string type",

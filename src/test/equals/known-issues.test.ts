@@ -1,4 +1,4 @@
-import { declare_test, expect_type } from "@lib"
+import { declare_test, expect_type } from "@lib.js"
 
 declare_test(
     "FALSE NEGATIVE: Object intersection and resulting object not equal",

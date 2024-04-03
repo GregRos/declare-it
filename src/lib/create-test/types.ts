@@ -1,4 +1,4 @@
-import { FancyTestTitleText } from "../type-assertions/texts"
+import { FancyTestTitleText } from "../type-assertions/texts.js"
 
 export interface AssertionInfo {
     name: string

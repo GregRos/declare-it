@@ -1,8 +1,8 @@
-import { FancyTestTitleText } from "../type-assertions/texts"
-import { getRegisterTestFunction } from "./find-test-function"
-import { expect_type } from "../type-assertions/expect_type"
-import { logTestCase } from "./log-test"
-import { TestFunction, RegisterTestFunction } from "./types"
+import { FancyTestTitleText } from "../type-assertions/texts.js"
+import { getRegisterTestFunction } from "./find-test-function.js"
+import { expect_type } from "../type-assertions/expect_type.js"
+import { logTestCase } from "./log-test.js"
+import { TestFunction, RegisterTestFunction } from "./types.js"
 let registerFrameworkTest: any | false = getRegisterTestFunction()
 
 /**

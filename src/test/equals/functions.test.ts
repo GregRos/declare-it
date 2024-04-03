@@ -1,4 +1,4 @@
-import { declare_test, expect_type } from "@lib"
+import { declare_test, expect_type } from "@lib.js"
 declare_test(
     "does not check parameter names",
     expect_type<(a: 1) => void>().to_equal<(b: 1) => void>()
@@ -29,12 +29,12 @@ declare_test(
 )
 
 declare_test(
-    "doesn't tell call signature from function type",
+    "doesn't tell call signature from function type.js",
     expect_type<() => void>().to_equal<{ (): void }>()
 )
 
 declare_test(
-    "tells optional parameter from disjunction with undefined",
+    "tells optional parameter from disjunction with undefined.js",
     expect_type<(a?: 1) => void>().not.to_equal<(a: 1 | undefined) => void>(),
     expect_type<(a?: 1) => void>().to_equal<(a?: 1 | undefined) => void>()
 )

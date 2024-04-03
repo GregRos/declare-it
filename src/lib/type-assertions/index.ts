@@ -1,1 +1,1 @@
-export { expect_type } from "./expect_type"
+export { expect_type } from "./expect_type.js"

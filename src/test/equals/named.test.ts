@@ -1,4 +1,4 @@
-import { declare_test, expect_type } from "@lib"
+import { declare_test, expect_type } from "@lib.js"
 
 {
     type A = 1

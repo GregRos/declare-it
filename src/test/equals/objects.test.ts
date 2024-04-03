@@ -1,4 +1,4 @@
-import { declare_test, expect_type } from "@lib"
+import { declare_test, expect_type } from "@lib.js"
 
 declare_test("checks object", expect_type<{ a: 1 }>().to_equal<{ a: 1 }>())
 
@@ -53,10 +53,10 @@ declare_test(
 )
 
 declare_test(
-    "doesn't tell method from function property",
+    "doesn't tell method from function property.js",
     expect_type<{ a(): void }>().to_equal<{ a: () => void }>()
 )
 declare_test(
-    "doesn't tell generic method from function property",
+    "doesn't tell generic method from function property.js",
     expect_type<{ a<T>(): void }>().to_equal<{ a: <T>() => void }>()
 )

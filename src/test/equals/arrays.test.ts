@@ -1,4 +1,4 @@
-import { declare_test, expect_type } from "@lib"
+import { declare_test, expect_type } from "@lib.js"
 
 declare_test("checks array", expect_type<[1]>().to_equal<[1]>())
 
