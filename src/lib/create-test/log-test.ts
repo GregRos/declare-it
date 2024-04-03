@@ -1,3 +1,3 @@
-export function logTestCase(text: string) {
+export function logToConsole(text: string) {
     console.log(`${text}`)
 }

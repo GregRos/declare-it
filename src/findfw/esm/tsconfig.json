@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "../../../dist/esm/findfw/tsconfig.tsbuildinfo",
+    "outDir": "../../../dist/esm/findfw",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "noEmit": false,
+    "experimentalDecorators": true,
+    "types": ["../fake-packages.d.ts"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  },
+  "include": ["../fake-packages.d.ts", "**/*.ts"],
+  "exclude": ["**/node_modules"]
+}

@@ -1,12 +1,17 @@
 {
+  "references": [
+    {
+      "path": "../findfw/cjs/tsconfig.json"
+    }
+  ],
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../dist/lib",
-    "tsBuildInfoFile": "../../dist/lib/tsconfig.tsbuildinfo",
+    "outDir": "../../dist/cjs",
+    "tsBuildInfoFile": "../../dist/cjs/tsconfig.tsbuildinfo",
     "rootDir": ".",
     "noEmit": false,
-    "experimentalDecorators": true
+    "declarationDir": "../../dist/types"
   },
-  "include": ["**/*.ts", "get-test-function/ava.mts", "../findfw.cjs/fake-packages.d.ts"],
+  "include": ["**/*.ts"],
   "exclude": ["**/node_modules"]
 }

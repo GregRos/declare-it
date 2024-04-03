@@ -1,9 +1,15 @@
 import { FancyTestTitleText } from "../type-assertions/texts.js"
 import { getRegisterTestFunction } from "./find-test-function.js"
 import { expect_type } from "../type-assertions/expect_type.js"
-import { logTestCase } from "./log-test.js"
-import { TestFunction, RegisterTestFunction } from "./types.js"
-let registerFrameworkTest: any | false = getRegisterTestFunction()
+import { logToConsole } from "./log-test.js"
+import {
+    TestFunction,
+    RegisterTestFunction,
+    FrameworkTestFunction
+} from "./types.js"
+import { fwTestFunction } from "../findfw/index.js"
+let registerFrameworkTest: RegisterTestFunction | false =
+    wrapFrameworkTestFunction(fwTestFunction ? fwTestFunction : logToConsole)
 
 /**
  * Disables the test registration function. This will cause {@link declare_it}
@@ -41,10 +47,13 @@ export function declare_setup(mode: "console"): void
  */
 export function declare_setup(yourItFunction: (title: string) => void): void
 export function declare_setup(
-    yourItFunction: RegisterTestFunction | false | "console"
+    yourItFunction: FrameworkTestFunction | false | "console"
 ): void {
-    registerFrameworkTest =
-        yourItFunction === "console" ? logTestCase : yourItFunction
+    registerFrameworkTest = !yourItFunction
+        ? false
+        : wrapFrameworkTestFunction(
+              yourItFunction === "console" ? logToConsole : yourItFunction
+          )
 }
 
 /**
@@ -96,4 +105,12 @@ export function declare_test<TestText extends string>(
     ...assertions: FancyTestTitleText<TestText>[]
 ): void {
     declare_it(name, assertion, ...assertions)
+}
+function wrapFrameworkTestFunction(
+    frameworkFunction: FrameworkTestFunction
+): RegisterTestFunction {
+    return (title, ...assertions) =>
+        frameworkFunction(
+            `💭 𝗗𝗘𝗖𝗟𝗔𝗥𝗘 𝗧𝗘𝗦𝗧: ${title} \x1b[32m(${assertions.length} asserts)\x1b[0m`
+        )
 }

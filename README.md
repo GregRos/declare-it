@@ -55,7 +55,7 @@ Surprise! You get a compilation error, one with emojis and special formatting. H
 Argument of type '𝗧𝗢_𝗘𝗤𝗨𝗔𝗟_𝗘𝗥𝗥𝗢𝗥<number, "𝗡𝗢𝗧 𝗔 𝗦𝗨𝗕𝗧𝗬𝗣𝗘 𝗢𝗙", string>' is not assignable to parameter of type '"❌ 𝗧𝗘𝗦𝗧: checks that number is equal to 1"'
 ```
 
-The error itself doesn’t matter — the reason for the failed test is encoded into the types themselves. Let’s break it down.
+The error itself doesn’t matter — both the failed assertion and the test it happened in are encoded into the types themselves. Let’s break it down.
 ## Decoding failures
 Here is the first type:
 ```typescript
@@ -70,11 +70,14 @@ The second type gives the name of the test that failed, as a string:
 ```
 ❌ 𝗧𝗘𝗦𝗧: checks that number is equal to 1
 ```
-# Keeping track of your tests
+# Keeping track of tests
 `declare-test` encodes tests as type checking problems and lets the compiler do its thing. That means the only test runner you need is the TypeScript compiler!
 
-While that’s cool and all, it would still be nice to get a list of the tests that passed.  
-Worry not! You can get that by **running the compiled code!** While **running the code doesn’t test anything,** it will inform both you and the test framework you’re using of the tests that the library ran on your behalf before the code compiled.
+While that’s cool and all, TypeScript doesn’t tell you about tests that passed. It would be nice to have a reassuringly long list of all the tests it performed on your behalf.
+
+Worry not! You can get that by **running the compiled code!** While **running the code doesn’t test anything,** it will tell your runtime test framework of the tests that were executed during compilation time.
+
+This works by finding whatever function your testing environment uses to define tests and using it to define empty tests with the titles you wrote. 
 
 When you run the compiled code, `declare-test` will try to find a test registration function and use it to register the names of the tests and the number of assertions they contained. 
 

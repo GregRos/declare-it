@@ -1,12 +1,13 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../dist/lib",
-    "tsBuildInfoFile": "../../dist/lib/tsconfig.tsbuildinfo",
-    "rootDir": ".",
+    "composite": true,
+    "outDir": "../../../dist/cjs/findfw",
+    "tsBuildInfoFile": "../../../dist/cjs/findfw",
+    "rootDir": "..",
     "noEmit": false,
     "experimentalDecorators": true
   },
-  "include": ["**/*.ts", "get-test-function/ava.mts", "../findfw.cjs/fake-packages.d.ts"],
+  "include": ["fake-packages.d.ts", "./cjs/**/*.ts"],
   "exclude": ["**/node_modules"]
 }

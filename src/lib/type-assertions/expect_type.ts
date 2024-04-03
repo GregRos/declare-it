@@ -3,7 +3,7 @@ import {
     Compute_ToAssignTo,
     Compute_ToEqual,
     Compute_ToResemble
-} from "./type-relations.js.js"
+} from "./type-relations.js"
 
 class ExpectType<T> {
     to_equal<U>(): Compute_ToEqual<T, U, never, unknown> {

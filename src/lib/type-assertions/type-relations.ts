@@ -1,8 +1,8 @@
 import {
     TheType_IsAny,
     𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦,
-    𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦,
-    𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦,
+    𝗘𝗫𝗧𝗘𝗡𝗗𝗦_𝗘𝗥𝗥𝗢𝗥,
+    𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥,
     𝗧𝗢_𝗘𝗤𝗨𝗔𝗟_𝗘𝗥𝗥𝗢𝗥
 } from "./compiler-messages.js"
 import { Texts } from "./texts.js"
@@ -43,24 +43,24 @@ export type Compute_ToEqual<L, R, T, F> =
 export type Compute_ToAssignFrom<L, R, T, F> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["are_both_any"], R>
-            : 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["is_any_but_not"], R>
+            ? 𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["are_both_any"], R>
+            : 𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["is_any_but_not"], R>
         : IsAny<R> extends 1
-          ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["is_not_any_but"], R>
+          ? 𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["is_not_any_but"], R>
           : [R] extends [L]
-            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["assignable_from"], R> & T
-            : 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘𝗦<L, Texts["not_assignable_from"], R> & F
+            ? 𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["assignable_from"], R> & T
+            : 𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["not_assignable_from"], R> & F
 
 export type Compute_ToAssignTo<L, R, T, F> =
     IsAny<R> extends 1
         ? IsAny<L> extends 1
-            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["are_both_any"], R>
-            : 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["is_not_any_but"], R>
+            ? 𝗘𝗫𝗧𝗘𝗡𝗗𝗦_𝗘𝗥𝗥𝗢𝗥<L, Texts["are_both_any"], R>
+            : 𝗘𝗫𝗧𝗘𝗡𝗗𝗦_𝗘𝗥𝗥𝗢𝗥<L, Texts["is_not_any_but"], R>
         : IsAny<L> extends 1
-          ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["is_not_any_but"], R>
+          ? 𝗘𝗫𝗧𝗘𝗡𝗗𝗦_𝗘𝗥𝗥𝗢𝗥<L, Texts["is_not_any_but"], R>
           : [L] extends [R]
-            ? 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["assignable_to"], R> & T
-            : 𝗔𝗦𝗦𝗘𝗥𝗧_𝗦𝗨𝗕𝗧𝗬𝗣𝗘𝗦<L, Texts["not_assignable_to"], R> & F
+            ? 𝗘𝗫𝗧𝗘𝗡𝗗𝗦_𝗘𝗥𝗥𝗢𝗥<L, Texts["assignable_to"], R> & T
+            : 𝗘𝗫𝗧𝗘𝗡𝗗𝗦_𝗘𝗥𝗥𝗢𝗥<L, Texts["not_assignable_to"], R> & F
 
 export type Assert_IsAny<X, T, F> =
     IsAny<X> extends 1

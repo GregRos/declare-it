@@ -1,4 +1,4 @@
-import { declare_test, expect_type } from "@lib.js"
+import { declare_test, expect_type } from "@lib"
 declare_test(
     "does not check parameter names",
     expect_type<(a: 1) => void>().to_equal<(b: 1) => void>()
