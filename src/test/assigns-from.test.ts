@@ -1,5 +1,4 @@
-import { declare_test, expect_type } from "@lib"
-it("empty", () => {})
+import { declare_test, expect_type } from "../lib"
 
 declare_test(
     "works for string type",

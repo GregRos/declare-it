@@ -1,5 +1,5 @@
 {
-  "name": "the-type-is-right",
+  "name": "declare-test",
   "exports": {
     ".": {
       "require": "./dist/lib/index.js",
@@ -12,7 +12,7 @@
   "description": "Compile-time type assertions for TypeScript.",
   "version": "0.1.0",
   "main": "dist/lib/index.js",
-  "repository": "github:gregros/the-type-is-right",
+  "repository": "github:gregros/declare-test",
   "scripts": {
     "build": "tsc -b .",
     "clean": "shx rm -rf dist",

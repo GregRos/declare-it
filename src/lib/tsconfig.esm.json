@@ -5,7 +5,10 @@
     "tsBuildInfoFile": "../../dist/lib/tsconfig.tsbuildinfo",
     "rootDir": ".",
     "noEmit": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "module": "ES2022",
+    "moduleResolution": "NodeNext",
+    
   },
   "include": ["**/*.ts", "get-test-function/ava.mts"],
   "exclude": ["**/node_modules"]

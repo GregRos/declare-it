@@ -7,12 +7,12 @@ declare_test(
 
 declare_test(
     "does not check type parameter names",
-    expect_type<<T>() => void>().to_equal<<U>() => void>(true)
+    expect_type<<T>() => void>().to_equal<<U>() => void>()
 )
 
 declare_test(
     "checks type parameter number",
-    expect_type<<T, U>() => void>().not.to_equal<<T>() => void>(true)
+    expect_type<<T, U>() => void>().not.to_equal<<T>() => void>()
 )
 
 declare_test(

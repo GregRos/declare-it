@@ -4,5 +4,6 @@
   "unicode-search",
   "OA-file-hider",
   "code-styler",
-  "cm-editor-syntax-highlight-obsidian"
+  "cm-editor-syntax-highlight-obsidian",
+  "obsidian-plugin-prettier"
 ]
