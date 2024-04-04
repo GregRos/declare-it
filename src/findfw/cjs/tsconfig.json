@@ -3,11 +3,12 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "../../../dist/cjs/findfw",
-    "tsBuildInfoFile": "../../../dist/cjs/findfw",
-    "rootDir": "..",
+    "tsBuildInfoFile": "../../../dist/cjs/findfw/tsconfig.tsbuildinfo",
+    "rootDir": ".",
+    "baseUrl": ".",
     "noEmit": false,
     "experimentalDecorators": true
   },
-  "include": ["fake-packages.d.ts", "./cjs/**/*.ts"],
+  "include": ["../fake-packages.d.ts", "**/*.ts"],
   "exclude": ["**/node_modules"]
 }

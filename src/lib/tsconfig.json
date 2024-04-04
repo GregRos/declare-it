@@ -9,8 +9,7 @@
     "outDir": "../../dist/cjs",
     "tsBuildInfoFile": "../../dist/cjs/tsconfig.tsbuildinfo",
     "rootDir": ".",
-    "noEmit": false,
-    "declarationDir": "../../dist/types"
+    "noEmit": false
   },
   "include": ["**/*.ts"],
   "exclude": ["**/node_modules"]

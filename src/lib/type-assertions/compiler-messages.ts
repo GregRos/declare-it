@@ -7,19 +7,19 @@ export declare abstract class BinaryMessage<Left, Message, Right> {
     private _message: Message
     private _right: Right
 }
-export declare abstract class 𝗘𝗫𝗧𝗘𝗡𝗗𝗦_𝗘𝗥𝗥𝗢𝗥<
+export declare abstract class 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗘𝗥𝗥𝗢𝗥<
     Left,
     Message,
     Right
 > extends BinaryMessage<Left, Message, Right> {}
 
-export declare abstract class 𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<
+export declare abstract class 𝗧𝗢_𝗕𝗘_𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗘𝗥𝗥𝗢𝗥<
     Left,
     Message,
     Right
 > extends BinaryMessage<Left, Message, Right> {}
 
-export declare abstract class 𝗔𝗦𝗦𝗘𝗥𝗧_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦<
+export declare abstract class 𝗧𝗢_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘_𝗘𝗥𝗥𝗢𝗥<
     Left,
     Message,
     Right
@@ -30,7 +30,7 @@ export declare abstract class 𝗧𝗢_𝗘𝗤𝗨𝗔𝗟_𝗘𝗥𝗥𝗢𝗥
     Right
 > extends BinaryMessage<Left, Message, Right> {}
 
-export declare class TheType_IsAny<T, Message> extends UnaryMessage<
+export declare class 𝗧𝗢_𝗕𝗘_𝗔𝗡𝗬_𝗘𝗥𝗥𝗢𝗥<T, Message> extends UnaryMessage<
     T,
     Message
 > {}

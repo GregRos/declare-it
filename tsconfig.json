@@ -1,16 +1,16 @@
 {
   "references": [{
-    "path": "src/lib/tsconfig.json"
+    "path": "./src/lib/tsconfig.json"
   },
   {
-    "path": "src/lib/tsconfig.esm.json"
+    "path": "./src/lib/tsconfig.esm.json"
   }
   ,{
-    "path": "src/test/tsconfig.json"
+    "path": "./src/test/tsconfig.json"
   }, {
-    "path": "src/findfw/cjs/tsconfig.json"
+    "path": "./src/findfw/cjs/tsconfig.json"
   }, {
-    "path": "src/findfw/esm/tsconfig.json"
+    "path": "./src/findfw/esm/tsconfig.json"
   }],
   "compilerOptions": {
     "module": "commonjs",

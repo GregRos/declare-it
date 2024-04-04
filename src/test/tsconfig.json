@@ -10,8 +10,8 @@
     "outDir": "../../dist/test",
     "tsBuildInfoFile": "../../dist/test/tsconfig.tsbuildinfo",
     "paths": {
-      "@lib/*": ["../lib/*"],
-      "@lib": ["../lib"]
+      "@lib/*": ["../../dist/cjs/*"],
+      "@lib": ["../../dist/cjs/index"],
     }
   },
   "include": ["**/*.ts"],

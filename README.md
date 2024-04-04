@@ -7,15 +7,13 @@ prettier-format: "true"
 [![Node.js CI](https://github.com/GregRos/declare-test/actions/workflows/push.yaml/badge.svg)](https://github.com/GregRos/declare-test/actions/workflows/main.yaml)
 [![npm](https://img.shields.io/npm/v/declare-test)](https://www.npmjs.com/package/declare-test)
 
-**declare-test** is a TypeScript library for testing type declarations during compilation.
+**declare-test** is a TypeScript library for testing type declarations at compile-time, to make sure they work as expected.
 
 🧪 Write tests for types using compile-time assertions!
 🚨 Detailed and conspicuous failure messages during compilation!
 🏗️ Optional integration with a runtime test framework!
 🧐 Rigorously tested!
-💡 A familiar yet visually_distinct API!<sup>to make it stand out from runtime tests</sup>
-🗺️ Use it to explore the TypeScript type landscape!
-
+💡 A familiar yet visually distinct API!<sup>to make it stand out from runtime tests</sup>
 # Install
 ```bash
 yarn add declare-test
@@ -24,38 +22,36 @@ yarn add declare-test
 npm install --save-dev declare-test
 ```
 # Usage
-Let’s write a test to check that `number` is assignable from `1`:
+Let’s write a test to check that `1` . Put the following code in a `.ts` source file:
 ```typescript
 import { declare_test, expect_type } from "declare-test"
 
 // Note that we don't give it a closure, just a bunch of assertions.
 declare_test(
 	"checks that number is assignable from 1",
-	expect_type<number>().to_assign_from<1>(),
+	expect_type<1>().to_extend<number>(),
 )
 ```
-Now run `tsc`, or just wait until something automatically compiles it for you. 
 
-In `declare-test`, your test runner is actually the TypeScript compiler, and it will emit a compilation error if one of the tests fails. In this case your code compiles successfully, which means the test passed. 
+Now run `tsc`, or just wait until your IDE automatically compiles it for you. You’ll know if the test passed **if your code compiles!** 
 
 > **PROTIP:** You don’t have the execute the compiled code, and if you do it won’t test anything.
 
-Let’s change that by asserting that the type `number` is *equal to* the type `1`:
+Let’s see how a failed test looks like. Change the code as follows:
 ```typescript
 import { declare_test, expect_type } from "declare-test"
 
 declare_test(
 	"checks that number is equal to 1",
-	expect_type<number>().to_equal<1>(),
+	expect_type<string>().to_extend<number>(),
 )
 ```
-
-Surprise! You get a compilation error, one with emojis and special formatting. Here is how you it looks like:
+And try to compile it again. Surprise! You get a compilation error, one with special formatting. Here is how you it looks like:
 ```
 Argument of type '𝗧𝗢_𝗘𝗤𝗨𝗔𝗟_𝗘𝗥𝗥𝗢𝗥<number, "𝗡𝗢𝗧 𝗔 𝗦𝗨𝗕𝗧𝗬𝗣𝗘 𝗢𝗙", string>' is not assignable to parameter of type '"❌ 𝗧𝗘𝗦𝗧: checks that number is equal to 1"'
 ```
 
-The error itself doesn’t matter — both the failed assertion and the test it happened in are encoded into the types themselves. Let’s break it down.
+The error is a bit confusing. The key is **to focus on the types**, rather than the error. They tell you which assertion failed and which test it failed.
 ## Decoding failures
 Here is the first type:
 ```typescript

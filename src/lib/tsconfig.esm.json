@@ -10,9 +10,9 @@
     "tsBuildInfoFile": "../../dist/esm/tsconfig.tsbuildinfo",
     "rootDir": ".",
     "noEmit": false,
-    "experimentalDecorators": true,
     "module": "esnext",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "declarationDir": "../../dist/types",
   },
   "include": ["**/*.ts"],
   "exclude": ["**/node_modules"]

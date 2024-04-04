@@ -1,5 +1,4 @@
 import { FancyTestTitleText } from "../type-assertions/texts.js"
-import { getRegisterTestFunction } from "./find-test-function.js"
 import { expect_type } from "../type-assertions/expect_type.js"
 import { logToConsole } from "./log-test.js"
 import {
@@ -12,9 +11,7 @@ let registerFrameworkTest: RegisterTestFunction | false =
     wrapFrameworkTestFunction(fwTestFunction ? fwTestFunction : logToConsole)
 
 /**
- * Disables the test registration function. This will cause {@link declare_it}
- * and {@link declare_test} not to register any tests or log them to the
- * console.
+ * **At runtime**, disables the test registration functionality.
  *
  * This is useful if you don't like that feature.
  *
@@ -22,62 +19,70 @@ let registerFrameworkTest: RegisterTestFunction | false =
  */
 export function declare_setup(mode: false): void
 /**
- * Will cause test cases to be logged to the console instead of being registered
- * with a test framework.
+ * **At runtime**, will force logging compile-time test cases to the console.
  *
  * @param mode - Set to `"console"` to log test cases to the console.
  */
 export function declare_setup(mode: "console"): void
 /**
- * Setups up the function used by {@link declare_it} and {@link declare_test} to
- * register tests at runtime.
+ * **At runtime**, setups up the function that {@link declare_test} uses to
+ * register tests. If not called, the library will try to find the function
+ * dynamically.
  *
- * Takes a callback that should accept a test title and a number of
- * {@link AssertionInfo} objects.
- *
- * If you don't call this, `declare-test` will try to find the test function
- * dynamically. If that doesn't work, it will log tests to the console.
+ * Takes a callback that should accept a test title. The callback should
+ * register a test that always passes.
  *
  * @example
  *     declare_setup((name) => it(name, () => {}))
  *     declare_setup((name) => test(name, () => {})
  *
- * @param yourItFunction - The test registration function to use. Must be a
- *   function that takes a string and a number of assertions.
+ * @param fwTestFunction - The test registration function to use. Must accept a
+ *   single string argument.
  */
-export function declare_setup(yourItFunction: (title: string) => void): void
+export function declare_setup(fwTestFunction: FrameworkTestFunction): void
 export function declare_setup(
-    yourItFunction: FrameworkTestFunction | false | "console"
+    frameworkTestFunction: FrameworkTestFunction | false | "console"
 ): void {
-    registerFrameworkTest = !yourItFunction
+    registerFrameworkTest = !frameworkTestFunction
         ? false
         : wrapFrameworkTestFunction(
-              yourItFunction === "console" ? logToConsole : yourItFunction
+              frameworkTestFunction === "console"
+                  ? logToConsole
+                  : frameworkTestFunction
           )
 }
 
 /**
- * Defines a test case with the given title and registers it with the test
- * framework if possible. If not, will log test titles to the console.
+ * **At compile-time**, declares a test that will validate one or more type
+ * assertions through type checking, reporting any errors as compilation errors
+ * containing the test's name
  *
- * You give it a title and a list of assertions to check. If one of the
- * assertions fails, your test won't compile.
+ * Use this to define compile-time tests for your types.
+ *
+ * **At runtime**, will try to register the test title with a runtime test
+ * framework. If it fails, it will log test titles and the number of assertions
+ * to the console.
+ *
+ * @example
+ *     declare_test(
+ *         "checks array",
+ *         expect_type<[1]>().to_equal<[1]>(),
+ *         expect_type<[1]>().not.to_equal<readonly [1]>()
+ *     )
  *
  * @param title The test title.
- * @param assertion The first assertion to check, defined using
- *   {@link expect_type}
- * @param assertions The rest of the assertions to check.
+ * @param assertions One or more assertions defined using {@link expect_type}.
  */
-export const declare_it: TestFunction = <TestText extends string>(
-    title: TestText,
+export function declare_test<TestText extends string>(
+    name: TestText,
     ...assertions: [
         FancyTestTitleText<TestText>,
         ...FancyTestTitleText<TestText>[]
     ]
-): void => {
+): void {
     if (registerFrameworkTest) {
         try {
-            registerFrameworkTest(title, ...assertions)
+            registerFrameworkTest(name, ...(assertions as [any, ...any[]]))
         } catch (e: any) {
             console.error(
                 `⛔ DECLARE-TEST: Exception while registering test ⛔`,
@@ -85,26 +90,6 @@ export const declare_it: TestFunction = <TestText extends string>(
             )
         }
     }
-}
-
-/**
- * Defines a test case with the given title and registers it with the test
- * framework if possible. If not, will log test titles to the console.
- *
- * You give it a title and a list of assertions to check. If one of the
- * assertions fails, your test won't compile.
- *
- * @param title The test title.
- * @param assertion The first assertion to check, defined using
- *   {@link expect_type}
- * @param assertions The rest of the assertions to check.
- */
-export function declare_test<TestText extends string>(
-    name: TestText,
-    assertion: FancyTestTitleText<TestText>,
-    ...assertions: FancyTestTitleText<TestText>[]
-): void {
-    declare_it(name, assertion, ...assertions)
 }
 function wrapFrameworkTestFunction(
     frameworkFunction: FrameworkTestFunction

@@ -1,28 +1,41 @@
+import { AssertionInfo } from "../create-test/types.js"
 import {
-    Compute_ToAssignFrom,
-    Compute_ToAssignTo,
+    Compute_ToBeExtended,
+    Compute_ToExtend,
     Compute_ToEqual,
     Compute_ToResemble
 } from "./type-relations.js"
 
-class ExpectType<T> {
-    to_equal<U>(): Compute_ToEqual<T, U, never, unknown> {
+class ExpectType<Expected> {
+    /**
+     * **During compilation,** asserts that the asserted type {@link Expected} is
+     * _**equal**_ to the referenced type {@link Reference}.
+     *
+     * 
+     * @returns
+     */
+    to_equal<Reference>(): Compute_ToEqual<
+        Expected,
+        Reference,
+        never,
+        unknown
+    > {
         return true as any
     }
 
     get not() {
-        return new ExpectTypeNot<T>()
+        return new ExpectTypeNot<Expected>()
     }
 
-    to_resemble<U>(): Compute_ToResemble<T, U, never, unknown> {
+    to_resemble<U>(): Compute_ToResemble<Expected, U, never, unknown> {
         return true as any
     }
 
-    to_assign_to<U>(): Compute_ToAssignTo<T, U, never, unknown> {
+    to_extend<U>(): Compute_ToExtend<Expected, U, never, unknown> {
         return true as any
     }
 
-    to_assign_from<U>(): Compute_ToAssignFrom<T, U, never, unknown> {
+    to_be_extended<U>(): Compute_ToBeExtended<Expected, U, never, unknown> {
         return true as any
     }
 }
@@ -31,25 +44,28 @@ class ExpectTypeNot<T> {
     get not() {
         return new ExpectType<T>()
     }
-    to_equal<U>(
-        x?: Compute_ToEqual<T, U, unknown, any>
-    ): Compute_ToEqual<T, U, unknown, never> {
-        return false as any
+    to_equal<U>(): Compute_ToEqual<T, U, unknown, never> {
+        return {
+            name: "not to_equal"
+        } satisfies AssertionInfo as any
     }
 
     to_resemble<U>(): Compute_ToResemble<T, U, unknown, never> {
-        return false as any
+        return {
+            name: "not to_resemble"
+        } satisfies AssertionInfo as any
     }
 
-    to_assign_to<U>(): Compute_ToAssignTo<T, U, unknown, never> {
-        return false as any
+    to_extend<U>(): Compute_ToExtend<T, U, unknown, never> {
+        return { name: "not to_assign_to" } satisfies AssertionInfo as any
     }
 
-    to_assign_from<U>(): Compute_ToAssignFrom<T, U, unknown, never> {
-        return false as any
+    to_be_extended<U>(): Compute_ToBeExtended<T, U, unknown, never> {
+        return { name: "not to_be_extended" } satisfies AssertionInfo as any
     }
 }
 
-export function expect_type<T>(): ExpectType<T> {
+/** **At compile time,** begins an assertion about an input type {@link Expected}. */
+export function expect_type<Expected = any>(): ExpectType<Expected> {
     return new ExpectType()
 }
