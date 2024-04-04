@@ -28,10 +28,9 @@ import { declare_test, expect_type } from "declare-test"
 
 // Note that we don't give it a closure, just a bunch of assertions.
 declare_test(
-	"checks that 1 is a subtype of number",
-	expect_type<1>().to_extend<number>(),
-)
-```
+	"checks that 1 is a subtype of number", check => {
+	check = check = expect_type<1>().to_extend<number>()
+})```
 
 Now run `tsc`, or just wait until something automatically compiles it for you. 
 ```typescript
@@ -39,10 +38,9 @@ import { declare_test, expect_type } from "declare-test"
 
 // Note that we don't give it a closure, just a bunch of assertions.
 declare_test(
-	"checks that number is assignable from 1",
-	expect_type<1>().to_extend<number>(),
-)
-```
+	"checks that number is assignable from 1", check => {
+	check = check = expect_type<1>().to_extend<number>()
+})```
 
 Since `declare-test` is a *compile-time only test framework*, your test runner is actually the TypeScript compiler, and **your test passes if your code compiles!**
 
@@ -53,10 +51,9 @@ Let’s see how a failed test looks like. Change the `to_extend` assertion to `t
 import { declare_test, expect_type } from "declare-test"
 
 declare_test(
-	"checks that number is equal to 1",
-	expect_type<1>().to_equal<number>(),
-)
-```
+	"checks that number is equal to 1", check => {
+	check = check = expect_type<1>().to_equal<number>()
+})```
 
 And try to compile it again. Surprise! You get a compilation error with special formatting. Here is how you it looks like:
 ```
@@ -117,8 +114,8 @@ You can start an assertion using the functions:
 
 ```typescript
 declare_test(
-	"string extends never",
-	expect_type<string>().to_extend<never>(),
+	"string extends never", check => {
+	check = expect_type<string>().to_extend<never>()
 	expect_type_of("hello world").to_extend<never>()
 )
 ```

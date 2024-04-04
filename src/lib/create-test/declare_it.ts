@@ -65,9 +65,9 @@ export function declare_setup(
  *
  * @example
  *     declare_test(
- *         "checks array",
- *         expect_type<[1]>().to_equal<[1]>(),
- *         expect_type<[1]>().not.to_equal<readonly [1]>()
+ *     "checks array",
+ *     check = expect_type<[1]>().to_equal<[1]>()
+ *     expect_type<[1]>().not.to_equal<readonly [1]>()
  *     )
  *
  * @param title The test title.
@@ -75,10 +75,7 @@ export function declare_setup(
  */
 export function declare_test<TestText extends string>(
     name: TestText,
-    ...assertions: [
-        FancyTestTitleText<TestText>,
-        ...FancyTestTitleText<TestText>[]
-    ]
+    test: (check: FancyTestTitleText<TestText>) => void
 ): void {
     if (registerFrameworkTest) {
         try {

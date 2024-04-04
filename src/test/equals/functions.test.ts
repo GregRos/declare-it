@@ -1,14 +1,11 @@
 import { declare_test, expect_type } from "@lib"
-declare_test(
-    "does not check parameter names",
-    expect_type<(a: 1) => void>().to_equal<(b: 1) => void>()
-)
-
-declare_test(
-    "checks parameter order",
-    expect_type<(a: 1, b: 2) => void>().not.to_equal<(b: 2, a: 1) => void>()
-)
-
+declare_test("does not check parameter names", check => {
+    check = expect_type<(a: 1) => void>().to_equal<(b: 1) => void>()
+})
+declare_test("checks parameter order", check => {
+    check = check =
+        expect_type<(a: 1, b: 2) => void>().not.to_equal<(b: 2, a: 1) => void>()
+})
 type WhenCalledWith<F, Args extends readonly unknown[]> = F extends {
     (...args: Args): infer R
     (...args: any[]): any
@@ -22,51 +19,52 @@ function xa(x: number | string): number | string {
     return x
 }
 
-declare_test("checks parameter types")
-
-declare_test(
-    "checks parameter types",
-    expect_type<(a: 1) => void>().not.to_equal<(a: 2) => void>(),
+declare_test("checks parameter types", check => {
+    check = expect_type<(a: 1) => void>().not.to_equal<(a: 2) => void>()
     // @ts-expect-error
-    expect_type<(a: 1) => void>().to_equal<(a: 2) => void>()
-)
-
-declare_test(
-    "checks return type",
-    expect_type<() => 1>().not.to_equal<() => 2>(),
+    check = expect_type<(a: 1) => void>().to_equal<(a: 2) => void>()
+})
+declare_test("checks return type", check => {
+    check = expect_type<() => 1>().not.to_equal<() => 2>()
     // @ts-expect-error
-    expect_type<() => 1>().to_equal<() => 2>()
-)
-
-declare_test(
-    "checks this parameter",
-    expect_type<(this: string) => void>().not.to_equal<(this: number) => void>()
-)
-
-declare_test(
-    "doesn't tell call signature from function type.js",
-    expect_type<() => void>().to_equal<{ (): void }>()
-)
-
+    check = expect_type<() => 1>().to_equal<() => 2>()
+})
+declare_test("checks this parameter", check => {
+    check =
+        expect_type<(this: string) => void>().not.to_equal<
+            (this: number) => void
+        >()
+})
+declare_test("doesn't tell call signature from function type.js", check => {
+    check = expect_type<() => void>().to_equal<{ (): void }>()
+})
 declare_test(
     "tells optional parameter from disjunction with undefined.js",
-    expect_type<(a?: 1) => void>().not.to_equal<(a: 1 | undefined) => void>(),
-    expect_type<(a?: 1) => void>().to_equal<(a?: 1 | undefined) => void>()
+    check => {
+        check =
+            expect_type<(a?: 1) => void>().not.to_equal<
+                (a: 1 | undefined) => void
+            >()
+        check =
+            expect_type<(a?: 1) => void>().to_equal<
+                (a?: 1 | undefined) => void
+            >()
+    }
 )
-
 declare_test(
     "tells apart Function and specific function types, even with any",
-    expect_type<Function>().not.to_equal<() => void>(),
-    expect_type<Function>().not.to_equal<(...x: any) => any>(),
-    expect_type<Function>().to_equal<Function>()
+    check => {
+        check = expect_type<Function>().not.to_equal<() => void>()
+        check = expect_type<Function>().not.to_equal<(...x: any) => any>()
+        check = expect_type<Function>().to_equal<Function>()
+    }
 )
-
-declare_test(
-    "checks rest parameter",
-    expect_type<(...a: 1[]) => void>().to_equal<(...a: 1[]) => void>(),
-    expect_type<(...a: 1[]) => void>().not.to_equal<(...a: 2[]) => void>(),
+declare_test("checks rest parameter", check => {
+    check = expect_type<(...a: 1[]) => void>().to_equal<(...a: 1[]) => void>()
+    check =
+        expect_type<(...a: 1[]) => void>().not.to_equal<(...a: 2[]) => void>()
     // @ts-expect-error
-    expect_type<(...a: 1[]) => void>().to_equal<(...a: 2[]) => void>(),
+    check = expect_type<(...a: 1[]) => void>().to_equal<(...a: 2[]) => void>()
     // @ts-expect-error
-    expect_type<(...a: 1[]) => void>().not.to_equal<(...a: 1) => void>()
-)
+    check = expect_type<(...a: 1[]) => void>().not.to_equal<(...a: 1) => void>()
+})

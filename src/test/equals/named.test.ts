@@ -13,8 +13,7 @@ import { declare_test, expect_type } from "@lib"
     type B = {
         a: B
     }
-    declare_test(
-        "checks named type in recursive type",
+    declare_test("checks named type in recursive type", check => {
         expect_type<A>().to_equal<B>()
-    )
+    })
 }
