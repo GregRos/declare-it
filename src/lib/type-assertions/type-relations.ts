@@ -2,7 +2,7 @@ import {
     𝗧𝗢_𝗕𝗘_𝗔𝗡𝗬_𝗘𝗥𝗥𝗢𝗥,
     𝗧𝗢_𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘_𝗘𝗥𝗥𝗢𝗥,
     𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗘𝗥𝗥𝗢𝗥,
-    𝗧𝗢_𝗕𝗘_𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗘𝗥𝗥𝗢𝗥,
+    𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥,
     𝗧𝗢_𝗘𝗤𝗨𝗔𝗟_𝗘𝗥𝗥𝗢𝗥
 } from "./compiler-messages.js"
 import { Texts } from "./texts.js"
@@ -40,16 +40,16 @@ export type Compute_ToEqual<L, R, T, F> =
                 : F & 𝗧𝗢_𝗘𝗤𝗨𝗔𝗟_𝗘𝗥𝗥𝗢𝗥<L, Texts["not_assignable_from"], R>
             : F & 𝗧𝗢_𝗘𝗤𝗨𝗔𝗟_𝗘𝗥𝗥𝗢𝗥<L, Texts["not_assignable_to"], R>
 
-export type Compute_ToBeExtended<L, R, T, F> =
+export type ComputeToExtendBy<L, R, T, F> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? 𝗧𝗢_𝗕𝗘_𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗘𝗥𝗥𝗢𝗥<L, Texts["are_both_any"], R>
-            : 𝗧𝗢_𝗕𝗘_𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗘𝗥𝗥𝗢𝗥<L, Texts["is_any_but_not"], R>
+            ? 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["are_both_any"], R>
+            : 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["is_any_but_not"], R>
         : IsAny<R> extends 1
-          ? 𝗧𝗢_𝗕𝗘_𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗘𝗥𝗥𝗢𝗥<L, Texts["is_not_any_but"], R>
+          ? 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["is_not_any_but"], R>
           : [R] extends [L]
-            ? 𝗧𝗢_𝗕𝗘_𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗘𝗥𝗥𝗢𝗥<L, Texts["assignable_from"], R> & T
-            : 𝗧𝗢_𝗕𝗘_𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗘𝗥𝗥𝗢𝗥<L, Texts["not_assignable_from"], R> & F
+            ? 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["assignable_from"], R> & T
+            : 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<L, Texts["not_assignable_from"], R> & F
 
 export type Compute_ToExtend<L, R, T, F> =
     IsAny<R> extends 1

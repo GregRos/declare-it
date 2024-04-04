@@ -9,6 +9,21 @@ declare_test(
     expect_type<(a: 1, b: 2) => void>().not.to_equal<(b: 2, a: 1) => void>()
 )
 
+type WhenCalledWith<F, Args extends readonly unknown[]> = F extends {
+    (...args: Args): infer R
+    (...args: any[]): any
+}
+    ? R
+    : never
+
+function xa(x: number): number
+function xa(x: string): string
+function xa(x: number | string): number | string {
+    return x
+}
+
+declare_test("checks parameter types")
+
 declare_test(
     "checks parameter types",
     expect_type<(a: 1) => void>().not.to_equal<(a: 2) => void>(),

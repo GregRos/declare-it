@@ -82,7 +82,22 @@ export function declare_test<TestText extends string>(
 ): void {
     if (registerFrameworkTest) {
         try {
-            registerFrameworkTest(name, ...(assertions as [any, ...any[]]))
+            registerFrameworkTest(name)
+        } catch (e: any) {
+            console.error(
+                `⛔ DECLARE-TEST: Exception while registering test ⛔`,
+                e
+            )
+        }
+    }
+}
+export function declare_test2<TestText extends string>(
+    name: TestText,
+    test: (check: FancyTestTitleText<TestText>) => void
+): void {
+    if (registerFrameworkTest) {
+        try {
+            registerFrameworkTest(name)
         } catch (e: any) {
             console.error(
                 `⛔ DECLARE-TEST: Exception while registering test ⛔`,
@@ -94,8 +109,5 @@ export function declare_test<TestText extends string>(
 function wrapFrameworkTestFunction(
     frameworkFunction: FrameworkTestFunction
 ): RegisterTestFunction {
-    return (title, ...assertions) =>
-        frameworkFunction(
-            `💭 𝗗𝗘𝗖𝗟𝗔𝗥𝗘 𝗧𝗘𝗦𝗧: ${title} \x1b[32m(${assertions.length} asserts)\x1b[0m`
-        )
+    return title => frameworkFunction(`💭 𝗗𝗘𝗖𝗟𝗔𝗥𝗘 𝗧𝗘𝗦𝗧: ${title}`)
 }

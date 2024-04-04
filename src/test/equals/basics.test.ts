@@ -1,4 +1,5 @@
 import { declare_test, expect_type } from "@lib"
+import { declare_test2 } from "@lib/create-test/declare_it"
 
 declare_test(
     "tells apart literal types from other types.js",

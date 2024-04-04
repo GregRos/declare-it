@@ -13,7 +13,7 @@ export declare abstract class 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗘𝗥𝗥𝗢
     Right
 > extends BinaryMessage<Left, Message, Right> {}
 
-export declare abstract class 𝗧𝗢_𝗕𝗘_𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗_𝗘𝗥𝗥𝗢𝗥<
+export declare abstract class 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<
     Left,
     Message,
     Right

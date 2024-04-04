@@ -1,26 +1,39 @@
+function getTestOrIt(obj: any) {
+    if ("test" in obj) {
+        return obj.test
+    }
+    if ("it" in obj) {
+        return obj.it
+    }
+    return undefined
+}
+
 function findfw() {
     if ("it" in globalThis) {
-        console.log("mocha!")
+        const it = getTestOrIt(globalThis)
         return (title: string) => it(title, () => {})
     }
     try {
         const ava = require("ava")
-        return (title: string) => ava.test(title, (t: any) => t.pass())
+        const it = getTestOrIt(ava)
+        return (title: string) => it(title, (t: any) => t.pass())
     } catch (e) {}
     try {
         const mocha = require("mocha")
-        return (title: string) => mocha.it(title, () => {})
+        const it = getTestOrIt(mocha)
+        return (title: string) => it(title, () => {})
     } catch (e) {}
     try {
-        console.log("jest!")
         const jest = require("jest")
-        return (title: string) => jest.it(title, () => {})
+        const it = getTestOrIt(jest)
+        return (title: string) => it(title, () => {})
     } catch (e) {}
     try {
         const jasmine = require("jasmine")
-        return (title: string) => jasmine.it(title, () => {})
+        const it = getTestOrIt(jasmine)
+        return (title: string) => it(title, () => {})
     } catch (e) {}
     console.log("????")
     return undefined
 }
-export const findfwRegisterTest = findfw()
+export const fwTestFunction = findfw()
