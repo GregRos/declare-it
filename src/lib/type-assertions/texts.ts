@@ -12,6 +12,8 @@ export type Texts = {
     is_not_any: `𝗜𝗦 𝗡𝗢𝗧 𝒂𝒏𝒚`
     the_type: `𝗧𝗛𝗘 𝗧𝗬𝗣𝗘`
     TEST: `𝗧𝗘𝗦𝗧`
+    an_object_unlike: "𝗔𝗡 𝗢𝗕𝗝𝗘𝗖𝗧 𝗨𝗡𝗟𝗜𝗞𝗘"
+    not_an_object_unlike: "𝗡𝗢𝗧 𝗔𝗡 𝗢𝗕𝗝𝗘𝗖𝗧 𝗨𝗡𝗟𝗜𝗞𝗘"
 }
 
 export type FancyTestTitleText<T extends string> = `❌ ${Texts["TEST"]}: ${T}`

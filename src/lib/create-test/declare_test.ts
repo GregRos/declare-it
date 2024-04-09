@@ -123,19 +123,19 @@ declare_setup("global")
  * @param test The test function. This function is never executed.
  */
 export function declare_test<TestText extends string>(
-    name: TestText,
+    title: TestText,
     test: (check: FancyTestTitleText<TestText> | 1) => void
 ): void {
     if (!test) {
-        throw noTestFunction(name)
+        throw noTestFunction(title)
     }
     if (registerFrameworkTest) {
         try {
-            registerFrameworkTest(name)
+            registerFrameworkTest(title)
         } catch (e: any) {
             console.error(
                 formatErrorText(
-                    `Exception while registering test: ${e.message}`
+                    `Exception while registering test '${title}: ${e.message}`
                 )
             )
         }

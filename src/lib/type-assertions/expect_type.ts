@@ -7,10 +7,14 @@ import {
     Compute_ToResemble
 } from "./type-relations.js"
 
-/** Provides positive type assertions for the subject type {@link Subject}. */
-declare class Expecting𝗧𝗬𝗣𝗘<Subject> {
-    private constructor()
+declare class ExpectingBase<Subject> {
+    keyof(): Expecting𝗧𝗬𝗣𝗘<keyof Subject>
+}
 
+/** Provides positive type assertions for the subject type {@link Subject}. */
+declare class Expecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subject> {
+    private constructor()
+    __Subject: Subject
     /**
      * ## 🧩 During compilation
      *
@@ -116,10 +120,14 @@ declare class Expecting𝗧𝗬𝗣𝗘<Subject> {
      * Cannot be called during runtime.
      */
     to_supertype<U>(): Compute_ToSupertype<Subject, U, 1, unknown>
+
+    parameters(): Expecting𝗧𝗬𝗣𝗘<
+        Subject extends (...args: infer P) => any ? P : never
+    >
 }
 
 /** Provides negative type assertions for the subject type {@link Subject}. */
-declare class NotExpecting𝗧𝗬𝗣𝗘<Subject> {
+declare class NotExpecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subject> {
     private constructor()
     readonly not: Expecting𝗧𝗬𝗣𝗘<Subject>
 

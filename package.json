@@ -1,5 +1,5 @@
 {
-  "name": "expect_type",
+  "name": "declare-test",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -10,7 +10,7 @@
       "default": "./dist/esm/index.js"
     }
   },
-  "typings": "dist/lib/index",
+  "typings": "dist/lib/cjs/index",
   "description": "Compile-time type assertions for TypeScript.",
   "version": "0.1.0",
   "repository": "github:gregros/declare-test",
