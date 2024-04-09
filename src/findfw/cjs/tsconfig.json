@@ -1,14 +1,15 @@
 {
+
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
     "outDir": "../../../dist/cjs/findfw",
-    "tsBuildInfoFile": "../../../dist/cjs/findfw/tsconfig.tsbuildinfo",
+    "tsBuildInfoFile": "../../../dist/cjs/findfw/tsconfig2.tsbuildinfo",
     "rootDir": ".",
     "baseUrl": ".",
     "noEmit": false,
     "experimentalDecorators": true
   },
-  "include": ["../fake-packages.d.ts", "**/*.ts"],
+  "include": ["../fake-packages.d.ts", "**/*.ts", "../shared/index.ts", "../shared/index.ts"],
   "exclude": ["**/node_modules"]
 }

@@ -1,6 +1,8 @@
 import { declare_test, expect_type } from "@lib"
 
-declare_test("checks object", expect_type<{ a: 1 }>().to_equal<{ a: 1 }>())
+declare_test("checks object", () => {
+    expect_type<{ a: 1 }>().to_equal<{ a: 1 }>()
+})
 
 declare_test("checks object with multiple keys", check => {
     check = expect_type<{ a: 1; b: 2 }>().to_equal<{ a: 1; b: 2 }>()

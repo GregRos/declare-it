@@ -7,33 +7,50 @@ function getTestOrIt(obj: any) {
     }
     return undefined
 }
-
-function findfw() {
-    if ("it" in globalThis) {
-        const it = getTestOrIt(globalThis)
-        return (title: string) => it(title, () => {})
+function getFw(name: string) {
+    const fws = []
+    try {
+        switch (name) {
+            case "global":
+                return getTestOrIt(globalThis)
+            case "ava":
+                const avaTest = getTestOrIt(require("ava"))
+                return (title: string) => avaTest(title, (t: any) => t.pass())
+            case "mocha":
+                return getTestOrIt(require("mocha"))
+            case "jest":
+                return getTestOrIt(require("jest"))
+            case "jasmine":
+                return getTestOrIt(require("jasmine"))
+            case "console":
+                return console.log
+        }
+    } catch (e) {
+        return false
     }
-    try {
-        const ava = require("ava")
-        const it = getTestOrIt(ava)
-        return (title: string) => it(title, (t: any) => t.pass())
-    } catch (e) {}
-    try {
-        const mocha = require("mocha")
-        const it = getTestOrIt(mocha)
-        return (title: string) => it(title, () => {})
-    } catch (e) {}
-    try {
-        const jest = require("jest")
-        const it = getTestOrIt(jest)
-        return (title: string) => it(title, () => {})
-    } catch (e) {}
-    try {
-        const jasmine = require("jasmine")
-        const it = getTestOrIt(jasmine)
-        return (title: string) => it(title, () => {})
-    } catch (e) {}
-    console.log("????")
-    return undefined
+    throw new Error(`Unknown test framework: ${name}`)
 }
-export const fwTestFunction = findfw()
+
+function getFws(names: string[]) {
+    const entries = []
+    for (const name of names) {
+        const fw = getFw(name)
+        entries.push([
+            name,
+            (title: string) =>
+                fw(title, () => {
+                    /* pass */
+                })
+        ])
+    }
+    return Object.fromEntries(entries)
+}
+
+export const detectedFrameworks = getFws([
+    "global",
+    "ava",
+    "mocha",
+    "jest",
+    "jasmine",
+    "console"
+])

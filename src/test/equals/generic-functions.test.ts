@@ -33,7 +33,7 @@ declare_test("checks type parameter constraints", check => {
 })
 
 declare_test(
-    "doesn't tell apart empty constraints from unconstrained.js",
+    "doesn't tell apart empty constraints from unconstrained.",
     check => {
         check =
             expect_type<<T extends unknown>() => void>().to_equal<

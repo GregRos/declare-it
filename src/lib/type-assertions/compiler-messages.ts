@@ -7,13 +7,13 @@ export declare abstract class BinaryMessage<Left, Message, Right> {
     private _message: Message
     private _right: Right
 }
-export declare abstract class 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗘𝗥𝗥𝗢𝗥<
+export declare abstract class 𝗧𝗢_𝗦𝗨𝗕𝗧𝗬𝗣𝗘_𝗘𝗥𝗥𝗢𝗥<
     Left,
     Message,
     Right
 > extends BinaryMessage<Left, Message, Right> {}
 
-export declare abstract class 𝗧𝗢_𝗘𝗫𝗧𝗘𝗡𝗗_𝗕𝗬_𝗘𝗥𝗥𝗢𝗥<
+export declare abstract class 𝗧𝗢_𝗦𝗨𝗣𝗘𝗥𝗧𝗬𝗣𝗘_𝗘𝗥𝗥𝗢𝗥<
     Left,
     Message,
     Right

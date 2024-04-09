@@ -1,4 +1,5 @@
 {
+
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
@@ -12,6 +13,6 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext"
   },
-  "include": ["../fake-packages.d.ts", "**/*.ts"],
+  "include": ["../fake-packages.d.ts", "../shared/index.ts", "**/*.ts"],
   "exclude": ["**/node_modules"]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "declare-test",
+  "name": "expect_type",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "exports": {
