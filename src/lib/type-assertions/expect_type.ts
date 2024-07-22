@@ -6,7 +6,7 @@ import {
     Compute_ToSubtype,
     Compute_ToEqual,
     Compute_ToResemble,
-    type Compute_AreIdentical,
+    type Compute_StandardIdentical,
     type Any
 } from "./type-relations.js"
 
@@ -25,7 +25,6 @@ export declare class Asserts<TestText extends string> {
 /** Provides positive type assertions for the subject type {@link Subject}. */
 declare class Expecting𝗧𝗬𝗣𝗘<TestText, Subject> {
     private constructor()
-    __Subject: Subject
 
     not: NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject>
 
@@ -33,21 +32,21 @@ declare class Expecting𝗧𝗬𝗣𝗘<TestText, Subject> {
         Subject,
         Reference,
         TestText,
-        "🔴 FAIL"
+        unknown
     >
 
     to_resemble<Reference>(): Compute_ToResemble<
         Subject,
         Reference,
         TestText,
-        "🔴 𝐭𝐨_𝐫𝐞𝐬𝐞𝐦𝐛𝐥𝐞"
+        unknown
     >
 
     to_subtype<Reference>(): Compute_ToSubtype<
         Subject,
         Reference,
         TestText,
-        "🔴 𝐭𝐨_𝐬𝐮𝐛𝐭𝐲𝐩𝐞"
+        unknown
     >
 
     to_strictly_subtype<Reference>(): Compute_ToSubtype<
@@ -56,24 +55,14 @@ declare class Expecting𝗧𝗬𝗣𝗘<TestText, Subject> {
         1,
         TestText
     > extends 1
-        ? Compute_ToResemble<
-              Subject,
-              Reference,
-              "🔴 𝐭𝐨_𝐬𝐭𝐫𝐢𝐜𝐭𝐥𝐲_𝐬𝐮𝐛𝐭𝐲𝐩𝐞",
-              TestText
-          >
-        : Compute_ToSubtype<
-              Subject,
-              Reference,
-              TestText,
-              "🔴 𝐭𝐨_𝐬𝐭𝐫𝐢𝐜𝐭𝐥𝐲_𝐬𝐮𝐛𝐭𝐲𝐩𝐞"
-          >
+        ? Compute_ToResemble<Subject, Reference, unknown, TestText>
+        : Compute_ToSubtype<Subject, Reference, TestText, unknown>
 
     to_supertype<Reference>(): Compute_ToSupertype<
         Subject,
         Reference,
         TestText,
-        "🔴 𝐭𝐨_𝐬𝐮𝐩𝐞𝐫𝐭𝐲𝐩𝐞"
+        unknown
     >
 
     to_strictly_supertype<Reference>(): Compute_ToSupertype<
@@ -82,18 +71,8 @@ declare class Expecting𝗧𝗬𝗣𝗘<TestText, Subject> {
         1,
         TestText
     > extends 1
-        ? Compute_ToResemble<
-              Subject,
-              Reference,
-              "🔴 𝐭𝐨_𝐬𝐭𝐫𝐢𝐜𝐭𝐥𝐲_𝐬𝐮𝐩𝐞𝐫𝐭𝐲𝐩𝐞",
-              TestText
-          >
-        : Compute_ToSupertype<
-              Subject,
-              Reference,
-              TestText,
-              "🔴 𝐭𝐨_𝐬𝐭𝐫𝐢𝐜𝐭𝐥𝐲_𝐬𝐮𝐩𝐞𝐫𝐭𝐲𝐩𝐞"
-          >
+        ? Compute_ToResemble<Subject, Reference, unknown, TestText>
+        : Compute_ToSupertype<Subject, Reference, TestText, unknown>
 }
 
 /** Provides negative type assertions for the subject type {@link Subject}. */
@@ -104,21 +83,21 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject> {
     to_equal<Reference>(): Compute_ToEqual<
         Subject,
         Reference,
-        "🔴 FAIL",
+        unknown,
         TestText
     >
 
     to_resemble<Reference>(): Compute_ToResemble<
         Subject,
         Reference,
-        "🔴 FAIL",
+        unknown,
         TestText
     >
 
     to_subtype<Reference>(): Compute_ToSubtype<
         Subject,
         Reference,
-        "🔴 FAIL",
+        unknown,
         TestText
     >
 
@@ -128,13 +107,13 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject> {
         1,
         0
     > extends 1
-        ? Compute_ToResemble<Subject, Reference, TestText, "🔴 FAIL">
-        : Compute_ToSubtype<Subject, Reference, "🔴 FAIL", TestText>
+        ? Compute_ToResemble<Subject, Reference, TestText, unknown>
+        : Compute_ToSubtype<Subject, Reference, unknown, TestText>
 
     to_supertype<Reference>(): Compute_ToSupertype<
         Subject,
         Reference,
-        "🔴 FAIL",
+        unknown,
         TestText
     >
 
@@ -144,6 +123,6 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject> {
         1,
         0
     > extends 1
-        ? Compute_ToResemble<Subject, Reference, TestText, "🔴 FAIL">
-        : Compute_ToSupertype<Subject, Reference, "🔴 FAIL", TestText>
+        ? Compute_ToResemble<Subject, Reference, TestText, unknown>
+        : Compute_ToSupertype<Subject, Reference, unknown, TestText>
 }

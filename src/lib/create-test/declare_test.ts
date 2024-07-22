@@ -152,7 +152,7 @@ function wrapFrameworkTestFunction(
 ): RegisterTestFunction {
     return (title, assertionCount) =>
         frameworkFunction(
-            `💭 𝗗𝗘𝗖𝗟𝗔𝗥𝗘 𝗧𝗘𝗦𝗧 (${assertionCount.toString().padEnd(1, " ")}×✔): ${title}`,
+            `💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧 (${assertionCount.toString().padEnd(1, " ")}×✔): ${title}`,
             () => {
                 if (assertionCount === 0) {
                     throw new DeclareTestError(
