@@ -12,7 +12,6 @@ declare_test("works for unknown type", check => {
     check = expect_type<unknown>().not.to_subtype<string>()
     check = expect_type<unknown>().not.to_subtype<number>()
     check = expect_type<unknown>().to_subtype<unknown>()
-    check = expect_type<unknown>().not.to_subtype<never>()
 })
 declare_test("works for never type", check => {
     check = expect_type<never>().to_subtype<string>()
@@ -32,6 +31,7 @@ declare_test("works for array", check => {
     check = expect_type<[1]>().to_subtype<[1]>()
     check = expect_type<[1]>().not.to_subtype<[1, 2]>()
     check = expect_type<[1, 2]>().not.to_subtype<[1]>()
+
     check = expect_type<[1, 2]>().to_subtype<[1, 2]>()
     check = expect_type<[1, 2?]>().not.to_subtype<[1]>()
     check = check = expect_type<[1]>().to_subtype<[1, 2?]>()

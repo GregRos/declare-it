@@ -4,7 +4,9 @@ import {
     Compute_ToSupertype,
     Compute_ToSubtype,
     Compute_ToEqual,
-    Compute_ToResemble
+    Compute_ToResemble,
+    type Compute_AreIdentical,
+    type Any
 } from "./type-relations.js"
 
 declare class ExpectingBase<Subject> {
@@ -103,10 +105,18 @@ declare class Expecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subject> 
      *
      * ## ⚠️ At runtime
      *
-     * Cannot be called during runtime.
+     * Throws an exception if actually invoked.
      */
     to_subtype<Reference>(): Compute_ToSubtype<Subject, Reference, 1, unknown>
 
+    to_strictly_subtype<Reference>(): Compute_ToSubtype<
+        Subject,
+        Reference,
+        1,
+        unknown
+    > extends 1
+        ? Compute_ToResemble<Subject, Reference, unknown, 1>
+        : Compute_ToSubtype<Subject, Reference, 1, unknown>
     /**
      * ## 🧩 During compilation
      *
@@ -117,13 +127,22 @@ declare class Expecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subject> 
      *
      * ## ⚠️ At runtime
      *
-     * Cannot be called during runtime.
+     * Throws an exception if actually invoked.
      */
-    to_supertype<U>(): Compute_ToSupertype<Subject, U, 1, unknown>
-
-    parameters(): Expecting𝗧𝗬𝗣𝗘<
-        Subject extends (...args: infer P) => any ? P : never
+    to_supertype<Reference>(): Compute_ToSupertype<
+        Subject,
+        Reference,
+        1,
+        unknown
     >
+    to_strictly_supertype<Reference>(): Compute_ToSupertype<
+        Subject,
+        Reference,
+        1,
+        unknown
+    > extends 1
+        ? Compute_ToResemble<Subject, Reference, unknown, 1>
+        : Compute_ToSupertype<Subject, Reference, 1, unknown>
 }
 
 /** Provides negative type assertions for the subject type {@link Subject}. */
@@ -157,7 +176,7 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subjec
      *
      * ## ⚠️ At runtime
      *
-     * Cannot be called during runtime.
+     * Throws an exception if actually invoked.
      *
      * @example
      *     declare_test("number is not equal to 1", (check) => {
@@ -196,7 +215,7 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subjec
      *
      * ## ⚠️ At runtime
      *
-     * Cannot be called during runtime.
+     * Throws an exception if actually invoked.
      */
     to_resemble<U>(): Compute_ToResemble<Subject, U, unknown, 1>
     /**
@@ -208,9 +227,18 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subjec
      *
      * ## ⚠️ At runtime
      *
-     * Cannot be called during runtime.
+     * Throws an exception if actually invoked.
      */
-    to_subtype<U>(): Compute_ToSubtype<Subject, U, unknown, 1>
+    to_subtype<Reference>(): Compute_ToSubtype<Subject, Reference, unknown, 1>
+
+    to_strictly_subtype<Reference>(): Compute_ToSubtype<
+        Subject,
+        Reference,
+        1,
+        unknown
+    > extends 1
+        ? Compute_ToResemble<Subject, Reference, 1, unknown>
+        : Compute_ToSubtype<Subject, Reference, unknown, 1>
     /**
      * ## 🧩 During compilation
      *
@@ -220,9 +248,23 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subjec
      *
      * ## ⚠️ At runtime
      *
-     * Cannot be called during runtime.
+     * Throws an exception if actually invoked.
      */
-    to_supertype<U>(): Compute_ToSupertype<Subject, U, unknown, 1>
+    to_supertype<Reference>(): Compute_ToSupertype<
+        Subject,
+        Reference,
+        unknown,
+        1
+    >
+
+    to_strictly_supertype<Reference>(): Compute_ToSupertype<
+        Subject,
+        Reference,
+        1,
+        unknown
+    > extends 1
+        ? Compute_ToResemble<Subject, Reference, 1, unknown>
+        : Compute_ToSupertype<Subject, Reference, unknown, 1>
 }
 
 /**

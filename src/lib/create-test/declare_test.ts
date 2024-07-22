@@ -122,6 +122,11 @@ declare_setup("global")
  * @param title The test title.
  * @param test The test function. This function is never executed.
  */
+
+export function declare_test<TestText extends string>(
+    title: TestText,
+    test: <T>(check: FancyTestTitleText<TestText> | 1) => void
+): void
 export function declare_test<TestText extends string>(
     title: TestText,
     test: (check: FancyTestTitleText<TestText> | 1) => void
