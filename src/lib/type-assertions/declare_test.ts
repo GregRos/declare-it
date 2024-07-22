@@ -5,4 +5,4 @@ declare function declare_fun<const Title>(
     tests: (check: Asserts<Title>) => void | Promise<void>
 ): void
 
-export const declare_test2 = declare_test_impl as any as typeof declare_fun
+export const declare_test = declare_test_impl as any as typeof declare_fun

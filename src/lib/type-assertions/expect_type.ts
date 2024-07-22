@@ -43,15 +43,15 @@ declare class Expecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subject> 
      * {@link to_resemble}, which only makes the first two assertions.
      *
      * @example
-     *     declare_test("number is not equal to 1", check => {
+     *     declare_test("number is not equal to 1", expect => {
      *     // Obvious cases:
-     *     check = expect_type<number>().to_equal<1>() // ERROR
-     *     check = expect_type<number>().to_equal<number>() // OK
+     *     expect = expect_type<number>().to_equal<1>() // ERROR
+     *     expect = expect_type<number>().to_equal<number>() // OK
      *     const obj = {}
-     *     check = expect_type<typeof obj.toString>()
+     *     expect = expect_type<typeof obj.toString>()
      *
      *     // A stricter relationship than assignability:
-     *     check = expect_type<{readonly A: number}>.to_equal<{a: number}>() // ERROR
+     *     expect = expect_type<{readonly A: number}>.to_equal<{a: number}>() // ERROR
      *     })
      *
      * @returns `never` if the assertion is fulfilled and a descriptive error
@@ -182,8 +182,8 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subjec
      *
      * @example
      *     declare_test("number is not equal to 1", (check) => {
-     *     check = expect_type<number>().to_equal<1>() // ERROR
-     *     check = expect_type<{readonly A: number}>.to_equal<{a: number}>() // ERROR
+     *     expect = expect_type<number>().to_equal<1>() // ERROR
+     *     expect = expect_type<{readonly A: number}>.to_equal<{a: number}>() // ERROR
      *     })
      *
      * @returns `never` if the assertion is fulfilled and a descriptive error

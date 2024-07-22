@@ -15,7 +15,6 @@ import {
     unknownTestFamework
 } from "./errors.js"
 import { TestFrameworkName } from "../findfw/types.js"
-import { Expecting𝗧𝗬𝗣𝗘 } from "../type-assertions/expect_type2.js"
 const frameworks = {
     ...detectedFrameworks,
     get default() {
@@ -114,9 +113,9 @@ declare_setup("global")
  * titles will be logged to the console.
  *
  * @example
- *     declare_test("string literals are strings", check => {
- *         check = expect_type<"a">().to_subtype<string>()
- *         check = expect_type<"a">().to_equal<"a">()
+ *     declare_test("string literals are strings", expect => {
+ *         expect = expect_type<"a">().to_subtype<string>()
+ *         expect = expect_type<"a">().to_equal<"a">()
  *     })
  *
  * @param title The test title.
