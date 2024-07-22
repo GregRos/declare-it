@@ -12,6 +12,9 @@ export type TestFunction = <TestText extends string>(
     ]
 ) => void
 
-export type RegisterTestFunction = (title: string) => void
+export type RegisterTestFunction = (
+    title: string,
+    assertionCount: number
+) => void
 
-export type FrameworkTestFunction = (title: string) => void
+export type FrameworkTestFunction = (title: string, f: () => void) => void

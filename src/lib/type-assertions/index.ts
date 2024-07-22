@@ -1,1 +1,1 @@
-export { expect_type } from "./expect_type.js"
+export { declare_test } from "./declare_test.js"

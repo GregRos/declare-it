@@ -9,151 +9,51 @@ import { Txt } from "./texts.js"
 export type Compute_ToResemble<L, R, T, F> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? F &
-                  [
-                      Txt["to_resemble"],
-                      Txt["the_types"],
-                      L,
-                      R,
-                      Txt["are_both_any"]
-                  ]
-            : F & [Txt["the_types"], L, Txt["is_any_unlike"], R]
+            ? F & [Txt["the_types"], L, R, Txt["are_both_any"]]
+            : F & [Txt["the_type"], L, Txt["is_any_unlike"], R]
         : IsAny<R> extends 1
-          ? F &
-                [
-                    Txt["to_resemble"],
-                    Txt["the_type"],
-                    L,
-                    Txt["is_not_any_unlike"],
-                    R
-                ]
+          ? F & [Txt["the_type"], L, Txt["is_not_any_unlike"], R]
           : [L] extends [R]
             ? [R] extends [L]
-                ? T &
-                      [
-                          Txt["to_resemble"],
-                          Txt["the_type"],
-                          L,
-                          Txt["resembles"],
-                          R
-                      ]
-                : F &
-                      [
-                          Txt["to_resemble"],
-                          Txt["the_type"],
-                          L,
-                          Txt["not_assignable_from"],
-                          R
-                      ]
-            : F &
-                  [
-                      Txt["to_resemble"],
-                      Txt["the_type"],
-                      L,
-                      Txt["not_assignable_to"],
-                      R
-                  ]
+                ? T & [Txt["the_type"], L, Txt["resembles"], R]
+                : F & [Txt["the_type"], L, Txt["not_assignable_from"], R]
+            : F & [Txt["the_type"], L, Txt["not_assignable_to"], R]
 export type Compute_ToEqual<L, R, T, F> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
             ? F & [Txt["the_types"], L, R, Txt["are_both_any"]]
             : F & [Txt["the_type"], L, Txt["is_any_unlike"], R]
         : IsAny<R> extends 1
-          ? F & [Txt["the_types"], L, Txt["is_not_any_unlike"], R]
+          ? F & [Txt["the_type"], L, Txt["is_not_any_unlike"], R]
           : [L] extends [R]
             ? [R] extends [L]
                 ? Any extends Compute_AreIdentical<L, R>
                     ? T & [Txt["the_type"], L, Txt["equals"], R]
                     : F & [Txt["the_type"], L, Txt["not_exactly"], R]
                 : F & [Txt["the_type"], L, Txt["not_assignable_from"], R]
-            : F &
-                  [
-                      Txt["to_equal"],
-                      Txt["the_type"],
-                      L,
-                      Txt["not_assignable_to"],
-                      R
-                  ]
+            : F & [Txt["the_type"], L, Txt["not_assignable_to"], R]
 
 export type Compute_ToSupertype<L, R, T, F> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? F &
-                  [
-                      Txt["to_supertype"],
-                      Txt["the_types"],
-                      L,
-                      Txt["are_both_any"],
-                      R
-                  ]
-            : F &
-                  [
-                      Txt["to_supertype"],
-                      Txt["the_types"],
-                      L,
-                      Txt["is_any_unlike"],
-                      R
-                  ]
+            ? F & [Txt["the_types"], L, Txt["are_both_any"], R]
+            : F & [Txt["the_type"], L, Txt["is_any_unlike"], R]
         : IsAny<R> extends 1
-          ? F &
-                [
-                    Txt["to_supertype"],
-                    Txt["the_type"],
-                    L,
-                    Txt["is_not_any_unlike"],
-                    R
-                ]
+          ? F & [Txt["the_type"], L, Txt["is_not_any_unlike"], R]
           : [R] extends [L]
-            ? T &
-                  [
-                      Txt["to_supertype"],
-                      Txt["the_type"],
-                      L,
-                      Txt["assignable_from"],
-                      R
-                  ]
-            : F &
-                  [
-                      Txt["to_supertype"],
-                      Txt["the_type"],
-                      L,
-                      Txt["not_assignable_from"],
-                      R
-                  ]
+            ? T & [Txt["the_type"], L, Txt["assignable_from"], R]
+            : F & [Txt["the_type"], L, Txt["not_assignable_from"], R]
 
 export type Compute_ToSubtype<L, R, T, F> =
     IsAny<R> extends 1
         ? IsAny<L> extends 1
-            ? [Txt["to_subtype"], Txt["the_types"], L, R, Txt["are_both_any"]] &
-                  F
-            : [
-                  Txt["to_subtype"],
-                  Txt["the_type"],
-                  L,
-                  Txt["is_not_any_unlike"],
-                  R
-              ] &
-                  F
+            ? [Txt["the_types"], L, R, Txt["are_both_any"]] & F
+            : [Txt["the_type"], L, Txt["is_not_any_unlike"], R] & F
         : IsAny<L> extends 1
-          ? [
-                Txt["to_subtype"],
-                Txt["the_type"],
-                L,
-                Txt["is_not_any_unlike"],
-                R
-            ] &
-                F
+          ? [Txt["the_type"], L, Txt["is_not_any_unlike"], R] & F
           : [L] extends [R]
-            ? [Txt["to_subtype"], Txt["the_type"], L, Txt["assignable_to"], R] &
-                  T
-            : [
-                  Txt["to_subtype"],
-                  Txt["the_type"],
-                  L,
-                  Txt["not_assignable_to"],
-                  R
-              ] &
-                  F
+            ? [Txt["the_type"], L, Txt["assignable_to"], R] & T
+            : [Txt["the_type"], L, Txt["not_assignable_to"], R] & F
 
 export type Assert_IsAny<X, T, F> =
     IsAny<X> extends 1 ? [X, Txt["is_any"]] & T : [X, Txt["is_not_any"]] & F

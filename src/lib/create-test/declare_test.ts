@@ -1,5 +1,4 @@
 import { FancyTestTitleText } from "../type-assertions/texts.js"
-import { expect_type } from "../type-assertions/expect_type.js"
 import { logToConsole } from "./log-test.js"
 import {
     TestFunction,
@@ -8,6 +7,7 @@ import {
 } from "./types.js"
 import { detectedFrameworks } from "../findfw/index.js"
 import {
+    DeclareTestError,
     formatErrorText,
     noTestFunction,
     testFrameworkNotDetected,
@@ -114,8 +114,8 @@ declare_setup("global")
  *
  * @example
  *     declare_test("string literals are strings", expect => {
- *         expect = expect_type<"a">().to_subtype<string>()
- *         expect = expect_type<"a">().to_equal<"a">()
+ *         expect.type<"a">(t => t.to_subtype<string>())
+ *         expect.type<"a">(t => t.to_equal<"a">())
  *     })
  *
  * @param title The test title.
@@ -129,9 +129,14 @@ export function declare_test<TestText extends string>(
     if (!test) {
         throw noTestFunction(title)
     }
+    let count = 0
+    test({
+        type: () => count++,
+        type_of: () => count++
+    } as any)
     if (registerFrameworkTest) {
         try {
-            registerFrameworkTest(title)
+            registerFrameworkTest(title, count)
         } catch (e: any) {
             console.error(
                 formatErrorText(
@@ -145,5 +150,15 @@ export function declare_test<TestText extends string>(
 function wrapFrameworkTestFunction(
     frameworkFunction: FrameworkTestFunction
 ): RegisterTestFunction {
-    return title => frameworkFunction(`💭 𝗗𝗘𝗖𝗟𝗔𝗥𝗘 𝗧𝗘𝗦𝗧: ${title}`)
+    return (title, assertionCount) =>
+        frameworkFunction(
+            `💭 𝗗𝗘𝗖𝗟𝗔𝗥𝗘 𝗧𝗘𝗦𝗧 (${assertionCount.toString().padEnd(1, " ")}×✔): ${title}`,
+            () => {
+                if (assertionCount === 0) {
+                    throw new DeclareTestError(
+                        "Test has no compile-time assertions!"
+                    )
+                }
+            }
+        )
 }
