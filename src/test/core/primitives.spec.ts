@@ -1,5 +1,5 @@
 import { declare_test, expect_type } from "@lib/index"
-
+import { declare_test2 } from "@lib/type-assertions/declare_test"
 declare_test("true ⊂ boolean", check => {
     check = expect_type<true>().to_subtype<boolean>()
     check = expect_type<true>().not.to_supertype<boolean>()
@@ -65,4 +65,12 @@ declare_test("void ≉ undefined", () => {
     expect_type<void>().not.to_supertype<undefined>()
     expect_type<void>().not.to_strictly_subtype<undefined>()
     expect_type<void>().not.to_strictly_supertype<undefined>()
+})
+declare_test2("1 ≡ 1", expect => {
+    expect.type<1>(t => t.to_equal<1>())
+    expect.type<1>(t => t.to_resemble<1>())
+    expect.type<1>(t => t.to_subtype<1>())
+    expect.type<1>(t => t.to_supertype<1>())
+    expect.type<1>(t => t.not.to_strictly_subtype<1>())
+    expect.type<1>(t => t.not.to_strictly_supertype<1>())
 })

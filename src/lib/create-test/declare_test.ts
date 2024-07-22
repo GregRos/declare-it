@@ -15,7 +15,7 @@ import {
     unknownTestFamework
 } from "./errors.js"
 import { TestFrameworkName } from "../findfw/types.js"
-
+import { Expecting𝗧𝗬𝗣𝗘 } from "../type-assertions/expect_type2.js"
 const frameworks = {
     ...detectedFrameworks,
     get default() {
@@ -125,10 +125,6 @@ declare_setup("global")
 
 export function declare_test<TestText extends string>(
     title: TestText,
-    test: <T>(check: FancyTestTitleText<TestText> | 1) => void
-): void
-export function declare_test<TestText extends string>(
-    title: TestText,
     test: (check: FancyTestTitleText<TestText> | 1) => void
 ): void {
     if (!test) {
@@ -146,8 +142,6 @@ export function declare_test<TestText extends string>(
         }
     }
 }
-
-export const declare_it = declare_test
 
 function wrapFrameworkTestFunction(
     frameworkFunction: FrameworkTestFunction

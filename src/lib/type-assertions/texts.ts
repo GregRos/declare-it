@@ -10,6 +10,8 @@ export type Txt = {
     assignable_to: `𝗘𝗫𝗧𝗘𝗡𝗗𝗦`
     assignable_from: `𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗 𝗕𝗬`
     resembles: `𝗥𝗘𝗦𝗘𝗠𝗕𝗟𝗘𝗦`
+    fail: `🔴 𝗙𝗔𝗜𝗟`
+    pass: `🟢 𝗣𝗔𝗦𝗦`
     not_assignable_from: `𝗡𝗢𝗧 𝗘𝗫𝗧𝗘𝗡𝗗𝗘𝗗 𝗕𝗬`
     is_any_unlike: `𝗜𝗦 𝒂𝒏𝒚, 𝗨𝗡𝗟𝗜𝗞𝗘`
     is_not_any_unlike: `𝗜𝗦 𝗡𝗢𝗧 𝒂𝒏𝒚, 𝗨𝗡𝗟𝗜𝗞𝗘`

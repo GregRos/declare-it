@@ -93,7 +93,9 @@ declare class Expecting𝗧𝗬𝗣𝗘<Subject> extends ExpectingBase<Subject> 
      *
      * Cannot be called during runtime.
      */
-    to_resemble<Reference>(): Compute_ToResemble<Subject, Reference, 1, unknown>
+    to_resemble<Reference>(
+        this: Compute_ToResemble<Subject, Reference, any, unknown>
+    ): Compute_ToResemble<Subject, Reference, 1, unknown>
 
     /**
      * ## 🧩 During compilation
