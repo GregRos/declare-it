@@ -11,7 +11,7 @@
     "tsBuildInfoFile": "../../dist/test/tsconfig.tsbuildinfo",
     "paths": {
       "@lib/*": ["../../dist/cjs/*"],
-      "@lib": ["../../dist/cjs/index"],
+      "@lib": ["../../dist/cjs/index"]
     }
   },
   "include": ["**/*.ts"],

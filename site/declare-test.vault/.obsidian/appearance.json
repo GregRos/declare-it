@@ -1,0 +1,9 @@
+{
+  "cssTheme": "Royal Velvet",
+  "enabledCssSnippets": [
+    "main.electron"
+  ],
+  "theme": "obsidian",
+  "monospaceFontFamily": "Consolas",
+  "baseFontSize": 17
+}

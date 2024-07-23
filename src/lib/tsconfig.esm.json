@@ -1,10 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
-  "references": [
-    {
-      "path": "../findfw/esm/tsconfig.json"
-    }
-  ],
+
   "compilerOptions": {
     "outDir": "../../dist/esm",
     "tsBuildInfoFile": "../../dist/esm/tsconfig.tsbuildinfo",
@@ -12,7 +8,7 @@
     "noEmit": false,
     "module": "esnext",
     "moduleResolution": "Node",
-    "declarationDir": "../../dist/types",
+    "declarationDir": "../../dist/types"
   },
   "include": ["**/*.ts"],
   "exclude": ["**/node_modules"]

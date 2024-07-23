@@ -7,21 +7,72 @@ prettier-format: "true"
 [![Node.js CI](https://github.com/GregRos/declare-test/actions/workflows/push.yaml/badge.svg)](https://github.com/GregRos/declare-test/actions/workflows/main.yaml)
 [![npm](https://img.shields.io/npm/v/declare-test)](https://www.npmjs.com/package/declare-test)
 
-**declare-test** is a TypeScript library for testing type declarations at compile-time, to make sure they work as expected.
+**declare-test** is a TypeScript library for testing type declarations at compile-time, to make sure they work as expected. 
+
+You define test cases using the `declare_test` function, which works kind of like the `it` or `test` function of unit test libraries such as `mocha` and `jest`. 
+
+Then you write compile-time assertions using the `expect_type` function, which is kind of like using `chai` or `jest`'s assertions. These assertions will be statements about types.
+
+Failed tests are reported as compilation errors, so your actual test framework is the TypeScript compiler. While you can execute the resulting JavaScript, that's completely optional.
+
+If you do, `declare-test` will try to infer the test framework being used (if any), and will report its tests to it. They all automatically pass, but it's a nice way to keep track of them.
+
+`declare-test` only supports basic, first-order assertions, such as type equality, subtyping, assignability, their inverses, and so on.
+
+## to_equal
+
+> In symbols, $A \equiv B$.
+
+Asserts a type `A` is identical to type `B`. This is a stricter check than assignability and tries to make sure the types are completely interchangeable. It's mostly too sensitive, with several false negatives, but has one fairly exotic false positive.
+
+```ts
+// {a: 1} & {b: 2} SHOULD EQUAL {a: 1; b: 2}
+check = 
+    expect_type<{a: 1} & {b: 2}>()
+    .not.to_equal<{a: 1; b: 2}>()}
+
+// {a: 1} | {a: 1} SHOULD EQUAL {a: 1}
+check = 
+    expect_type<{a: 1} | {a: 1}>()
+    .not.to_equal<{a: 1}>()
+
+// {(): void} SHOULD EQUAL {(): void; (): void}
+check =
+    expect_type<{(): void}>()
+    .not.to_equal<{(): void; (): void}>()
+
+// {(): 1} & {(): 2} SHOULD NOT EQUAL {(): 2; (): 1}
+check = 
+    expect_type<{(): 1} & {(): 2}>()
+	.to_equal<{(): 2} & {(): 1}>()
+```
+
+## to_subtype
+
+\
+
+
+
+**declare-test** works by offering a set of basic type-theoretic assertions:
+
+| Assertion | Math |      |
+| --------- | ---- | ---- |
+| `         |      |      |
+
+
 
 🧪 Write tests for types using compile-time assertions!
 🚨 Detailed and conspicuous failure messages during compilation!
 🏗️ Optional integration with a runtime test framework!
 🧐 Rigorously tested!
 💡 A familiar yet visually distinct API!<sup>to make it stand out from runtime tests</sup>
+
 # Install
 ```bash
-yarn add declare-test
-```
-```bash
-npm install --save-dev declare-test
+yarn add -D declare-test
 ```
 # Usage
+
 Let’s write a test to check that `number` is assignable from `1`:
 ```typescript
 import { declare_test, expect_type } from "declare-test"

@@ -1,7 +1,7 @@
 import type { Decrement } from "../operators/decrement"
 import type { IsSimplePrimitive } from "../operators/is-primitive"
 import type { IsAny } from "./type-relations"
-import type { IsAny as _IsAny } from "type-plus"
+import type { IsFunction, IsAny as _IsAny } from "type-plus"
 
 type IsAny2<T> = _IsAny<T, 1, 0>
 type TargetDepth = 10
@@ -16,18 +16,22 @@ export type IsRecursiveSubtypeConsideringAny<
             : 0 // L is any, R is not any --- not equal
         : IsAny<R> extends 1
           ? 0 // L is not any, R is any --- not equal
-          : Depth extends 0
-            ? 1 // depth is reached --- handle elsewhere
-            : {
-                  [K in keyof R & (string | number)]: K extends keyof L &
-                      (string | number)
-                      ? IsRecursiveSubtypeConsideringAny<
-                            L[K],
-                            R[K],
-                            Decrement<Depth>
-                        >
-                      : 0
-              }[keyof R & (string | number)]
+          : 1 extends IsSimplePrimitive<R> | IsSimplePrimitive<L>
+            ? 1
+            : 1 extends IsFunction<L> | IsFunction<R>
+              ? 1
+              : Depth extends 0
+                ? 1 // depth is reached --- handle elsewhere
+                : {
+                      [K in keyof R & (string | number)]: K extends keyof L &
+                          (string | number)
+                          ? IsRecursiveSubtypeConsideringAny<
+                                L[K],
+                                R[K],
+                                Decrement<Depth>
+                            >
+                          : 1
+                  }[keyof R & (string | number)]
 
 export type IsRecursiveSupertypeConsideringAny<
     L,

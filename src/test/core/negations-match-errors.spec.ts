@@ -225,20 +225,20 @@ declare_test("any ⊈ never", expect => {
 })
 
 declare_test("any ≉ any", expect => {
-    expect.type<any>(to => to.not.equal<any>())
-    // @ts-expect-error inverse error check
     expect.type<any>(to => to.equal<any>())
-    expect.type<any>(to => to.not.resemble<any>())
     // @ts-expect-error inverse error check
+    expect.type<any>(to => to.not.equal<any>())
     expect.type<any>(to => to.resemble<any>())
-
-    expect.type<any>(to => to.not.subtype<any>())
     // @ts-expect-error inverse error check
+    expect.type<any>(to => to.not.resemble<any>())
+
     expect.type<any>(to => to.subtype<any>())
-
-    expect.type<any>(to => to.not.supertype<any>())
     // @ts-expect-error inverse error check
+    expect.type<any>(to => to.not.subtype<any>())
+
     expect.type<any>(to => to.supertype<any>())
+    // @ts-expect-error inverse error check
+    expect.type<any>(to => to.not.supertype<any>())
 
     expect.type<any>(to => to.not.strictly_subtype<any>())
     // @ts-expect-error inverse error check

@@ -1,29 +1,7 @@
 {
   "name": "declare-test",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "node": "./dist/cjs/index.js",
-      "require": "./dist/cjs/index.js",
-      "default": "./dist/esm/index.js"
-    }
-  },
-  "typings": "dist/lib/cjs/index",
-  "description": "Compile-time type assertions for TypeScript.",
   "version": "0.1.0",
-  "repository": "github:gregros/declare-test",
-  "scripts": {
-    "build": "tsc -b .",
-    "clean": "shx rm -rf dist",
-    "rebuild": "run-s clean build",
-    "prepare": "husky install",
-    "watch": "tsc -b . --watch",
-    "lint:fix": "prettier --write src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css} && eslint --fix src/**/*.{ts,mts,cts,js,mjs,cjs} ",
-    "lint:check": "prettier --check src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css} && eslint src/**/*.{ts,mts,cts,js,mjs,cjs}",
-    "test": "run-s build && jest"
-  },
+  "description": "Compile-time type assertions for TypeScript.",
   "keywords": [
     "typescript",
     "types",
@@ -33,13 +11,42 @@
     "type",
     "typing"
   ],
-  "author": "GregRos",
+  "repository": "github:gregros/declare-test",
   "license": "MIT",
+  "author": "GregRos",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "node": "./dist/cjs/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    }
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/lib/cjs/index",
+  "scripts": {
+    "build": "tsc -b .",
+    "clean": "shx rm -rf dist",
+    "build:clean": "run-s clean build",
+    "prepare": "husky install",
+    "watch": "tsc -b . --watch",
+    "lint:fix": "prettier --write src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css} && eslint --fix src/**/*.{ts,mts,cts,js,mjs,cjs} ",
+    "lint:check": "prettier --check src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css} && eslint src/**/*.{ts,mts,cts,js,mjs,cjs}",
+    "test": "run-s build && jest"
+  },
   "lint-staged": {
     "*.{ts,mts,cts,js,mjs,cjs}": "node_modules/.bin/eslint --cache --fix",
     "src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}": "node_modules/.bin/prettier --write"
   },
-  "packageManager": "yarn@4.1.1",
+  "resolutions": {
+    "what-the-test": "portal:/C:/codegr/what-the-test"
+  },
+  "dependencies": {
+    "hotscript": "^1.0.13",
+    "ts-essentials": "^9.4.2",
+    "type-plus": "^7.6.2"
+  },
   "devDependencies": {
     "@gregros/eslint-config": "^0.6.0",
     "@swc/core": "^1.4.11",
@@ -63,6 +70,8 @@
     "shx": "^0.3.4",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.3"
-  }
+    "typescript": "^5.4.3",
+    "what-the-test": "0.1.0"
+  },
+  "packageManager": "yarn@4.1.1"
 }

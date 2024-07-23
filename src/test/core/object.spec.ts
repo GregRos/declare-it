@@ -77,9 +77,9 @@ declare_test("{1: 1} ≡ {'1': 1}", expect => {
     type A = { 1: 1 }
     type B = { "1": 1 }
     expect.type<A>(to => to.not.equal<B>())
-    expect.type<A>(to => to.not.resemble<B>())
-    expect.type<A>(to => to.not.subtype<B>())
-    expect.type<A>(to => to.not.supertype<B>())
+    expect.type<A>(to => to.resemble<B>())
+    expect.type<A>(to => to.subtype<B>())
+    expect.type<A>(to => to.supertype<B>())
     expect.type<A>(to => to.not.strictly_subtype<B>())
     expect.type<A>(to => to.not.strictly_supertype<B>())
 })

@@ -1,0 +1,199 @@
+{
+  "main": {
+    "id": "fb216f679666cff8",
+    "type": "split",
+    "children": [
+      {
+        "id": "3a97a18ab49da31a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b3ee88834392220d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "assertions/to_resemble.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "459d4ed050b8b9e0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "the any type.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3873932bb31d13d0",
+    "type": "split",
+    "children": [
+      {
+        "id": "22f745ec57d84fd4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ce6eee11f461bf5f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "164851ebfdbfa221",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "\"| ARROWS  |      | EQUAL |     | VARIOUS |     | Fractions |     || ------- | ---- | ----- | --- | ------- | --- | --------- | --- || `-->`   | `→`  | `>=`  | `≥` | `--`    | `–` | `{1\\\\|2}`  | `½` || `<--`   | `←`  | `>>`  | `≫` | `---`   | `—` | `{1/3}`   | `⅓` || `<-->`  | `↔`  | `>>>` | `⋙` | …       | …   | `{2/3}`   | `⅔` || `==>`   | `⇒`  | `<<`  | `≪` | `..-`   | `⋯` | `{1/4}`   | `¼` || `<==>`  | `⇔`  | `<<<` | `⋘` |         |     | `{2/4}`   | `½` || `<==`   | `⇐`  | `/=`  | `≠` |         |     | `{3/4}`   | `¾` || `<--\\|` | `↤`  | `~=`  | `≅` |         |     | `{1/5}`   | `⅕` || `\\|-->` | `↦`  | `~~`  | `≈` |         |     | `{2/5}`   | `⅖` || `-->>`  | `🡺` | `/~=` | `≇` |         |     | `{3/5}`   | `⅗` || `<<--`  | `🡸` | `<=`  | `≤` |         |     | `{4/5}`   | `⅘` || `<-*`   | `↩`  |       |     |         |     | `{1/6}`   | `⅙` || `*->`   | `↪`  |       |     |         |     | `{2/6}`   | `⅓` ||         |      |       |     |         |     | `{3/6}`   | `½` ||         |      |       |     |         |     | `{4/6}`   | `⅔` ||         |      |       |     |         |     | `{5/6}`   | `⅚` ||         |      |       |     |         |     | `{1/8}`   | `⅛` |\"",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "6fb2466bc4bb7d05",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 297.50818634033203
+  },
+  "right": {
+    "id": "8c57bb3abdcada03",
+    "type": "split",
+    "children": [
+      {
+        "id": "66a1883c01802fe7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "783cd7679d5f0f15",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "assertions/to_resemble.md",
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": true,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a821efb4784e6777",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "assertions/to_resemble.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b39b665f00794652",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "4ee2d40ee58636bc",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "assertions/to_resemble.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
+    }
+  },
+  "active": "b3ee88834392220d",
+  "lastOpenFiles": [
+    "assertions/to_strictly_supertype.md",
+    "assertions/to_strictly_subtype.md",
+    "assertions/to_supertype.md",
+    "assertions/to_subtype.md",
+    "assertions/to_resemble.md",
+    "the any type.md",
+    "Start.md",
+    "assertions/to_equal.md",
+    "assertions/assertion.md",
+    "resources/kilobyte (kB).svg",
+    "stuff/quote style.md",
+    "stuff/ASCII encoding.md",
+    "tokens.md",
+    "Unicode formatting.md",
+    "stuff/fractions.md",
+    "stuff/Named entities.md",
+    "stuff/spinners.md",
+    "stuff/font styles.md",
+    "stuff/durations.md",
+    "stuff/units.md",
+    "stuff/Uniformity.md",
+    "Excalidraw/Drawing 2024-06-24 14.39.18.excalidraw.md",
+    "Excalidraw/Tagged template.md",
+    "Humanize.md",
+    "assertions",
+    "resources",
+    "Prettyit!.md",
+    "Styles.md",
+    "Progress Bar.md",
+    "Excalidraw",
+    "parsing chars",
+    "Parsers/parsing chars",
+    "FileClasses"
+  ]
+}

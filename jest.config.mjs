@@ -14,7 +14,7 @@ const config = {
         ]
     },
     rootDir: ".",
-    testMatch: ["<rootDir>/src/test/**/*.test.ts"],
+    testMatch: ["<rootDir>/src/test/**/*.spec.ts"],
     // Should be set via --coverage option
     collectCoverage: false,
     collectCoverageFrom: ["<rootDir>/src/lib/**/*.ts"],
