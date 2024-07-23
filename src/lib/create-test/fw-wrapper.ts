@@ -10,7 +10,7 @@ function formatAssertionCountTitle(
         mode === "pass"
             ? "✔"
             : mode === "skip"
-              ? "○"
+              ? "❓"
               : mode === "todo"
                 ? "✏️"
                 : "❌"
