@@ -1,4 +1,4 @@
-import { declare_test } from "@lib/index"
+import { declare } from "@lib/index"
 
 // This checks the validity of the negation relations.
 // So for each positive relation, we need to check the inverse errors
@@ -13,7 +13,7 @@ import { declare_test } from "@lib/index"
 // never ⊂ 1
 // 1 ⊂ unknown
 // any
-declare_test("A ⊂ B", expect => {
+declare.test("A ⊂ B", expect => {
     expect.type<1>(to => to.subtype<1 | 2>())
     // @ts-expect-error inverse error check
     expect.type<1>(to => to.not.subtype<1 | 2>())
@@ -40,7 +40,7 @@ declare_test("A ⊂ B", expect => {
 })
 
 // Now check the reverse:
-declare_test("B ⊃ A", expect => {
+declare.test("B ⊃ A", expect => {
     expect.type<1 | 2>(to => to.not.subtype<1>())
     // @ts-expect-error inverse error check
     expect.type<1 | 2>(to => to.subtype<1>())
@@ -66,7 +66,7 @@ declare_test("B ⊃ A", expect => {
     expect.type<1 | 2>(to => to.resemble<1>())
 })
 
-declare_test("A ∩ B = ∅", expect => {
+declare.test("A ∩ B = ∅", expect => {
     expect.type<1>(to => to.not.subtype<2>())
     // @ts-expect-error inverse error check
     expect.type<1>(to => to.subtype<2>())
@@ -92,7 +92,7 @@ declare_test("A ∩ B = ∅", expect => {
     expect.type<1>(to => to.resemble<2>())
 })
 
-declare_test("A ≡ B", expect => {
+declare.test("A ≡ B", expect => {
     expect.type<1>(to => to.equal<1>())
     // @ts-expect-error inverse error check
     expect.type<1>(to => to.not.equal<1>())
@@ -118,7 +118,7 @@ declare_test("A ≡ B", expect => {
     expect.type<1>(to => to.strictly_supertype<1>())
 })
 
-declare_test("A ≈ B ∧ A ≢ B ∧ A ⊂ B", expect => {
+declare.test("A ≈ B ∧ A ≢ B ∧ A ⊂ B", expect => {
     type A = { a: 1 }
     type B = { readonly a: 1 }
     expect.type<A>(to => to.resemble<B>())
@@ -146,7 +146,7 @@ declare_test("A ≈ B ∧ A ≢ B ∧ A ⊂ B", expect => {
     expect.type<A>(to => to.strictly_supertype<B>())
 })
 
-declare_test("never ⊂ 1", expect => {
+declare.test("never ⊂ 1", expect => {
     expect.type<never>(to => to.subtype<1>())
     // @ts-expect-error inverse error check
     expect.type<never>(to => to.not.subtype<1>())
@@ -172,7 +172,7 @@ declare_test("never ⊂ 1", expect => {
     expect.type<never>(to => to.resemble<1>())
 })
 
-declare_test("1 ⊂ unknown", expect => {
+declare.test("1 ⊂ unknown", expect => {
     expect.type<1>(to => to.subtype<unknown>())
     // @ts-expect-error inverse error check
     expect.type<1>(to => to.not.subtype<unknown>())
@@ -198,7 +198,7 @@ declare_test("1 ⊂ unknown", expect => {
     expect.type<1>(to => to.resemble<unknown>())
 })
 
-declare_test("any ⊈ never", expect => {
+declare.test("any ⊈ never", expect => {
     expect.type<any>(to => to.not.subtype<never>())
     // @ts-expect-error inverse error check
     expect.type<any>(to => to.subtype<never>())
@@ -224,7 +224,7 @@ declare_test("any ⊈ never", expect => {
     expect.type<any>(to => to.resemble<never>())
 })
 
-declare_test("any ≉ any", expect => {
+declare.test("any ≉ any", expect => {
     expect.type<any>(to => to.equal<any>())
     // @ts-expect-error inverse error check
     expect.type<any>(to => to.not.equal<any>())

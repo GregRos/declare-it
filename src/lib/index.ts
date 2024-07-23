@@ -1,1 +1,1 @@
-export { declare_test } from "./type-assertions/declare_test.js"
+export { declare } from "./create-test/declare_test.js"

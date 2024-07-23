@@ -7,7 +7,8 @@ import {
     Compute_ToEqual,
     Compute_ToResemble,
     type Compute_StandardIdentical,
-    type Any
+    type Any,
+    type IsAny
 } from "./type-relations.js"
 
 export declare class Asserts<TestText extends string> {
@@ -15,7 +16,7 @@ export declare class Asserts<TestText extends string> {
     type<Subject>(
         f: (
             x: Expecting𝗧𝗬𝗣𝗘<FancyTestTitleText<TestText>, Subject>
-        ) => FancyTestTitleText<TestText>
+        ) => IsAny<TestText> extends 1 ? any : FancyTestTitleText<TestText>
     ): void
     type_of<Subject>(
         subject: Subject

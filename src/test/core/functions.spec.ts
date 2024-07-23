@@ -1,6 +1,6 @@
-import { declare_test } from "@lib/index"
+import { declare } from "@lib/index"
 
-declare_test(
+declare.test(
     "parameter names don't matter: ((x: 1) => void) ≡ ((y: 1) => void)",
     expect => {
         expect.type<(x: 1) => void>(to => to.equal<(y: 1) => void>())
@@ -16,7 +16,7 @@ declare_test(
     }
 )
 
-declare_test("reflexivity: (() => void) ≡ (() => void)", expect => {
+declare.test("reflexivity: (() => void) ≡ (() => void)", expect => {
     expect.type<() => void>(to => to.equal<() => void>())
     expect.type<() => void>(to => to.resemble<() => void>())
     expect.type<() => void>(to => to.subtype<() => void>())
@@ -25,7 +25,7 @@ declare_test("reflexivity: (() => void) ≡ (() => void)", expect => {
     expect.type<() => void>(to => to.not.strictly_supertype<() => void>())
 })
 
-declare_test("((a: 1) => void) ⊈ (() => void)", expect => {
+declare.test("((a: 1) => void) ⊈ (() => void)", expect => {
     expect.type<(a: 1) => void>(to => to.not.equal<() => void>())
     expect.type<(a: 1) => void>(to => to.not.resemble<() => void>())
     expect.type<(a: 1) => void>(to => to.not.subtype<() => void>())
@@ -34,7 +34,7 @@ declare_test("((a: 1) => void) ⊈ (() => void)", expect => {
     expect.type<(a: 1) => void>(to => to.strictly_supertype<() => void>())
 })
 
-declare_test("(() => void) ⊆ ((a: 1) => void)", expect => {
+declare.test("(() => void) ⊆ ((a: 1) => void)", expect => {
     expect.type<() => void>(to => to.subtype<(a: 1) => void>())
     expect.type<() => void>(to => to.not.supertype<(a: 1) => void>())
     expect.type<() => void>(to => to.not.strictly_supertype<(a: 1) => void>())
@@ -43,7 +43,7 @@ declare_test("(() => void) ⊆ ((a: 1) => void)", expect => {
     expect.type<() => void>(to => to.not.equal<(a: 1) => void>())
 })
 
-declare_test("(() => 1) ⊂ (() => number)", expect => {
+declare.test("(() => 1) ⊂ (() => number)", expect => {
     expect.type<() => 1>(to => to.subtype<() => number>())
     expect.type<() => 1>(to => to.not.supertype<() => number>())
     expect.type<() => 1>(to => to.not.strictly_supertype<() => number>())
@@ -52,7 +52,7 @@ declare_test("(() => 1) ⊂ (() => number)", expect => {
     expect.type<() => 1>(to => to.not.equal<() => number>())
 })
 
-declare_test("(() => 1) ⊂ ((...args: 1[]) => void)", expect => {
+declare.test("(() => 1) ⊂ ((...args: 1[]) => void)", expect => {
     expect.type<() => 1>(to => to.subtype<(...args: 1[]) => void>())
     expect.type<() => 1>(to => to.not.supertype<(...args: 1[]) => void>())
     expect.type<() => 1>(t =>
@@ -63,7 +63,7 @@ declare_test("(() => 1) ⊂ ((...args: 1[]) => void)", expect => {
     expect.type<() => 1>(to => to.not.equal<(...args: 1[]) => void>())
 })
 
-declare_test("((x: number) => 1) ⊂ ((x: 1) => 1)", expect => {
+declare.test("((x: number) => 1) ⊂ ((x: 1) => 1)", expect => {
     expect.type<(x: number) => 1>(to => to.subtype<(x: 1) => 1>())
     expect.type<(x: number) => 1>(to => to.not.supertype<(x: 1) => 1>())
     expect.type<(x: number) => 1>(t =>
@@ -74,7 +74,7 @@ declare_test("((x: number) => 1) ⊂ ((x: 1) => 1)", expect => {
     expect.type<(x: number) => 1>(to => to.not.equal<(x: 1) => 1>())
 })
 
-declare_test("(this: number) => void ⊈ (this: string) => void", expect => {
+declare.test("(this: number) => void ⊈ (this: string) => void", expect => {
     expect.type<(this: number) => void>(t =>
         t.not.equal<(this: string) => void>()
     )
@@ -95,7 +95,7 @@ declare_test("(this: number) => void ⊈ (this: string) => void", expect => {
     )
 })
 
-declare_test("((x?: 1) => void) ≈ ((x: 1 | undefined) => void)", expect => {
+declare.test("((x?: 1) => void) ≈ ((x: 1 | undefined) => void)", expect => {
     expect.type<(x?: 1) => void>(to =>
         to.not.equal<(x: 1 | undefined) => void>()
     )
@@ -114,14 +114,14 @@ declare_test("((x?: 1) => void) ≈ ((x: 1 | undefined) => void)", expect => {
     )
 })
 
-declare_test("(any function) ⊂ Function", expect => {
+declare.test("(any function) ⊂ Function", expect => {
     expect.type<() => void>(to => to.subtype<Function>())
     expect.type<(...args: any) => any>(to => to.subtype<Function>())
     expect.type<(a: any) => any>(to => to.strictly_subtype<Function>())
     expect.type<(this: any) => any>(to => to.strictly_subtype<Function>())
 })
 
-declare_test("(({(): 1}) ≡ (() => 1)", expect => {
+declare.test("(({(): 1}) ≡ (() => 1)", expect => {
     type CallSig = { (): 1 }
     type Func = () => 1
     expect.type<CallSig>(to => to.equal<Func>())
@@ -132,7 +132,7 @@ declare_test("(({(): 1}) ≡ (() => 1)", expect => {
     expect.type<CallSig>(to => to.not.strictly_supertype<Func>())
 })
 
-declare_test("({(): 1; (): 2}) ⊂ (() => 1)", expect => {
+declare.test("({(): 1; (): 2}) ⊂ (() => 1)", expect => {
     type CallSig = { (): 1; (): 2 }
     type Func = () => 1
     expect.type<CallSig>(to => to.subtype<Func>())
@@ -143,7 +143,7 @@ declare_test("({(): 1; (): 2}) ⊂ (() => 1)", expect => {
     expect.type<CallSig>(to => to.not.equal<Func>())
 })
 
-declare_test(
+declare.test(
     "FALSE POSITIVE: Only TO_EQUAL tells apart call signature order",
     expect => {
         type SigOrder1 = { (): 1; (): 2 }
@@ -157,7 +157,7 @@ declare_test(
     }
 )
 
-declare_test(
+declare.test(
     "FALSE POSITIVE≡: Order ALWAYS ignored for order-sensitive intersections of call sigs",
     expect => {
         type SigOrder1 = { (): 1 } & { (): 2 }
@@ -171,7 +171,7 @@ declare_test(
     }
 )
 
-declare_test(
+declare.test(
     "FALSE NEGATIVE≡: Multiple identical call signatures and function type not equal",
     expect => {
         expect.type<() => void>(t =>

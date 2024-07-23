@@ -1,1 +1,1 @@
-export { declare_test, declare_setup } from "./declare_test.js"
+export { declare } from "./declare_test.js"
