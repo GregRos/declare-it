@@ -5,4 +5,11 @@ declare function declare_fun<const Title extends string>(
     tests: (check: Asserts<Title>) => void | Promise<void>
 ): void
 
-export const declare_test = declare_test_impl as any as typeof declare_fun
+export const declare = {
+    test<const Title extends string>(
+        title: Title,
+        expect: (check: Asserts<Title>) => void | Promise<void>
+    ) {
+        declare_test_impl(title, expect)
+    }
+}

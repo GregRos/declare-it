@@ -114,8 +114,8 @@ declare_setup("global")
  *
  * @example
  *     declare_test("string literals are strings", expect => {
- *         expect.type<"a">(t => t.to_subtype<string>())
- *         expect.type<"a">(t => t.to_equal<"a">())
+ *         expect.type<"a">(to => to.to_subtype<string>())
+ *         expect.type<"a">(to => to.to_equal<"a">())
  *     })
  *
  * @param title The test title.
@@ -145,6 +145,14 @@ export function declare_test<TestText extends string>(
             )
         }
     }
+}
+
+export function declare_todo<TestText extends string>(
+    title: TestText,
+    test: (check: FancyTestTitleText<TestText> | 1) => void
+): void {
+    logToConsole(`🚧 ${title}`)
+    declare_test(title, test)
 }
 
 function wrapFrameworkTestFunction(

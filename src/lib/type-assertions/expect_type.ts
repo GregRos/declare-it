@@ -28,28 +28,23 @@ declare class Expecting𝗧𝗬𝗣𝗘<TestText, Subject> {
 
     not: NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject>
 
-    to_equal<Reference>(): Compute_ToEqual<
+    equal<Reference>(): Compute_ToEqual<Subject, Reference, TestText, unknown>
+
+    resemble<Reference>(): Compute_ToResemble<
         Subject,
         Reference,
         TestText,
         unknown
     >
 
-    to_resemble<Reference>(): Compute_ToResemble<
+    subtype<Reference>(): Compute_ToSubtype<
         Subject,
         Reference,
         TestText,
         unknown
     >
 
-    to_subtype<Reference>(): Compute_ToSubtype<
-        Subject,
-        Reference,
-        TestText,
-        unknown
-    >
-
-    to_strictly_subtype<Reference>(): Compute_ToSubtype<
+    strictly_subtype<Reference>(): Compute_ToSubtype<
         Subject,
         Reference,
         1,
@@ -58,14 +53,14 @@ declare class Expecting𝗧𝗬𝗣𝗘<TestText, Subject> {
         ? Compute_ToResemble<Subject, Reference, unknown, TestText>
         : Compute_ToSubtype<Subject, Reference, TestText, unknown>
 
-    to_supertype<Reference>(): Compute_ToSupertype<
+    supertype<Reference>(): Compute_ToSupertype<
         Subject,
         Reference,
         TestText,
         unknown
     >
 
-    to_strictly_supertype<Reference>(): Compute_ToSupertype<
+    strictly_supertype<Reference>(): Compute_ToSupertype<
         Subject,
         Reference,
         1,
@@ -80,28 +75,23 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject> {
     private constructor()
     readonly not: Expecting𝗧𝗬𝗣𝗘<TestText, Subject>
 
-    to_equal<Reference>(): Compute_ToEqual<
+    equal<Reference>(): Compute_ToEqual<Subject, Reference, unknown, TestText>
+
+    resemble<Reference>(): Compute_ToResemble<
         Subject,
         Reference,
         unknown,
         TestText
     >
 
-    to_resemble<Reference>(): Compute_ToResemble<
+    subtype<Reference>(): Compute_ToSubtype<
         Subject,
         Reference,
         unknown,
         TestText
     >
 
-    to_subtype<Reference>(): Compute_ToSubtype<
-        Subject,
-        Reference,
-        unknown,
-        TestText
-    >
-
-    to_strictly_subtype<Reference>(): Compute_ToSubtype<
+    strictly_subtype<Reference>(): Compute_ToSubtype<
         Subject,
         Reference,
         1,
@@ -110,14 +100,14 @@ declare class NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject> {
         ? Compute_ToResemble<Subject, Reference, TestText, unknown>
         : Compute_ToSubtype<Subject, Reference, unknown, TestText>
 
-    to_supertype<Reference>(): Compute_ToSupertype<
+    supertype<Reference>(): Compute_ToSupertype<
         Subject,
         Reference,
         unknown,
         TestText
     >
 
-    to_strictly_supertype<Reference>(): Compute_ToSupertype<
+    strictly_supertype<Reference>(): Compute_ToSupertype<
         Subject,
         Reference,
         1,
