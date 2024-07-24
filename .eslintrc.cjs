@@ -3,6 +3,9 @@ module.exports = {
     root: true,
     extends: ["@gregros/eslint-config"],
     parserOptions: {
-        project: "src/*/tsconfig.json",
+        project: [
+            "src/lib/tsconfig.esm.json",
+            "src/test/tsconfig.json"
+        ]
     }
 };

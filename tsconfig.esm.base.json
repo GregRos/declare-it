@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
     "composite": true,
-    "module": "CommonJS",
-    "target": "es2022",
+    "module": "NodeNext",
+    "target": "ES2022",
     "lib": ["ES2022"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "moduleResolution": "NodeNext",
+    "declarationMap": true,
     "sourceMap": true,
     "noEmit": true,
+    "types": ["node"],
     "strict": true
   },
-  "files": []
+  "include": []
 }

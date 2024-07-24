@@ -1,4 +1,4 @@
-import { declare, type } from "@lib/index"
+import { declare, type } from "@lib/index.js"
 
 declare.test("{a: 1} ≡ {a: 1}", expect => {
     expect(type<{ a: 1 }>).to_equal(type<{ a: 1 }>)

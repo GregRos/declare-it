@@ -1,8 +1,8 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../../tsconfig.esm.base.json",
   "references": [
     {
-      "path": "../lib/tsconfig.json"
+      "path": "../lib/tsconfig.esm.json"
     }
   ],
   "compilerOptions": {
@@ -10,8 +10,7 @@
     "outDir": "../../dist/test",
     "tsBuildInfoFile": "../../dist/test/tsconfig.tsbuildinfo",
     "paths": {
-      "@lib/*": ["../../dist/cjs/*"],
-      "@lib": ["../../dist/cjs/index"]
+      "@lib/*": ["../../dist/esm/*"]
     }
   },
   "include": ["**/*.ts"],

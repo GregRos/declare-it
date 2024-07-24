@@ -1,4 +1,4 @@
-import { declare, type } from "@lib/index"
+import { declare, type } from "@lib/index.js"
 
 declare.test("type arg name is ignored", expect => {
     expect(type<<T>() => number>).to_equal(type<<U>() => number>)

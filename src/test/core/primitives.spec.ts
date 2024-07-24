@@ -1,4 +1,4 @@
-import { declare, type } from "@lib/index"
+import { declare, type } from "@lib/index.js"
 declare.test("true ⊂ boolean", expect => {
     expect(type<true>).to_subtype(type<boolean>)
     expect(type<true>).not.to_supertype(type<boolean>)

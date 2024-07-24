@@ -9,7 +9,8 @@ const config = {
             "ts-jest",
             {
                 tsconfig: "<rootDir>/src/test/tsconfig.json",
-                transpileOnly: true
+                transpileOnly: true,
+                useESM: true
             }
         ]
     },
@@ -17,11 +18,11 @@ const config = {
     testMatch: ["<rootDir>/src/test/**/*.spec.ts"],
     // Should be set via --coverage option
     collectCoverage: false,
+    extensionsToTreatAsEsm: [".ts"],
     collectCoverageFrom: ["<rootDir>/src/lib/**/*.ts"],
     coverageDirectory: "<rootDir>/coverage",
     moduleNameMapper: {
-        "^@lib/(.*)$": "<rootDir>/dist/cjs/$1",
-        "^@lib$": "<rootDir>/dist/cjs/index.js",
+        "^@lib/(.*)$": "<rootDir>/dist/esm/$1"
     },
 
     globals: {

@@ -1,4 +1,4 @@
-import { declare, type } from "@lib/index"
+import { declare, type } from "@lib/index.js"
 
 // This checks the validity of the negation relations.
 // So for each positive relation, we need to check the inverse errors

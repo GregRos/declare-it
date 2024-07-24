@@ -1,6 +1,6 @@
 {
   "name": "declare-it",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compile-time type assertions for TypeScript.",
   "keywords": [
     "typescript",
@@ -14,6 +14,7 @@
   "repository": "github:gregros/declare-it",
   "license": "MIT",
   "author": "GregRos",
+  "type": "module",
   "exports": {
     ".": {
       "import": {
@@ -43,14 +44,15 @@
     "watch": "tsc -b . --watch",
     "lint:fix": "prettier --write src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css} && eslint --fix src/**/*.{ts,mts,cts,js,mjs,cjs} ",
     "lint:check": "prettier --check src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css} && eslint src/**/*.{ts,mts,cts,js,mjs,cjs}",
-    "test": "run-s build && jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "tidy": "yarn && run-s build:clean lint:fix test"
   },
   "lint-staged": {
     "*.{ts,mts,cts,js,mjs,cjs}": "node_modules/.bin/eslint --cache --fix",
     "src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}": "node_modules/.bin/prettier --write"
   },
   "dependencies": {
-    "what-the-test": "^0.1.0"
+    "what-the-test": "^0.1.2"
   },
   "devDependencies": {
     "@gregros/eslint-config": "^0.6.0",
