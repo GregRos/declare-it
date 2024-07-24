@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { declare, type } from "@lib/index.js"
 
 declare.test("type arg name is ignored", expect => {

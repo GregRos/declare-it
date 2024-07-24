@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { declare, type } from "@lib/index.js"
 
 declare.test("{a: 1} ≡ {a: 1}", expect => {
