@@ -1,6 +1,6 @@
 export type Txt = {
     at: `𝗔𝗧`
-    close: ""
+    closer: "❯"
     not_exactly: `❯ 𝗻𝗼𝘁 𝗲𝘅𝗮𝗰𝘁𝗹𝘆 ❮`
     // does not subtype:
     not_assignable_to: `❯ 𝗱𝗼𝗲𝘀 𝗻𝗼𝘁 𝘀𝘂𝗯𝘁𝘆𝗽𝗲 ❮`

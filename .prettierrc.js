@@ -14,6 +14,7 @@ module.exports = {
     ],
     plugins: [
         "prettier-plugin-packagejson",
-        "prettier-plugin-jsdoc"
+        "prettier-plugin-jsdoc",
+        "prettier-plugin-organize-imports"
     ]
 }

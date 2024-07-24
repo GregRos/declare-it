@@ -1,22 +1,11 @@
-import { FancyTestTitleText } from "../type-assertions/texts.js"
+/* eslint-disable no-inner-declarations */
 import { logToConsole } from "./log-test.js"
-import {
-    TestFunction,
-    RegisterTestFunction,
-    FrameworkTestFunction
-} from "./types.js"
+
+import type { TestFrameworkName } from "what-the-test"
 import { findTestFramework, getTestFramework } from "what-the-test"
-import {
-    DeclareTestError,
-    formatErrorText,
-    noTestFunction,
-    testFrameworkNotDetected,
-    unknownSetupSpecifier,
-    unknownTestFamework
-} from "./errors.js"
-import type { TestEnv, TestFrameworkName } from "what-the-test"
-import { FwWrapper } from "./fw-wrapper.js"
 import type { ExpectType } from "../type-assertions/expect_type.js"
+import { noTestFunction, unknownSetupSpecifier } from "./errors.js"
+import { FwWrapper } from "./fw-wrapper.js"
 
 export interface OutputType {
     <T>(): T
@@ -29,7 +18,32 @@ export const type: OutputType = function type<T>() {
 export const type_of = function type_of<T>(x: T) {
     return null! as () => T
 }
+function runTestGetAssertions<TestText extends string>(
+    title: TestText,
+    test: (check: ExpectType<TestText>) => void
+) {
+    if (!test) {
+        throw noTestFunction(title)
+    }
+    let count = 0
+    const countAssertion = () => void count++
+    const baseAssertions = {
+        to_equal: countAssertion,
+        to_resemble: countAssertion,
+        to_subtype: countAssertion,
+        to_supertype: countAssertion,
+        to_strictly_subtype: countAssertion,
+        to_strictly_supertype: countAssertion,
+        get not() {
+            return baseAssertions
+        }
+    }
 
+    test(t => {
+        return baseAssertions as any
+    })
+    return count
+}
 export namespace declare {
     let fwWrapper: FwWrapper | false = new FwWrapper(findTestFramework()!)
 
@@ -55,37 +69,10 @@ export namespace declare {
         }
     }
 
-    function runTestGetAssertions<TestText extends string>(
-        title: TestText,
-        test: (check: ExpectType<TestText>) => void | Promise<void>
-    ) {
-        if (!test) {
-            throw noTestFunction(title)
-        }
-        let count = 0
-        const countAssertion = () => void count++
-        const baseAssertions = {
-            to_equal: countAssertion,
-            to_resemble: countAssertion,
-            to_subtype: countAssertion,
-            to_supertype: countAssertion,
-            to_strictly_subtype: countAssertion,
-            to_strictly_supertype: countAssertion,
-            get not() {
-                return baseAssertions
-            }
-        }
-
-        test(t => {
-            return baseAssertions as any
-        })
-        return count
-    }
-
     const testFunctionInterface = {
         skip<TestText extends string>(
             title: TestText,
-            test: (check: ExpectType<TestText>) => void | Promise<void>
+            test: (check: ExpectType<TestText>) => void
         ): void {
             const assertions = runTestGetAssertions(title, test)
             if (fwWrapper) {

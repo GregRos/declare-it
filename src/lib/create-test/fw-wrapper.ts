@@ -1,5 +1,5 @@
 import type { RegisterMode, TestEnv } from "what-the-test"
-import { DeclareTestError } from "./errors"
+import { DeclareItError } from "./errors"
 
 function formatAssertionCountTitle(
     assertionCount: number,
@@ -20,7 +20,7 @@ function formatAssertionCountTitle(
 function getFuncBasedOnAssertionCount(assertionCount: number) {
     return () => {
         if (assertionCount === 0) {
-            throw new DeclareTestError("Test has no compile-time assertions!")
+            throw new DeclareItError("Test has no compile-time assertions!")
         }
     }
 }

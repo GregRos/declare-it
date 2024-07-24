@@ -1,1 +1,1 @@
-export { declare, type_of, type } from "./create-test/declare_test.js"
+export { declare, type, type_of } from "./create-test/declare_test.js"

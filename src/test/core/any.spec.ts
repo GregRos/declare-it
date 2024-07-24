@@ -1,4 +1,4 @@
-import { declare, type, type_of } from "@lib/index"
+import { declare, type } from "@lib/index"
 
 declare.test("any is only equal to any", expect => {
     expect(type<any>).to_equal(type<any>)
@@ -100,17 +100,17 @@ declare.test("5 level nested", expect => {
     expect(type<A>).not.to_supertype(type<B>)
     expect(type<A>).not.to_strictly_subtype(type<B>)
     expect(type<A>).not.to_strictly_supertype(type<B>)
-    // @ts-expect-error
+    // @ts-expect-error special check for inverse
     expect(type<B>).to_equal(type<A>)
-    // @ts-expect-error
+    // @ts-expect-error special check for inverse
     expect(type<B>).to_resemble(type<A>)
-    // @ts-expect-error
+    // @ts-expect-error special check for inverse
     expect(type<B>).to_subtype(type<A>)
-    // @ts-expect-error
+    // @ts-expect-error special check for inverse
     expect(type<B>).to_supertype(type<A>)
-    // @ts-expect-error
+    // @ts-expect-error special check for inverse
     expect(type<B>).to_strictly_subtype(type<A>)
-    // @ts-expect-error
+    // @ts-expect-error special check for inverse
     expect(type<B>).to_strictly_supertype(type<A>)
 })
 

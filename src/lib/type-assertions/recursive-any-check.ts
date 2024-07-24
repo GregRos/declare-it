@@ -1,9 +1,7 @@
 import type { Decrement } from "../operators/decrement"
 import type { IsSimplePrimitive } from "../operators/is-primitive"
-import type { IsFunction, IsAny as _IsAny } from "type-plus"
-import type { IsAny } from "./type-relations"
+import type { IsAny, IsFunction } from "./type-relations"
 
-type IsAny2<T> = _IsAny<T, 1, 0>
 type TargetDepth = 10
 export type IsRecursiveSubtypeConsideringAny<
     L,

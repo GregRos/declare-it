@@ -1,4 +1,4 @@
-import { declare, type, type_of } from "@lib/index"
+import { declare, type } from "@lib/index"
 
 declare.test(
     "parameter names don't matter: ((x: 1) => void) ≡ ((y: 1) => void)",
