@@ -26,59 +26,61 @@ type _getAnyKeys<
     >
 
 type getAnyKeys<Prefix extends string, T> = _getAnyKeys<Prefix, T>
-export type Compute_ToResemble<L, R, T, F> =
+export type Compute_ToResemble<L, R, T, F, Test = 0> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? T & [Txt["the_types"], L, R, Txt["are_both_any"]]
-            : F & [Txt["the_type"], L, Txt["is_any_unlike"], R]
+            ? T | [Test, Txt["the_types"], L, R, Txt["are_both_any"]]
+            : F | [Test, Txt["the_type"], L, Txt["is_any_unlike"], R]
         : IsAny<R> extends 1
-          ? F & [Txt["the_type"], L, Txt["is_not_any_unlike"], R]
-          : [L] | IsRecursiveSubtypeConsideringAny<L, R> extends [R] | 1
-            ? [R] | IsRecursiveSubtypeConsideringAny<R, L> extends [L] | 1
-                ? T & [Txt["the_type"], L, Txt["resembles"], R]
-                : F & [Txt["the_type"], L, Txt["not_assignable_from"], R]
-            : F & [Txt["the_type"], L, Txt["not_assignable_to"], R]
+          ? F | [Test, Txt["the_type"], L, Txt["is_not_any_unlike"], R]
+          : [L, IsRecursiveSubtypeConsideringAny<L, R>] extends [R, 1]
+            ? [R, IsRecursiveSubtypeConsideringAny<R, L>] extends [L, 1]
+                ? T | [Test, Txt["the_type"], L, Txt["resembles"], R]
+                : F | [Test, Txt["the_type"], L, Txt["not_assignable_from"], R]
+            : F | [Test, Txt["the_type"], L, Txt["not_assignable_to"], R]
 
-export type Compute_ToEqual<L, R, T, F> =
+export type Compute_ToEqual<L, R, T, F, Test = 0> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? T | [Txt["the_types"], L, R, Txt["are_both_any"]]
-            : F | [Txt["the_type"], L, Txt["is_any_unlike"], R]
+            ? T | [Test, Txt["the_types"], L, R, Txt["are_both_any"]]
+            : F | [Test, Txt["the_type"], L, Txt["is_any_unlike"], R]
         : IsAny<R> extends 1
-          ? F | [Txt["the_type"], L, Txt["is_not_any_unlike"], R]
-          : [L] extends [R]
-            ? [R] extends [L]
-                ? 1 extends Compute_StandardIdentical<L, R> &
+          ? F | [Test, Txt["the_type"], L, Txt["is_not_any_unlike"], R]
+          : [L, null] extends [R, null]
+            ? [R, null] extends [L, null]
+                ? ["Y", "Y"] extends [
+                      Compute_StandardIdentical<L, R>,
                       Compute_KeyTypeIdentical<L, R>
-                    ? T | [Txt["the_type"], L, Txt["equals"], R]
-                    : F | [Txt["the_type"], L, Txt["not_exactly"], R]
-                : F | [Txt["the_type"], L, Txt["not_assignable_from"], R]
-            : F | [Txt["the_type"], L, Txt["not_assignable_to"], R]
+                  ]
+                    ? T | [Test, Txt["the_type"], L, Txt["equals"], R]
+                    : F | [Test, Txt["the_type"], L, Txt["not_exactly"], R]
+                : F | [Test, Txt["the_type"], L, Txt["not_assignable_from"], R]
+            : F | [Test, Txt["the_type"], L, Txt["not_assignable_to"], R]
 
-export type Compute_ToSupertype<L, R, T, F> =
+export type Compute_ToSupertype<L, R, T, F, Test = 0> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? T & [Txt["the_types"], L, Txt["are_both_any"], R]
-            : F & [Txt["the_type"], L, Txt["is_any_unlike"], R]
+            ? T | [Test, Txt["the_types"], L, Txt["are_both_any"], R]
+            : F | [Test, Txt["the_type"], L, Txt["is_any_unlike"], R]
         : IsAny<R> extends 1
-          ? F & [Txt["the_type"], L, Txt["is_not_any_unlike"], R]
-          : [R] | IsRecursiveSubtypeConsideringAny<R, L> extends [L] | 1
-            ? T & [Txt["the_type"], L, Txt["assignable_from"], R]
-            : F & [Txt["the_type"], L, Txt["not_assignable_from"], R]
+          ? F | [Test, Txt["the_type"], L, Txt["is_not_any_unlike"], R]
+          : [R, IsRecursiveSubtypeConsideringAny<R, L>] extends [L, 1]
+            ? T | [Test, Txt["the_type"], L, Txt["assignable_from"], R]
+            : F | [Test, Txt["the_type"], L, Txt["not_assignable_from"], R]
 
-export type Compute_ToSubtype<L, R, T, F> =
+export type Compute_ToSubtype<L, R, T, F, Test = 0> =
     IsAny<R> extends 1
         ? IsAny<L> extends 1
-            ? [Txt["the_types"], L, R, Txt["are_both_any"]] & T
-            : [Txt["the_type"], L, Txt["is_not_any_unlike"], R] & F
+            ? [Test, Txt["the_types"], L, R, Txt["are_both_any"]] | T
+            : [Test, Txt["the_type"], L, Txt["is_not_any_unlike"], R] | F
         : IsAny<L> extends 1
-          ? [Txt["the_type"], L, Txt["is_not_any_unlike"], R] & F
-          : [L] | IsRecursiveSubtypeConsideringAny<L, R> extends [R] | 1
-            ? [Txt["the_type"], L, Txt["assignable_to"], R] & T
-            : [Txt["the_type"], L, Txt["not_assignable_to"], R] & F
+          ? [Test, Txt["the_type"], L, Txt["is_not_any_unlike"], R] | F
+          : [L, IsRecursiveSubtypeConsideringAny<L, R>] extends [R, 1]
+            ? [Test, Txt["the_type"], L, Txt["assignable_to"], R] | T
+            : [Test, Txt["the_type"], L, Txt["not_assignable_to"], R] | F
 
-export type Compute_IsAny<X, T, F> =
-    IsAny<X> extends 1 ? [X, Txt["is_any"]] & T : [X, Txt["is_not_any"]] & F
+export type Compute_IsAny<X, T, F, Test = 0> =
+    IsAny<X> extends 1 ? [X, Txt["is_any"]] & T : [X, Txt["is_not_any"]] | F
 
 export type IsAny<Subject, T = 1, F = 0> = Any extends Subject
     ? [Subject] extends [Any]
@@ -87,7 +89,7 @@ export type IsAny<Subject, T = 1, F = 0> = Any extends Subject
     : F
 export type Compute_StandardIdentical<Left, Right> =
     (<U>() => U extends Left ? 1 : 0) extends <U>() => U extends Right ? 1 : 0
-        ? 1
+        ? "Y"
         : never
 
 export type Compute_KeyTypeIdentical<Left, Right> = Compute_StandardIdentical<
@@ -100,21 +102,3 @@ export type Compute_KeyTypeIdentical<Left, Right> = Compute_StandardIdentical<
 export class Any {
     private _!: true
 }
-export type Compute_SubtypeDifference<L, R> =
-    IsAny<L> extends 1
-        ? IsAny<R> extends 1
-            ? never
-            : [L, Txt["is_not_any_unlike"], R]
-        : IsAny<R> extends 1
-          ? [L, Txt["is_not_any_unlike"], R]
-          : L extends object
-            ? R extends object
-                ? {
-                      [P in keyof R]: P extends keyof L
-                          ? Compute_SubtypeDifference<L[P], R[P]>
-                          : [Txt["expected_type"], R[P]]
-                  }
-                : [L, Txt["an_object_unlike"], R]
-            : [L] extends [R]
-              ? 1
-              : [L, Txt["not_assignable_to"], R]

@@ -101,3 +101,7 @@ declare.test(
         expect(type<readonly [1]>).to_equal(type<Readonly<Readonly<[1]>>>)
     }
 )
+
+declare.it("[1] equals [1] | [1]", expect => {
+    expect(type<[1]>).to_equal(type<[1] | [1]>)
+})

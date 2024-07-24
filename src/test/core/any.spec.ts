@@ -126,7 +126,7 @@ declare.test("two identical disj types", expect => {
     expect(type<B>).to_resemble(type<A>)
 })
 
-declare.skip("two differnt disj types", expect => {
+declare.test.skip("two differnt disj types", expect => {
     type A = { a: any } | { b: 1 }
     type B = { a: 1 } | { b: any }
     expect(type<A>).not.to_equal(type<B>)

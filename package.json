@@ -1,6 +1,6 @@
 {
-  "name": "declare-test",
-  "version": "0.1.0",
+  "name": "declare-it",
+  "version": "1.0.0",
   "description": "Compile-time type assertions for TypeScript.",
   "keywords": [
     "typescript",
@@ -11,7 +11,7 @@
     "type",
     "typing"
   ],
-  "repository": "github:gregros/declare-test",
+  "repository": "github:gregros/declare-it",
   "license": "MIT",
   "author": "GregRos",
   "exports": {
@@ -25,6 +25,12 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "typings": "dist/cjs/index",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE.md"
+  ],
   "scripts": {
     "build": "tsc -b .",
     "clean": "shx rm -rf dist",
@@ -43,9 +49,7 @@
     "what-the-test": "portal:/C:/codegr/what-the-test"
   },
   "dependencies": {
-    "hotscript": "^1.0.13",
-    "ts-essentials": "^9.4.2",
-    "type-plus": "^7.6.2"
+    "what-the-test": "0.1.0"
   },
   "devDependencies": {
     "@gregros/eslint-config": "^0.6.0",
@@ -70,8 +74,7 @@
     "shx": "^0.3.4",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.3",
-    "what-the-test": "0.1.0"
+    "typescript": "^5.4.3"
   },
   "packageManager": "yarn@4.1.1"
 }

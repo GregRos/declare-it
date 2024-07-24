@@ -2096,9 +2096,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"declare-test@workspace:.":
+"declare-it@workspace:.":
   version: 0.0.0-use.local
-  resolution: "declare-test@workspace:."
+  resolution: "declare-it@workspace:."
   dependencies:
     "@gregros/eslint-config": "npm:^0.6.0"
     "@swc/core": "npm:^1.4.11"
@@ -6435,9 +6435,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"what-the-test@portal:/C:/codegr/what-the-test::locator=declare-test%40workspace%3A.":
+"what-the-test@portal:/C:/codegr/what-the-test::locator=declare-it%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "what-the-test@portal:/C:/codegr/what-the-test::locator=declare-test%40workspace%3A."
+  resolution: "what-the-test@portal:/C:/codegr/what-the-test::locator=declare-it%40workspace%3A."
   dependencies:
     semver-try-require: "npm:^7.0.0"
   languageName: node

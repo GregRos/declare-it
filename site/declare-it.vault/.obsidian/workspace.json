@@ -13,7 +13,19 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "assertions/to_resemble.md",
+                "file": "declare-it.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "04ee350b49f3837d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "declare-it.md",
                 "mode": "source",
                 "source": false
               }
@@ -31,7 +43,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -97,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "assertions/to_resemble.md",
+                "file": "declare-it.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "assertions/to_resemble.md",
+                "file": "declare-it.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "assertions/to_resemble.md"
+                "file": "declare-it.md"
               }
             }
           }
@@ -156,41 +169,42 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false
+      "command-palette:Open command palette": false
     }
   },
-  "active": "b3ee88834392220d",
+  "active": "04ee350b49f3837d",
   "lastOpenFiles": [
-    "assertions/to_strictly_supertype.md",
-    "assertions/to_strictly_subtype.md",
-    "assertions/to_supertype.md",
-    "assertions/to_subtype.md",
-    "assertions/to_resemble.md",
+    "Pasted image 20240724164658.png",
     "the any type.md",
-    "Start.md",
+    "declare-it.md",
+    "tests.md",
+    "type inputs/type_of.md",
+    "type inputs/type input.md",
+    "type inputs/type.md",
+    "tests/declare.md",
+    "assertions/expect.md",
+    "assertions/not.to_equal.md",
+    "assertions/not.to_resemble.md",
+    "assertions/not.to_supertype.md",
+    "assertions/not.to_subtype.md",
+    "assertions/not.to_strictly_supertype.md",
+    "assertions/not.to_strictly_subtype.md",
+    "assertions/to_strictly_subtype.md",
+    "assertions/to_subtype.md",
+    "assertions/to_supertype.md",
     "assertions/to_equal.md",
-    "assertions/assertion.md",
+    "assertions/to_resemble.md",
+    "tests/expect.md",
+    "tests",
+    "assertions/to_strictly_supertype.md",
+    "type inputs",
     "resources/kilobyte (kB).svg",
     "stuff/quote style.md",
     "stuff/ASCII encoding.md",
     "tokens.md",
     "Unicode formatting.md",
-    "stuff/fractions.md",
-    "stuff/Named entities.md",
-    "stuff/spinners.md",
-    "stuff/font styles.md",
-    "stuff/durations.md",
-    "stuff/units.md",
-    "stuff/Uniformity.md",
-    "Excalidraw/Drawing 2024-06-24 14.39.18.excalidraw.md",
-    "Excalidraw/Tagged template.md",
-    "Humanize.md",
     "assertions",
     "resources",
-    "Prettyit!.md",
-    "Styles.md",
-    "Progress Bar.md",
     "Excalidraw",
     "parsing chars",
     "Parsers/parsing chars",

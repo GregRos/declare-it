@@ -16,7 +16,7 @@ import {
 } from "./errors.js"
 import type { TestEnv, TestFrameworkName } from "what-the-test"
 import { FwWrapper } from "./fw-wrapper.js"
-import type { ExpectType } from "../type-assertions/expect_type2.js"
+import type { ExpectType } from "../type-assertions/expect_type.js"
 
 export interface OutputType {
     <T>(): T
@@ -63,14 +63,43 @@ export namespace declare {
             throw noTestFunction(title)
         }
         let count = 0
-        test({
-            type: () => count++,
-            type_of: () => count++
-        } as any)
+        const countAssertion = () => void count++
+        const baseAssertions = {
+            to_equal: countAssertion,
+            to_resemble: countAssertion,
+            to_subtype: countAssertion,
+            to_supertype: countAssertion,
+            to_strictly_subtype: countAssertion,
+            to_strictly_supertype: countAssertion,
+            get not() {
+                return baseAssertions
+            }
+        }
+
+        test(t => {
+            return baseAssertions as any
+        })
         return count
     }
 
-    export function test<TestText extends string>(
+    const testFunctionInterface = {
+        skip<TestText extends string>(
+            title: TestText,
+            test: (check: ExpectType<TestText>) => void | Promise<void>
+        ): void {
+            const assertions = runTestGetAssertions(title, test)
+            if (fwWrapper) {
+                fwWrapper.skip(title, assertions)
+            }
+        },
+        todo<TestText extends string>(title: TestText): void {
+            if (fwWrapper) {
+                fwWrapper.todo(title)
+            }
+        }
+    }
+
+    function test_func<TestText extends string>(
         title: TestText,
         test: (check: ExpectType<TestText>) => void | Promise<void>
     ): void {
@@ -80,23 +109,7 @@ export namespace declare {
         }
     }
 
-    export function skip<TestText extends string>(
-        title: TestText,
-        test: (check: ExpectType<TestText>) => void | Promise<void>
-    ): void {
-        const assertions = runTestGetAssertions(title, test)
-        if (fwWrapper) {
-            fwWrapper.skip(title, assertions)
-        }
-    }
-
-    export function todo<TestText extends string>(
-        title: TestText,
-        test: (check: ExpectType<TestText>) => void | Promise<void>
-    ): void {
-        const assertions = runTestGetAssertions(title, test)
-        if (fwWrapper) {
-            fwWrapper.todo(title, assertions)
-        }
-    }
+    export const test = Object.assign(test_func, testFunctionInterface)
+    export const it = Object.assign(test_func, testFunctionInterface)
+    export const xit = testFunctionInterface.skip
 }

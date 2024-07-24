@@ -1,133 +1,145 @@
-import type { T } from "hotscript"
-import { nonRuntimeFunctionExecuted } from "../create-test/errors.js"
-import { AssertionInfo } from "../create-test/types.js"
-import type { FancyTestTitleText, Txt } from "./texts.js"
-import {
-    Compute_ToSupertype,
-    Compute_ToSubtype,
+import type { FancyTestTitleText } from "./texts"
+import type {
     Compute_ToEqual,
     Compute_ToResemble,
-    type Compute_StandardIdentical,
-    type Any,
-    type IsAny
-} from "./type-relations.js"
+    Compute_ToSubtype,
+    Compute_ToSupertype
+} from "./type-relations"
 
-export interface TypeFunc<Text extends string> {
-    <T>(): T
+export type InputType<T> = {
+    (): T
 }
 
-export interface ExpectFunc<Text extends string> {
-    <T>(type: () => T): {
-        to_equal<S>(compared: () => Compute_ToEqual<T, S, S, Text>): void
-    }
+export interface ExpectType<Test extends string> {
+    <Subject>(subjType: InputType<Subject>): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 }
 
-export declare class Asserts<TestText extends string> {
+export declare class Expecting𝗧𝗬𝗣𝗘<Test extends string, Subject> {
+    not: NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
+    to_equal<Reference>(
+        refType: Compute_ToEqual<
+            Subject,
+            Reference,
+            InputType<Reference>,
+            never,
+            FancyTestTitleText<Test>
+        >
+    ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
+
+    to_resemble<Reference>(
+        refType: Compute_ToResemble<
+            Subject,
+            Reference,
+            InputType<Reference>,
+            Test,
+            FancyTestTitleText<Test>
+        >
+    ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
+
+    to_subtype<Reference>(
+        refType: Compute_ToSubtype<
+            Subject,
+            Reference,
+            InputType<Reference>,
+            Test,
+            FancyTestTitleText<Test>
+        >
+    ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
+
+    to_supertype<Reference>(
+        refType: Compute_ToSupertype<
+            Subject,
+            Reference,
+            InputType<Reference>,
+            Test,
+            FancyTestTitleText<Test>
+        >
+    ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
+
+    to_strictly_subtype<Reference>(
+        refType: "Y" extends Compute_ToSubtype<Subject, Reference, "Y", "N">
+            ? Compute_ToResemble<
+                  Subject,
+                  Reference,
+                  Test,
+                  InputType<Reference>,
+                  FancyTestTitleText<Test>
+              >
+            : FancyTestTitleText<Test>
+    ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
+
+    to_strictly_supertype<Reference>(
+        refType: "Y" extends Compute_ToSupertype<Subject, Reference, "Y", "N">
+            ? Compute_ToResemble<
+                  Subject,
+                  Reference,
+                  Test,
+                  InputType<Reference>,
+                  FancyTestTitleText<Test>
+              >
+            : FancyTestTitleText<Test>
+    ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
+}
+
+export declare class NotExpecting𝗧𝗬𝗣𝗘<Test extends string, Subject> {
     private constructor()
-    type<Subject>(
-        f: (
-            x: Expecting𝗧𝗬𝗣𝗘<FancyTestTitleText<TestText>, Subject>
-        ) => IsAny<TestText> extends 1 ? any : FancyTestTitleText<TestText>
-    ): void
-    type_of<Subject>(
-        subject: Subject,
-        f: (
-            x: Expecting𝗧𝗬𝗣𝗘<FancyTestTitleText<TestText>, Subject>
-        ) => IsAny<TestText> extends 1 ? any : FancyTestTitleText<TestText>
-    ): void
-}
+    readonly not: Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 
-/** Provides positive type assertions for the subject type {@link Subject}. */
-export declare class Expecting𝗧𝗬𝗣𝗘<TestText, Subject> {
-    private constructor()
+    to_equal<Reference>(
+        refType: Compute_ToEqual<Subject, Reference, Test, InputType<Reference>>
+    ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
-    not: NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject>
+    to_resemble<Reference>(
+        refType: Compute_ToResemble<
+            Subject,
+            Reference,
+            Test,
+            InputType<Reference>,
+            FancyTestTitleText<Test>
+        >
+    ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
-    equal<Reference>(): Compute_ToEqual<Subject, Reference, TestText, unknown>
+    to_subtype<Reference>(
+        refType: Compute_ToSubtype<
+            Subject,
+            Reference,
+            Test,
+            InputType<Reference>,
+            FancyTestTitleText<Test>
+        >
+    ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
-    resemble<Reference>(): Compute_ToResemble<
-        Subject,
-        Reference,
-        TestText,
-        unknown
-    >
+    to_supertype<Reference>(
+        refType: Compute_ToSupertype<
+            Subject,
+            Reference,
+            Test,
+            InputType<Reference>,
+            FancyTestTitleText<Test>
+        >
+    ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
-    subtype<Reference>(): Compute_ToSubtype<
-        Subject,
-        Reference,
-        TestText,
-        unknown
-    >
+    to_strictly_subtype<Reference>(
+        refType: "Y" extends Compute_ToSubtype<Subject, Reference, "Y", "N">
+            ? Compute_ToResemble<
+                  Subject,
+                  Reference,
+                  InputType<Reference>,
+                  never,
+                  FancyTestTitleText<Test>
+              >
+            : InputType<Reference>
+    ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
-    strictly_subtype<Reference>(): Compute_ToSubtype<
-        Subject,
-        Reference,
-        1,
-        TestText
-    > extends 1
-        ? Compute_ToResemble<Subject, Reference, unknown, TestText>
-        : Compute_ToSubtype<Subject, Reference, TestText, unknown>
-
-    supertype<Reference>(): Compute_ToSupertype<
-        Subject,
-        Reference,
-        TestText,
-        unknown
-    >
-
-    strictly_supertype<Reference>(): Compute_ToSupertype<
-        Subject,
-        Reference,
-        1,
-        TestText
-    > extends 1
-        ? Compute_ToResemble<Subject, Reference, unknown, TestText>
-        : Compute_ToSupertype<Subject, Reference, TestText, unknown>
-}
-
-/** Provides negative type assertions for the subject type {@link Subject}. */
-declare class NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject> {
-    private constructor()
-    readonly not: Expecting𝗧𝗬𝗣𝗘<TestText, Subject>
-
-    equal<Reference>(): Compute_ToEqual<Subject, Reference, unknown, TestText>
-
-    resemble<Reference>(): Compute_ToResemble<
-        Subject,
-        Reference,
-        unknown,
-        TestText
-    >
-
-    subtype<Reference>(): Compute_ToSubtype<
-        Subject,
-        Reference,
-        unknown,
-        TestText
-    >
-
-    strictly_subtype<Reference>(): Compute_ToSubtype<
-        Subject,
-        Reference,
-        1,
-        0
-    > extends 1
-        ? Compute_ToResemble<Subject, Reference, TestText, unknown>
-        : Compute_ToSubtype<Subject, Reference, unknown, TestText>
-
-    supertype<Reference>(): Compute_ToSupertype<
-        Subject,
-        Reference,
-        unknown,
-        TestText
-    >
-
-    strictly_supertype<Reference>(): Compute_ToSupertype<
-        Subject,
-        Reference,
-        1,
-        0
-    > extends 1
-        ? Compute_ToResemble<Subject, Reference, TestText, unknown>
-        : Compute_ToSupertype<Subject, Reference, unknown, TestText>
+    to_strictly_supertype<Reference>(
+        refType: "Y" extends Compute_ToSupertype<Subject, Reference, "Y", "N">
+            ? Compute_ToResemble<
+                  Subject,
+                  Reference,
+                  InputType<Reference>,
+                  Test,
+                  FancyTestTitleText<Test>
+              >
+            : InputType<Reference>
+    ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 }

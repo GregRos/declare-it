@@ -41,10 +41,7 @@ export class FwWrapper {
         )
     }
 
-    todo(title: string, assertionCount: number) {
-        this.fw.test.todo(
-            formatAssertionCountTitle(assertionCount, title, "todo"),
-            getFuncBasedOnAssertionCount(assertionCount)
-        )
+    todo(title: string) {
+        this.fw.test.todo(title, () => {})
     }
 }
