@@ -5,77 +5,62 @@ import type {
     Compute_ToSupertype
 } from "./type-relations2"
 
-export type Type = <T>() => T
-export type TypeOf = <T>(x: T) => () => T
+export type InputType<T> = {
+    (): T
+}
 
 export interface ExpectType<Test extends string> {
-    <Subject>(subjType: () => Subject): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
+    <Subject>(subjType: InputType<Subject>): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 }
 
 export declare class Expecting𝗧𝗬𝗣𝗘<Test, Subject> {
     not: NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
     to_equal<Reference>(
-        refType: () => Compute_ToEqual<
-            Test,
+        refType: Compute_ToEqual<
             Subject,
             Reference,
-            Reference,
-            unknown
+            InputType<Reference>,
+            never
         >
     ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_resemble<Reference>(
-        refType: () => Compute_ToResemble<
-            Test,
+        refType: Compute_ToResemble<
             Subject,
             Reference,
-            Reference,
-            unknown
+            InputType<Reference>,
+            Test
         >
     ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_subtype<Reference>(
-        refType: () => Compute_ToSubtype<
-            Test,
+        refType: Compute_ToSubtype<
             Subject,
             Reference,
-            Reference,
-            never
+            InputType<Reference>,
+            Test
         >
     ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_supertype<Reference>(
-        refType: () => Compute_ToSupertype<
-            Test,
+        refType: Compute_ToSupertype<
             Subject,
             Reference,
-            Reference,
-            never
+            InputType<Reference>,
+            Test
         >
     ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_strictly_subtype<Reference>(
-        refType: () => Compute_ToSubtype<
-            string,
-            Subject,
-            Reference,
-            1,
-            0
-        > extends 1
-            ? Compute_ToResemble<Test, Subject, Reference, never, Reference>
-            : Compute_ToSubtype<Test, Subject, Reference, Reference, never>
+        refType: "Y" extends Compute_ToSubtype<Subject, Reference, "Y", "N">
+            ? Compute_ToResemble<Subject, Reference, Test, InputType<Reference>>
+            : Test
     ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_strictly_supertype<Reference>(
-        refType: () => Compute_ToSupertype<
-            string,
-            Subject,
-            Reference,
-            1,
-            0
-        > extends 1
-            ? Compute_ToResemble<Test, Subject, Reference, never, Reference>
-            : Compute_ToSupertype<Test, Subject, Reference, Reference, never>
+        refType: "Y" extends Compute_ToSupertype<Subject, Reference, "Y", "N">
+            ? Compute_ToResemble<Subject, Reference, Test, InputType<Reference>>
+            : Test
     ): Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 }
 
@@ -84,66 +69,50 @@ export declare class NotExpecting𝗧𝗬𝗣𝗘<Test, Subject> {
     readonly not: Expecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_equal<Reference>(
-        refType: () => Compute_ToEqual<
-            Test,
-            Subject,
-            Reference,
-            never,
-            Reference
-        >
+        refType: Compute_ToEqual<Subject, Reference, Test, InputType<Reference>>
     ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_resemble<Reference>(
-        refType: () => Compute_ToResemble<
-            Test,
+        refType: Compute_ToResemble<
             Subject,
             Reference,
-            never,
-            Reference
+            Test,
+            InputType<Reference>
         >
     ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_subtype<Reference>(
-        refType: () => Compute_ToSubtype<
-            Test,
+        refType: Compute_ToSubtype<
             Subject,
             Reference,
-            never,
-            Reference
+            Test,
+            InputType<Reference>
         >
     ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_supertype<Reference>(
-        refType: () => Compute_ToSupertype<
-            Test,
+        refType: Compute_ToSupertype<
             Subject,
             Reference,
-            never,
-            Reference
+            Test,
+            InputType<Reference>
         >
     ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_strictly_subtype<Reference>(
-        refType: () => Compute_ToSubtype<
-            string,
-            Subject,
-            Reference,
-            1,
-            0
-        > extends 1
-            ? Compute_ToResemble<Test, Subject, Reference, Reference, unknown>
-            : Reference
+        refType: "Y" extends Compute_ToSubtype<Subject, Reference, "Y", "N">
+            ? Compute_ToResemble<
+                  Subject,
+                  Reference,
+                  InputType<Reference>,
+                  never
+              >
+            : InputType<Reference>
     ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 
     to_strictly_supertype<Reference>(
-        refType: () => Compute_ToSupertype<
-            string,
-            Subject,
-            Reference,
-            1,
-            0
-        > extends 1
-            ? Compute_ToResemble<Test, Subject, Reference, Reference, never>
-            : Reference
+        refType: "Y" extends Compute_ToSupertype<Subject, Reference, "Y", "N">
+            ? Compute_ToResemble<Subject, Reference, InputType<Reference>, Test>
+            : InputType<Reference>
     ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>
 }

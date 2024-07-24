@@ -202,7 +202,6 @@ declare.test("any ⊈ never", expect => {
     expect(type<any>).not.to_subtype(type<never>)
     // @ts-expect-error inverse error check
     expect(type<any>).to_subtype(type<never>)
-
     expect(type<any>).not.to_equal(type<never>)
     // @ts-expect-error inverse error check
     expect(type<any>).to_equal(type<never>)

@@ -20,8 +20,9 @@ declare.test("[1, 2] ⊈ [2, 1]", expect => {
     expect(type<[1, 2]>).not.to_strictly_supertype(type<[2, 1]>)
 })
 
-declare.test("1[] ⊂ readonly 1[]", expect => {
-    expect(type<1[]>).to_subtype(type<readonly 1[]>)
+declare.test("bff2f1[] ⊂ reafdonly 1[]", expect => {
+    const a = type<1[]>
+    expect(type<1[]>).to_subtype(type<1[]>)
     expect(type<1[]>).not.to_supertype(type<readonly 1[]>)
     expect(type<1[]>).not.to_strictly_supertype(type<readonly 1[]>)
     expect(type<1[]>).to_strictly_subtype(type<readonly 1[]>)

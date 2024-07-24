@@ -49,21 +49,21 @@ declare.test("1 | 1 ≡ 1", expect => {
 })
 
 declare.test("null ≉ undefined", e => {
-    e.type<null>(to => to.not.equal<undefined>())
-    e.type<null>(to => to.not.resemble<undefined>())
-    e.type<null>(to => to.not.subtype<undefined>())
-    e.type<null>(to => to.not.supertype<undefined>())
-    e.type<null>(to => to.not.strictly_subtype<undefined>())
-    e.type<null>(to => to.not.strictly_supertype<undefined>())
+    e(type<null>).not.to_equal(type<undefined>)
+    e(type<null>).not.to_resemble(type<undefined>)
+    e(type<null>).not.to_subtype(type<undefined>)
+    e(type<null>).not.to_supertype(type<undefined>)
+    e(type<null>).not.to_strictly_subtype(type<undefined>)
+    e(type<null>).not.to_strictly_supertype(type<undefined>)
 })
 
 declare.test("undefined ⊂ void", e => {
-    e.type<void>(to => to.not.equal<undefined>())
-    e.type<void>(to => to.not.resemble<undefined>())
-    e.type<void>(to => to.not.subtype<undefined>())
-    e.type<void>(to => to.supertype<undefined>())
-    e.type<void>(to => to.not.strictly_subtype<undefined>())
-    e.type<void>(to => to.strictly_supertype<undefined>())
+    e(type<void>).not.to_equal(type<undefined>)
+    e(type<void>).not.to_resemble(type<undefined>)
+    e(type<void>).not.to_subtype(type<undefined>)
+    e(type<void>).to_supertype(type<undefined>)
+    e(type<void>).not.to_strictly_subtype(type<undefined>)
+    e(type<void>).to_strictly_supertype(type<undefined>)
 })
 
 declare.test("1 ≡ 1", expect => {

@@ -15,16 +15,19 @@ import {
     unknownTestFamework
 } from "./errors.js"
 import type { TestEnv, TestFrameworkName } from "what-the-test"
-import type { Type, TypeOf } from "../type-assertions/expect_type2.js"
 import { FwWrapper } from "./fw-wrapper.js"
 import type { ExpectType } from "../type-assertions/expect_type2.js"
 
-export function type<Subject>() {
-    return undefined as Subject
+export interface OutputType {
+    <T>(): T
 }
 
-export function type_of<Subject>(subject: Subject) {
-    return () => subject
+export const type: OutputType = function type<T>() {
+    return null! as T
+}
+
+export const type_of = function type_of<T>(x: T) {
+    return null! as () => T
 }
 
 export namespace declare {

@@ -74,8 +74,8 @@ declare.test("{a<T>(): 1} ≡ {a: <T>() => 1}", expect => {
 })
 
 declare.test("{1: 1} ≡ {'1': 1}", expect => {
-    type A = { 1: 1 }
-    type B = { "1": 1 }
+    type A = { 2: 2 }
+    type B = { "2": 2 }
     expect(type<A>).not.to_equal(type<B>)
     expect(type<A>).to_resemble(type<B>)
     expect(type<A>).to_subtype(type<B>)

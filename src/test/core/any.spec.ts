@@ -12,13 +12,12 @@ declare.test("any is only equal to any", expect => {
 declare.test("{a: any} ≡ {a: any}", expect => {
     type A = { a: any }
     type B = { a: any }
-    expect(type)
     expect(type<A>).to_equal(type<B>)
     expect(type<A>).to_resemble(type<B>)
     expect(type<A>).to_subtype(type<B>)
     expect(type<A>).to_supertype(type<B>)
     expect(type<A>).not.to_strictly_subtype(type<B>)
-    expect(type<A>).to_strictly_supertype(type<B>)
+    expect(type<A>).not.to_strictly_supertype(type<B>)
 })
 
 declare.test("{a: any} ⊈ {a: 1}", expect => {
