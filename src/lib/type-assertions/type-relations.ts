@@ -42,18 +42,18 @@ export type Compute_ToResemble<L, R, T, F> =
 export type Compute_ToEqual<L, R, T, F> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? T & [Txt["the_types"], L, R, Txt["are_both_any"]]
-            : F & [Txt["the_type"], L, Txt["is_any_unlike"], R]
+            ? T | [Txt["the_types"], L, R, Txt["are_both_any"]]
+            : F | [Txt["the_type"], L, Txt["is_any_unlike"], R]
         : IsAny<R> extends 1
-          ? F & [Txt["the_type"], L, Txt["is_not_any_unlike"], R]
+          ? F | [Txt["the_type"], L, Txt["is_not_any_unlike"], R]
           : [L] extends [R]
             ? [R] extends [L]
                 ? 1 extends Compute_StandardIdentical<L, R> &
                       Compute_KeyTypeIdentical<L, R>
-                    ? T & [Txt["the_type"], L, Txt["equals"], R]
-                    : F & [Txt["the_type"], L, Txt["not_exactly"], R]
-                : F & [Txt["the_type"], L, Txt["not_assignable_from"], R]
-            : F & [Txt["the_type"], L, Txt["not_assignable_to"], R]
+                    ? T | [Txt["the_type"], L, Txt["equals"], R]
+                    : F | [Txt["the_type"], L, Txt["not_exactly"], R]
+                : F | [Txt["the_type"], L, Txt["not_assignable_from"], R]
+            : F | [Txt["the_type"], L, Txt["not_assignable_to"], R]
 
 export type Compute_ToSupertype<L, R, T, F> =
     IsAny<L> extends 1

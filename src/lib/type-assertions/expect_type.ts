@@ -1,3 +1,4 @@
+import type { T } from "hotscript"
 import { nonRuntimeFunctionExecuted } from "../create-test/errors.js"
 import { AssertionInfo } from "../create-test/types.js"
 import type { FancyTestTitleText, Txt } from "./texts.js"
@@ -11,6 +12,16 @@ import {
     type IsAny
 } from "./type-relations.js"
 
+export interface TypeFunc<Text extends string> {
+    <T>(): T
+}
+
+export interface ExpectFunc<Text extends string> {
+    <T>(type: () => T): {
+        to_equal<S>(compared: () => Compute_ToEqual<T, S, S, Text>): void
+    }
+}
+
 export declare class Asserts<TestText extends string> {
     private constructor()
     type<Subject>(
@@ -19,12 +30,15 @@ export declare class Asserts<TestText extends string> {
         ) => IsAny<TestText> extends 1 ? any : FancyTestTitleText<TestText>
     ): void
     type_of<Subject>(
-        subject: Subject
-    ): (f: (x: Expecting𝗧𝗬𝗣𝗘<TestText, Subject>) => TestText) => void
+        subject: Subject,
+        f: (
+            x: Expecting𝗧𝗬𝗣𝗘<FancyTestTitleText<TestText>, Subject>
+        ) => IsAny<TestText> extends 1 ? any : FancyTestTitleText<TestText>
+    ): void
 }
 
 /** Provides positive type assertions for the subject type {@link Subject}. */
-declare class Expecting𝗧𝗬𝗣𝗘<TestText, Subject> {
+export declare class Expecting𝗧𝗬𝗣𝗘<TestText, Subject> {
     private constructor()
 
     not: NotExpecting𝗧𝗬𝗣𝗘<TestText, Subject>

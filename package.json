@@ -24,7 +24,7 @@
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "typings": "dist/lib/cjs/index",
+  "typings": "dist/cjs/index",
   "scripts": {
     "build": "tsc -b .",
     "clean": "shx rm -rf dist",

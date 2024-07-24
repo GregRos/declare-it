@@ -1,51 +1,52 @@
-import { declare } from "@lib/index"
+import { declare, type, type_of } from "@lib/index"
 
 declare.test("any is only equal to any", expect => {
-    expect.type<any>(to => to.equal<any>())
-    expect.type<any>(to => to.resemble<any>())
-    expect.type<any>(to => to.subtype<any>())
-    expect.type<any>(to => to.supertype<any>())
-    expect.type<any>(to => to.not.strictly_subtype<any>())
-    expect.type<any>(to => to.not.strictly_supertype<any>())
+    expect(type<any>).to_equal(type<any>)
+    expect(type<any>).to_resemble(type<any>)
+    expect(type<any>).to_subtype(type<any>)
+    expect(type<any>).to_supertype(type<any>)
+    expect(type<any>).not.to_strictly_subtype(type<any>)
+    expect(type<any>).not.to_strictly_supertype(type<any>)
 })
 
 declare.test("{a: any} ≡ {a: any}", expect => {
     type A = { a: any }
     type B = { a: any }
-    expect.type<A>(to => to.equal<B>())
-    expect.type<A>(to => to.resemble<B>())
-    expect.type<A>(to => to.subtype<B>())
-    expect.type<A>(to => to.supertype<B>())
-    expect.type<A>(to => to.not.strictly_subtype<B>())
-    expect.type<A>(to => to.not.strictly_supertype<B>())
+    expect(type)
+    expect(type<A>).to_equal(type<B>)
+    expect(type<A>).to_resemble(type<B>)
+    expect(type<A>).to_subtype(type<B>)
+    expect(type<A>).to_supertype(type<B>)
+    expect(type<A>).not.to_strictly_subtype(type<B>)
+    expect(type<A>).to_strictly_supertype(type<B>)
 })
 
 declare.test("{a: any} ⊈ {a: 1}", expect => {
     type A = { a: any }
     type B = { a: 1 }
-    expect.type<A>(to => to.not.equal<B>())
-    expect.type<A>(to => to.not.resemble<B>())
-    expect.type<A>(to => to.not.subtype<B>())
-    expect.type<A>(to => to.not.supertype<B>())
-    expect.type<A>(to => to.not.strictly_subtype<B>())
-    expect.type<A>(to => to.not.strictly_supertype<B>())
+    expect(type<A>).not.to_equal(type<B>)
+    expect(type<A>).not.to_resemble(type<B>)
+    expect(type<A>).not.to_subtype(type<B>)
+    expect(type<A>).not.to_supertype(type<B>)
+    expect(type<A>).not.to_strictly_subtype(type<B>)
+    expect(type<A>).not.to_strictly_supertype(type<B>)
 
-    expect.type<B>(to => to.not.equal<A>())
-    expect.type<B>(to => to.not.resemble<A>())
-    expect.type<B>(to => to.not.subtype<A>())
-    expect.type<B>(to => to.not.supertype<A>())
-    expect.type<B>(to => to.not.strictly_subtype<A>())
+    expect(type<B>).not.to_equal(type<A>)
+    expect(type<B>).not.to_resemble(type<A>)
+    expect(type<B>).not.to_subtype(type<A>)
+    expect(type<B>).not.to_supertype(type<A>)
+    expect(type<B>).not.to_strictly_subtype(type<A>)
 })
 
 declare.test("{a: any, b: any} ⊂ {a: any}", expect => {
     type A = { a: any }
     type B = { a: any; b: any }
-    expect.type<B>(to => to.subtype<A>())
-    expect.type<B>(to => to.not.supertype<A>())
-    expect.type<B>(to => to.strictly_subtype<A>())
-    expect.type<B>(to => to.not.strictly_supertype<A>())
-    expect.type<B>(to => to.not.equal<A>())
-    expect.type<B>(to => to.not.resemble<A>())
+    expect(type<B>).to_subtype(type<A>)
+    expect(type<B>).not.to_supertype(type<A>)
+    expect(type<B>).to_strictly_subtype(type<A>)
+    expect(type<B>).not.to_strictly_supertype(type<A>)
+    expect(type<B>).not.to_equal(type<A>)
+    expect(type<B>).not.to_resemble(type<A>)
 })
 
 declare.test("3 level nested", expect => {
@@ -63,12 +64,12 @@ declare.test("3 level nested", expect => {
             }
         }
     }
-    expect.type<A>(to => to.not.equal<B>())
-    expect.type<A>(to => to.not.resemble<B>())
-    expect.type<A>(to => to.not.subtype<B>())
-    expect.type<A>(to => to.not.supertype<B>())
-    expect.type<A>(to => to.not.strictly_subtype<B>())
-    expect.type<A>(to => to.not.strictly_supertype<B>())
+    expect(type<A>).not.to_equal(type<B>)
+    expect(type<A>).not.to_resemble(type<B>)
+    expect(type<A>).not.to_subtype(type<B>)
+    expect(type<A>).not.to_supertype(type<B>)
+    expect(type<A>).not.to_strictly_subtype(type<B>)
+    expect(type<A>).not.to_strictly_supertype(type<B>)
 })
 
 declare.test("5 level nested", expect => {
@@ -94,45 +95,45 @@ declare.test("5 level nested", expect => {
             }
         }
     }
-    expect.type<A>(to => to.not.equal<B>())
-    expect.type<A>(to => to.not.resemble<B>())
-    expect.type<A>(to => to.not.subtype<B>())
-    expect.type<A>(to => to.not.supertype<B>())
-    expect.type<A>(to => to.not.strictly_subtype<B>())
-    expect.type<A>(to => to.not.strictly_supertype<B>())
+    expect(type<A>).not.to_equal(type<B>)
+    expect(type<A>).not.to_resemble(type<B>)
+    expect(type<A>).not.to_subtype(type<B>)
+    expect(type<A>).not.to_supertype(type<B>)
+    expect(type<A>).not.to_strictly_subtype(type<B>)
+    expect(type<A>).not.to_strictly_supertype(type<B>)
     // @ts-expect-error
-    expect.type<B>(to => to.equal<A>())
+    expect(type<B>).to_equal(type<A>)
     // @ts-expect-error
-    expect.type<B>(to => to.resemble<A>())
+    expect(type<B>).to_resemble(type<A>)
     // @ts-expect-error
-    expect.type<B>(to => to.subtype<A>())
+    expect(type<B>).to_subtype(type<A>)
     // @ts-expect-error
-    expect.type<B>(to => to.supertype<A>())
+    expect(type<B>).to_supertype(type<A>)
     // @ts-expect-error
-    expect.type<B>(to => to.strictly_subtype<A>())
+    expect(type<B>).to_strictly_subtype(type<A>)
     // @ts-expect-error
-    expect.type<B>(to => to.strictly_supertype<A>())
+    expect(type<B>).to_strictly_supertype(type<A>)
 })
 
 declare.test("two identical disj types", expect => {
     // this caused lots of issues in the past
     type A = { a: any } | { a: 1 }
     type B = { a: 1 } | { a: any }
-    expect.type<A>(to => to.subtype<A>())
-    expect.type<B>(to => to.supertype<A>())
-    expect.type<B>(to => to.not.strictly_subtype<A>())
-    expect.type<B>(to => to.not.strictly_supertype<A>())
-    expect.type<B>(to => to.equal<A>())
-    expect.type<B>(to => to.resemble<A>())
+    expect(type<A>).to_subtype(type<A>)
+    expect(type<B>).to_supertype(type<A>)
+    expect(type<B>).not.to_strictly_subtype(type<A>)
+    expect(type<B>).not.to_strictly_supertype(type<A>)
+    expect(type<B>).to_equal(type<A>)
+    expect(type<B>).to_resemble(type<A>)
 })
 
 declare.skip("two differnt disj types", expect => {
     type A = { a: any } | { b: 1 }
     type B = { a: 1 } | { b: any }
-    expect.type<A>(to => to.not.equal<B>())
-    expect.type<A>(to => to.resemble<B>())
-    expect.type<A>(to => to.subtype<B>())
-    expect.type<A>(to => to.supertype<B>())
-    expect.type<A>(to => to.not.strictly_subtype<B>())
-    expect.type<A>(to => to.not.strictly_supertype<B>())
+    expect(type<A>).not.to_equal(type<B>)
+    expect(type<A>).to_resemble(type<B>)
+    expect(type<A>).to_subtype(type<B>)
+    expect(type<A>).to_supertype(type<B>)
+    expect(type<A>).not.to_strictly_subtype(type<B>)
+    expect(type<A>).not.to_strictly_supertype(type<B>)
 })

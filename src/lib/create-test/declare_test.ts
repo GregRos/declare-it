@@ -15,8 +15,21 @@ import {
     unknownTestFamework
 } from "./errors.js"
 import type { TestEnv, TestFrameworkName } from "what-the-test"
-import type { Asserts } from "../type-assertions/expect_type.js"
+import type {
+    ExpectType,
+    Type,
+    TypeOf
+} from "../type-assertions/expect_type2.js"
 import { FwWrapper } from "./fw-wrapper.js"
+import type { Asserts } from "../type-assertions/expect_type.js"
+
+export function type<Subject>() {
+    return undefined as Subject
+}
+
+export function type_of<Subject>(subject: Subject) {
+    return () => subject
+}
 
 export namespace declare {
     let fwWrapper: FwWrapper | false = new FwWrapper(findTestFramework()!)
@@ -60,7 +73,7 @@ export namespace declare {
 
     export function test<TestText extends string>(
         title: TestText,
-        test: (check: Asserts<TestText>) => void | Promise<void>
+        test: (check: ExpectType<TestText>) => void | Promise<void>
     ): void {
         const assertions = runTestGetAssertions(title, test)
         if (fwWrapper) {
@@ -70,7 +83,7 @@ export namespace declare {
 
     export function skip<TestText extends string>(
         title: TestText,
-        test: (check: Asserts<TestText>) => void | Promise<void>
+        test: (check: ExpectType<TestText>) => void | Promise<void>
     ): void {
         const assertions = runTestGetAssertions(title, test)
         if (fwWrapper) {
@@ -80,7 +93,7 @@ export namespace declare {
 
     export function todo<TestText extends string>(
         title: TestText,
-        test: (check: Asserts<TestText>) => void | Promise<void>
+        test: (check: ExpectType<TestText>) => void | Promise<void>
     ): void {
         const assertions = runTestGetAssertions(title, test)
         if (fwWrapper) {

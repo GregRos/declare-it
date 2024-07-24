@@ -4,7 +4,9 @@
     "outDir": "../../dist/cjs",
     "tsBuildInfoFile": "../../dist/cjs/tsconfig.tsbuildinfo",
     "rootDir": ".",
-    "noEmit": false
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true
   },
   "include": ["**/*.ts", "**/*.d.ts"],
   "exclude": ["**/node_modules"]
