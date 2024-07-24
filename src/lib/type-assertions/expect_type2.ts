@@ -88,7 +88,7 @@ export declare class NotExpecting𝗧𝗬𝗣𝗘<Test, Subject> {
             Test,
             Subject,
             Reference,
-            unknown,
+            never,
             Reference
         >
     ): NotExpecting𝗧𝗬𝗣𝗘<Test, Subject>

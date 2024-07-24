@@ -1,4 +1,4 @@
-import { declare } from "@lib/index"
+import { declare, type } from "@lib/index"
 
 // This checks the validity of the negation relations.
 // So for each positive relation, we need to check the inverse errors
@@ -14,237 +14,237 @@ import { declare } from "@lib/index"
 // 1 ⊂ unknown
 // any
 declare.test("A ⊂ B", expect => {
-    expect.type<1>(to => to.subtype<1 | 2>())
+    expect(type<1>).to_subtype(type<1 | 2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.not.subtype<1 | 2>())
+    expect(type<1>).not.to_subtype(type<1 | 2>)
 
-    expect.type<1>(to => to.not.equal<1 | 2>())
+    expect(type<1>).not.to_equal(type<1 | 2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.equal<1 | 2>())
+    expect(type<1>).to_equal(type<1 | 2>)
 
-    expect.type<1>(to => to.not.supertype<1 | 2>())
+    expect(type<1>).not.to_supertype(type<1 | 2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.supertype<1 | 2>())
+    expect(type<1>).to_supertype(type<1 | 2>)
 
-    expect.type<1>(to => to.strictly_subtype<1 | 2>())
+    expect(type<1>).to_strictly_subtype(type<1 | 2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.not.strictly_subtype<1 | 2>())
+    expect(type<1>).not.to_strictly_subtype(type<1 | 2>)
 
-    expect.type<1>(to => to.not.strictly_supertype<1 | 2>())
+    expect(type<1>).not.to_strictly_supertype(type<1 | 2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.strictly_supertype<1 | 2>())
+    expect(type<1>).to_strictly_supertype(type<1 | 2>)
 
-    expect.type<1>(to => to.not.resemble<1 | 2>())
+    expect(type<1>).not.to_resemble(type<1 | 2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.resemble<1 | 2>())
+    expect(type<1>).to_resemble(type<1 | 2>)
 })
 
 // Now check the reverse:
 declare.test("B ⊃ A", expect => {
-    expect.type<1 | 2>(to => to.not.subtype<1>())
+    expect(type<1 | 2>).not.to_subtype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1 | 2>(to => to.subtype<1>())
+    expect(type<1 | 2>).to_subtype(type<1>)
 
-    expect.type<1 | 2>(to => to.not.equal<1>())
+    expect(type<1 | 2>).not.to_equal(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1 | 2>(to => to.equal<1>())
+    expect(type<1 | 2>).to_equal(type<1>)
 
-    expect.type<1 | 2>(to => to.supertype<1>())
+    expect(type<1 | 2>).to_supertype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1 | 2>(to => to.not.supertype<1>())
+    expect(type<1 | 2>).not.to_supertype(type<1>)
 
-    expect.type<1 | 2>(to => to.not.strictly_subtype<1>())
+    expect(type<1 | 2>).not.to_strictly_subtype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1 | 2>(to => to.strictly_subtype<1>())
+    expect(type<1 | 2>).to_strictly_subtype(type<1>)
 
-    expect.type<1 | 2>(to => to.strictly_supertype<1>())
+    expect(type<1 | 2>).to_strictly_supertype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1 | 2>(to => to.not.strictly_supertype<1>())
+    expect(type<1 | 2>).not.to_strictly_supertype(type<1>)
 
-    expect.type<1 | 2>(to => to.not.resemble<1>())
+    expect(type<1 | 2>).not.to_resemble(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1 | 2>(to => to.resemble<1>())
+    expect(type<1 | 2>).to_resemble(type<1>)
 })
 
 declare.test("A ∩ B = ∅", expect => {
-    expect.type<1>(to => to.not.subtype<2>())
+    expect(type<1>).not.to_subtype(type<2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.subtype<2>())
+    expect(type<1>).to_subtype(type<2>)
 
-    expect.type<1>(to => to.not.equal<2>())
+    expect(type<1>).not.to_equal(type<2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.equal<2>())
+    expect(type<1>).to_equal(type<2>)
 
-    expect.type<1>(to => to.not.supertype<2>())
+    expect(type<1>).not.to_supertype(type<2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.supertype<2>())
+    expect(type<1>).to_supertype(type<2>)
 
-    expect.type<1>(to => to.not.strictly_subtype<2>())
+    expect(type<1>).not.to_strictly_subtype(type<2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.strictly_subtype<2>())
+    expect(type<1>).to_strictly_subtype(type<2>)
 
-    expect.type<1>(to => to.not.strictly_supertype<2>())
+    expect(type<1>).not.to_strictly_supertype(type<2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.strictly_supertype<2>())
+    expect(type<1>).to_strictly_supertype(type<2>)
 
-    expect.type<1>(to => to.not.resemble<2>())
+    expect(type<1>).not.to_resemble(type<2>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.resemble<2>())
+    expect(type<1>).to_resemble(type<2>)
 })
 
 declare.test("A ≡ B", expect => {
-    expect.type<1>(to => to.equal<1>())
+    expect(type<1>).to_equal(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.not.equal<1>())
+    expect(type<1>).not.to_equal(type<1>)
 
-    expect.type<1>(to => to.resemble<1>())
+    expect(type<1>).to_resemble(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.not.resemble<1>())
+    expect(type<1>).not.to_resemble(type<1>)
 
-    expect.type<1>(to => to.subtype<1>())
+    expect(type<1>).to_subtype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.not.subtype<1>())
+    expect(type<1>).not.to_subtype(type<1>)
 
-    expect.type<1>(to => to.supertype<1>())
+    expect(type<1>).to_supertype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.not.supertype<1>())
+    expect(type<1>).not.to_supertype(type<1>)
 
-    expect.type<1>(to => to.not.strictly_subtype<1>())
+    expect(type<1>).not.to_strictly_subtype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.strictly_subtype<1>())
+    expect(type<1>).to_strictly_subtype(type<1>)
 
-    expect.type<1>(to => to.not.strictly_supertype<1>())
+    expect(type<1>).not.to_strictly_supertype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.strictly_supertype<1>())
+    expect(type<1>).to_strictly_supertype(type<1>)
 })
 
 declare.test("A ≈ B ∧ A ≢ B ∧ A ⊂ B", expect => {
     type A = { a: 1 }
     type B = { readonly a: 1 }
-    expect.type<A>(to => to.resemble<B>())
+    expect(type<A>).to_resemble(type<B>)
     // @ts-expect-error inverse error check
-    expect.type<A>(to => to.not.resemble<B>())
+    expect(type<A>).not.to_resemble(type<B>)
 
-    expect.type<A>(to => to.not.equal<B>())
+    expect(type<A>).not.to_equal(type<B>)
     // @ts-expect-error inverse error check
-    expect.type<A>(to => to.equal<B>())
+    expect(type<A>).to_equal(type<B>)
 
-    expect.type<A>(to => to.subtype<B>())
+    expect(type<A>).to_subtype(type<B>)
     // @ts-expect-error inverse error check
-    expect.type<A>(to => to.not.subtype<B>())
+    expect(type<A>).not.to_subtype(type<B>)
 
-    expect.type<A>(to => to.supertype<B>())
+    expect(type<A>).to_supertype(type<B>)
     // @ts-expect-error inverse error check
-    expect.type<A>(to => to.not.supertype<B>())
+    expect(type<A>).not.to_supertype(type<B>)
 
-    expect.type<A>(to => to.not.strictly_subtype<B>())
+    expect(type<A>).not.to_strictly_subtype(type<B>)
     // @ts-expect-error inverse error check
-    expect.type<A>(to => to.strictly_subtype<B>())
+    expect(type<A>).to_strictly_subtype(type<B>)
 
-    expect.type<A>(to => to.not.strictly_supertype<B>())
+    expect(type<A>).not.to_strictly_supertype(type<B>)
     // @ts-expect-error inverse error check
-    expect.type<A>(to => to.strictly_supertype<B>())
+    expect(type<A>).to_strictly_supertype(type<B>)
 })
 
 declare.test("never ⊂ 1", expect => {
-    expect.type<never>(to => to.subtype<1>())
+    expect(type<never>).to_subtype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<never>(to => to.not.subtype<1>())
+    expect(type<never>).not.to_subtype(type<1>)
 
-    expect.type<never>(to => to.not.equal<1>())
+    expect(type<never>).not.to_equal(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<never>(to => to.equal<1>())
+    expect(type<never>).to_equal(type<1>)
 
-    expect.type<never>(to => to.not.supertype<1>())
+    expect(type<never>).not.to_supertype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<never>(to => to.supertype<1>())
+    expect(type<never>).to_supertype(type<1>)
 
-    expect.type<never>(to => to.strictly_subtype<1>())
+    expect(type<never>).to_strictly_subtype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<never>(to => to.not.strictly_subtype<1>())
+    expect(type<never>).not.to_strictly_subtype(type<1>)
 
-    expect.type<never>(to => to.not.strictly_supertype<1>())
+    expect(type<never>).not.to_strictly_supertype(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<never>(to => to.strictly_supertype<1>())
+    expect(type<never>).to_strictly_supertype(type<1>)
 
-    expect.type<never>(to => to.not.resemble<1>())
+    expect(type<never>).not.to_resemble(type<1>)
     // @ts-expect-error inverse error check
-    expect.type<never>(to => to.resemble<1>())
+    expect(type<never>).to_resemble(type<1>)
 })
 
 declare.test("1 ⊂ unknown", expect => {
-    expect.type<1>(to => to.subtype<unknown>())
+    expect(type<1>).to_subtype(type<unknown>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.not.subtype<unknown>())
+    expect(type<1>).not.to_subtype(type<unknown>)
 
-    expect.type<1>(to => to.not.equal<unknown>())
+    expect(type<1>).not.to_equal(type<unknown>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.equal<unknown>())
+    expect(type<1>).to_equal(type<unknown>)
 
-    expect.type<1>(to => to.not.supertype<unknown>())
+    expect(type<1>).not.to_supertype(type<unknown>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.supertype<unknown>())
+    expect(type<1>).to_supertype(type<unknown>)
 
-    expect.type<1>(to => to.strictly_subtype<unknown>())
+    expect(type<1>).to_strictly_subtype(type<unknown>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.not.strictly_subtype<unknown>())
+    expect(type<1>).not.to_strictly_subtype(type<unknown>)
 
-    expect.type<1>(to => to.not.strictly_supertype<unknown>())
+    expect(type<1>).not.to_strictly_supertype(type<unknown>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.strictly_supertype<unknown>())
+    expect(type<1>).to_strictly_supertype(type<unknown>)
 
-    expect.type<1>(to => to.not.resemble<unknown>())
+    expect(type<1>).not.to_resemble(type<unknown>)
     // @ts-expect-error inverse error check
-    expect.type<1>(to => to.resemble<unknown>())
+    expect(type<1>).to_resemble(type<unknown>)
 })
 
 declare.test("any ⊈ never", expect => {
-    expect.type<any>(to => to.not.subtype<never>())
+    expect(type<any>).not.to_subtype(type<never>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.subtype<never>())
+    expect(type<any>).to_subtype(type<never>)
 
-    expect.type<any>(to => to.not.equal<never>())
+    expect(type<any>).not.to_equal(type<never>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.equal<never>())
+    expect(type<any>).to_equal(type<never>)
 
-    expect.type<any>(to => to.not.supertype<never>())
+    expect(type<any>).not.to_supertype(type<never>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.supertype<never>())
+    expect(type<any>).to_supertype(type<never>)
 
-    expect.type<any>(to => to.not.strictly_subtype<never>())
+    expect(type<any>).not.to_strictly_subtype(type<never>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.strictly_subtype<never>())
+    expect(type<any>).to_strictly_subtype(type<never>)
 
-    expect.type<any>(to => to.not.strictly_supertype<never>())
+    expect(type<any>).not.to_strictly_supertype(type<never>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.strictly_supertype<never>())
+    expect(type<any>).to_strictly_supertype(type<never>)
 
-    expect.type<any>(to => to.not.resemble<never>())
+    expect(type<any>).not.to_resemble(type<never>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.resemble<never>())
+    expect(type<any>).to_resemble(type<never>)
 })
 
 declare.test("any ≉ any", expect => {
-    expect.type<any>(to => to.equal<any>())
+    expect(type<any>).to_equal(type<any>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.not.equal<any>())
-    expect.type<any>(to => to.resemble<any>())
+    expect(type<any>).not.to_equal(type<any>)
+    expect(type<any>).to_resemble(type<any>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.not.resemble<any>())
+    expect(type<any>).not.to_resemble(type<any>)
 
-    expect.type<any>(to => to.subtype<any>())
+    expect(type<any>).to_subtype(type<any>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.not.subtype<any>())
+    expect(type<any>).not.to_subtype(type<any>)
 
-    expect.type<any>(to => to.supertype<any>())
+    expect(type<any>).to_supertype(type<any>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.not.supertype<any>())
+    expect(type<any>).not.to_supertype(type<any>)
 
-    expect.type<any>(to => to.not.strictly_subtype<any>())
+    expect(type<any>).not.to_strictly_subtype(type<any>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.strictly_subtype<any>())
+    expect(type<any>).to_strictly_subtype(type<any>)
 
-    expect.type<any>(to => to.not.strictly_supertype<any>())
+    expect(type<any>).not.to_strictly_supertype(type<any>)
     // @ts-expect-error inverse error check
-    expect.type<any>(to => to.strictly_supertype<any>())
+    expect(type<any>).to_strictly_supertype(type<any>)
 })

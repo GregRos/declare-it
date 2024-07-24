@@ -15,13 +15,9 @@ import {
     unknownTestFamework
 } from "./errors.js"
 import type { TestEnv, TestFrameworkName } from "what-the-test"
-import type {
-    ExpectType,
-    Type,
-    TypeOf
-} from "../type-assertions/expect_type2.js"
+import type { Type, TypeOf } from "../type-assertions/expect_type2.js"
 import { FwWrapper } from "./fw-wrapper.js"
-import type { Asserts } from "../type-assertions/expect_type.js"
+import type { ExpectType } from "../type-assertions/expect_type2.js"
 
 export function type<Subject>() {
     return undefined as Subject
@@ -58,7 +54,7 @@ export namespace declare {
 
     function runTestGetAssertions<TestText extends string>(
         title: TestText,
-        test: (check: Asserts<TestText>) => void | Promise<void>
+        test: (check: ExpectType<TestText>) => void | Promise<void>
     ) {
         if (!test) {
             throw noTestFunction(title)
