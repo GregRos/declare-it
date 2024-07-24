@@ -45,7 +45,7 @@
     "lint:fix": "prettier --write src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css} && eslint --fix src/**/*.{ts,mts,cts,js,mjs,cjs} ",
     "lint:check": "prettier --check src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css} && eslint src/**/*.{ts,mts,cts,js,mjs,cjs}",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "tidy": "yarn && run-s build:clean lint:fix test"
+    "tidy": "yarn install && run-s build:clean lint:fix test"
   },
   "lint-staged": {
     "*.{ts,mts,cts,js,mjs,cjs}": "node_modules/.bin/eslint --cache --fix",
@@ -76,5 +76,5 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.3.1"
 }
