@@ -53,7 +53,7 @@ To read this, ignore the first type. The message is encoded into the second type
 - `to_strictly_supertype`
 
 You can mark a test to be skipped using:
-
+ 
 ```ts
 declare.it.skip("my skipped test", expect => {
     expect(type<5>).to_equal(type<6>)
