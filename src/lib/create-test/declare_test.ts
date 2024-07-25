@@ -25,24 +25,6 @@ function runTestGetAssertions<TestText extends string>(
     if (!test) {
         throw noTestFunction(title)
     }
-    let count = 0
-    const countAssertion = () => void count++
-    const baseAssertions = {
-        to_equal: countAssertion,
-        to_resemble: countAssertion,
-        to_subtype: countAssertion,
-        to_supertype: countAssertion,
-        to_strictly_subtype: countAssertion,
-        to_strictly_supertype: countAssertion,
-        get not() {
-            return baseAssertions
-        }
-    }
-
-    test(t => {
-        return baseAssertions as any
-    })
-    return count
 }
 export namespace declare {
     let fwWrapper: FwWrapper | false = new FwWrapper(findTestFramework()!)
@@ -74,9 +56,8 @@ export namespace declare {
             title: TestText,
             test: (check: ExpectType<TestText>) => void
         ): void {
-            const assertions = runTestGetAssertions(title, test)
             if (fwWrapper) {
-                fwWrapper.skip(title, assertions)
+                fwWrapper.skip(title)
             }
         },
         todo<TestText extends string>(title: TestText): void {
@@ -90,9 +71,8 @@ export namespace declare {
         title: TestText,
         test: (check: ExpectType<TestText>) => void | Promise<void>
     ): void {
-        const assertions = runTestGetAssertions(title, test)
         if (fwWrapper) {
-            fwWrapper.test(title, assertions)
+            fwWrapper.test(title)
         }
     }
 

@@ -1,43 +1,23 @@
 import type { RegisterMode, TestEnv } from "what-the-test"
-import { DeclareItError } from "./errors"
 
-function formatAssertionCountTitle(
-    assertionCount: number,
-    title: string,
-    mode: RegisterMode
-) {
-    const symbolBasedOnMode =
-        mode === "pass"
-            ? "✔"
-            : mode === "skip"
-              ? "❓"
-              : mode === "todo"
-                ? "✏️"
-                : "❌"
-    return `💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧 (${assertionCount.toString().padStart(2, " ")}×${symbolBasedOnMode} ): ${title}`
+function formatAssertionCountTitle(title: string, mode: RegisterMode) {
+    return `💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: ${title}`
 }
 
-function getFuncBasedOnAssertionCount(assertionCount: number) {
-    return () => {
-        if (assertionCount === 0) {
-            throw new DeclareItError("Test has no compile-time assertions!")
-        }
-    }
+function getTestFunc() {
+    return () => {}
 }
 export class FwWrapper {
     constructor(readonly fw: TestEnv) {}
 
-    test(title: string, assertionCount: number) {
-        this.fw.test(
-            formatAssertionCountTitle(assertionCount, title, "pass"),
-            getFuncBasedOnAssertionCount(assertionCount)
-        )
+    test(title: string) {
+        this.fw.test(formatAssertionCountTitle(title, "pass"), getTestFunc())
     }
 
-    skip(title: string, assertionCount: number) {
+    skip(title: string) {
         this.fw.test.skip(
-            formatAssertionCountTitle(assertionCount, title, "skip"),
-            getFuncBasedOnAssertionCount(assertionCount)
+            formatAssertionCountTitle(title, "skip"),
+            getTestFunc()
         )
     }
 

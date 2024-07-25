@@ -1,5 +1,6 @@
 export type Txt = {
     at: `𝗔𝗧`
+    opener: "❌"
     closer: "❯"
     not_exactly: `❯ 𝗻𝗼𝘁 𝗲𝘅𝗮𝗰𝘁𝗹𝘆 ❮`
     // does not subtype:
@@ -19,8 +20,8 @@ export type Txt = {
     is_any: `❯ 𝗲𝗾𝘂𝗮𝗹𝘀 𝒂𝒏𝒚`
     is_not_any: `❯ 𝗱𝗼𝗲𝘀 𝗻𝗼𝘁 𝗲𝗾𝘂𝗮𝗹 𝒂𝒏𝒚`
     // lower case:
-    the_type: `𝘁𝗵𝗲 𝘁𝘆𝗽𝗲 ❮`
-    the_types: `𝘁𝗵𝗲 𝘁𝘆𝗽𝗲𝘀 ❮`
+    the_type: `❌ 𝘁𝗵𝗲 𝘁𝘆𝗽𝗲 ❮`
+    the_types: `❌ 𝘁𝗵𝗲 𝘁𝘆𝗽𝗲𝘀 ❮`
     TEST: `𝗧𝗘𝗦𝗧`
     an_object_unlike: "𝗔𝗡 object 𝗨𝗡𝗟𝗜𝗞𝗘"
     not_an_object_but: "𝗡𝗢𝗧 𝗔𝗡 object, 𝗕𝗨𝗧"
@@ -32,4 +33,4 @@ export type Txt = {
 export type HasPropertyUnlike<Prop extends string> = `𝗛𝗔𝗦 𝗣𝗥𝗢𝗣𝗘𝗥𝗧𝗬 '${Prop}',`
 
 export type FancyTestTitleText<T extends string> =
-    `❌ 𝗔𝗧 ${Txt["TEST"]} ⸨ ${T} ⸩`
+    `❯ 𝗔𝗧 ${Txt["TEST"]} ⸨ ${T} ⸩`
