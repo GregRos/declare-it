@@ -86,14 +86,20 @@ export declare class NOT_EXPECTING_TYPE<Test extends string, Subject> {
     readonly not: EXPECT_TYPE<Test, Subject>
 
     to_equal<Reference>(
-        refType: Compute_ToEqual<Subject, Reference, never, InputType<Reference>>
+        refType: Compute_ToEqual<
+            Subject,
+            Reference,
+            never,
+            InputType<Reference>,
+            FancyTestTitleText<Test>
+        >
     ): NOT_EXPECTING_TYPE<Test, Subject>
 
     to_resemble<Reference>(
         refType: Compute_ToResemble<
             Subject,
             Reference,
-            Test,
+            never,
             InputType<Reference>,
             FancyTestTitleText<Test>
         >
@@ -103,7 +109,7 @@ export declare class NOT_EXPECTING_TYPE<Test extends string, Subject> {
         refType: Compute_ToSubtype<
             Subject,
             Reference,
-            Test,
+            never,
             InputType<Reference>,
             FancyTestTitleText<Test>
         >
@@ -113,7 +119,7 @@ export declare class NOT_EXPECTING_TYPE<Test extends string, Subject> {
         refType: Compute_ToSupertype<
             Subject,
             Reference,
-            Test,
+            never,
             InputType<Reference>,
             FancyTestTitleText<Test>
         >
@@ -137,7 +143,7 @@ export declare class NOT_EXPECTING_TYPE<Test extends string, Subject> {
                   Subject,
                   Reference,
                   InputType<Reference>,
-                  Test,
+                  never,
                   FancyTestTitleText<Test>
               >
             : InputType<Reference>
