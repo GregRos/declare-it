@@ -1,6 +1,6 @@
 {
   "name": "declare-it",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Compile-time type assertions for TypeScript.",
   "keywords": [
     "typescript",
@@ -11,7 +11,7 @@
     "type",
     "typing"
   ],
-  "homepage": "https://github.com/GregRos/declare-it",
+  "homepage": "https://github.com/GregRos/declare-it#readme",
   "repository": "github:gregros/declare-it",
   "license": "MIT",
   "author": "GregRos",
