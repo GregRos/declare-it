@@ -86,7 +86,7 @@ export declare class NOT_EXPECTING_TYPE<Test extends string, Subject> {
     readonly not: EXPECT_TYPE<Test, Subject>
 
     to_equal<Reference>(
-        refType: Compute_ToEqual<Subject, Reference, Test, InputType<Reference>>
+        refType: Compute_ToEqual<Subject, Reference, never, InputType<Reference>>
     ): NOT_EXPECTING_TYPE<Test, Subject>
 
     to_resemble<Reference>(

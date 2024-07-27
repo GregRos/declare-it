@@ -1,5 +1,5 @@
 ]$$L\approx R$$
-This is the **mutual assignability** relation, with special handling for [[the any type]].
+This is the **mutual assignability** relation, with special handling for [[any type]].
 
 Two types `L`, `R` are said to *resemble* each other if one can be assigned to the other and vice versa. That is, the following code must compile:
 ```ts

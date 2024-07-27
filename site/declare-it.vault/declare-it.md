@@ -18,7 +18,7 @@ yarn add declare-it
 
 - 📃 Registers tests with runtime framework or prints them.
 
-- Handles [[the any type]] in many situations.
+- 👻 Handles even the dreaded [[any type]], even in nested situations.
 # Example
 Here is how using [[declare-it]] looks like:
 

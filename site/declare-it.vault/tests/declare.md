@@ -24,7 +24,7 @@ declare.it("type of expression 1 is number", expect => {
 # declare.it.skip
 Skips the test case. This causes the compile-time test to always pass, while the runtime test will be added as skipped using functions like `it.skip`, `xit`, and so on.
 
-Here is how it can be used. The following is also one of the test cases that involve [[the any type]] but fail all the checks. 
+Here is how it can be used. The following is also one of the test cases that involve [[any type]] but fail all the checks. 
 
 ```ts
 declare.it.skip("any is the devil", expect => {

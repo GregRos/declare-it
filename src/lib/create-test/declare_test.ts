@@ -27,7 +27,7 @@ function runTestGetAssertions<TestText extends string>(
     }
 }
 export namespace declare {
-    let fwWrapper: FwWrapper | false = new FwWrapper(findTestFramework()!)
+    let fwWrapper: any = new FwWrapper(findTestFramework()!)
 
     export function setup(mode: false): void
     export function setup(mode: TestFrameworkName | "console" | "auto"): void

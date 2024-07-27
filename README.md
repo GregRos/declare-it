@@ -1,13 +1,7 @@
----
-prettier-format: "true"
----
-
-# declare-test
-
-[![Node.js CI](https://github.com/GregRos/declare-test/actions/workflows/push.yaml/badge.svg)](https://github.com/GregRos/declare-test/actions/workflows/main.yaml)
-[![npm](https://img.shields.io/npm/v/declare-it)](https://www.npmjs.com/package/declare-it)
-
 # declare-it
+
+[![Node.js CI](https://github.com/GregRos/declare-it/actions/workflows/push.yaml/badge.svg)](https://github.com/GregRos/declare-it/actions/workflows/push.yaml)
+[![npm](https://img.shields.io/npm/v/declare-it)](https://www.npmjs.com/package/declare-it)
 
 `declare-it` is a TypeScript library for writing compile-time tests for your type declarations.
 
