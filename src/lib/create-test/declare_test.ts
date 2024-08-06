@@ -4,7 +4,7 @@ import { logToConsole } from "./log-test.js"
 import type { TestFrameworkName } from "what-the-test"
 import { findTestFramework, getTestFramework } from "what-the-test"
 import type { ExpectType } from "../type-assertions/expect_type.js"
-import { noTestFunction, unknownSetupSpecifier } from "./errors.js"
+import { unknownSetupSpecifier } from "./errors.js"
 import { FwWrapper } from "./fw-wrapper.js"
 
 export interface OutputType {
@@ -18,14 +18,7 @@ export const type: OutputType = function type<T>() {
 export const type_of = function type_of<T>(x: T) {
     return null! as () => T
 }
-function runTestGetAssertions<TestText extends string>(
-    title: TestText,
-    test: (check: ExpectType<TestText>) => void
-) {
-    if (!test) {
-        throw noTestFunction(title)
-    }
-}
+
 export namespace declare {
     let fwWrapper: any = new FwWrapper(findTestFramework()!)
 

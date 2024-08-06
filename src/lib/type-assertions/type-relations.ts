@@ -49,16 +49,18 @@ export type Compute_ToSupertype<L, R, T, F, Test = 0> =
 export type Compute_ToSubtype<L, R, T, F, Test = 0> =
     IsAny<R> extends 1
         ? IsAny<L> extends 1
-            ? [Txt["the_types"], L, R, Txt["are_both_any"]] | T
-            : [Txt["the_type"], L, Txt["is_not_any_unlike"], R] | F
+            ? [Txt["the_types"], L, R, Txt["are_both_any"], Test] | T
+            : [Txt["the_type"], L, Txt["is_not_any_unlike"], R, Test] | F
         : IsAny<L> extends 1
-          ? [Txt["the_type"], L, Txt["is_not_any_unlike"], R] | F
+          ? [Txt["the_type"], L, Txt["is_not_any_unlike"], R, Test] | F
           : [L, IsRecursiveSubtypeConsideringAny<L, R>] extends [R, 1]
-            ? [Txt["the_type"], L, Txt["assignable_to"], R] | T
-            : [Txt["the_type"], L, Txt["not_assignable_to"], R] | F
+            ? [Txt["the_type"], L, Txt["assignable_to"], R, Test] | T
+            : [Txt["the_type"], L, Txt["not_assignable_to"], R, Test] | F
 
 export type Compute_IsAny<X, T, F, Test = 0> =
-    IsAny<X> extends 1 ? [X, Txt["is_any"]] & T : [X, Txt["is_not_any"]] | F
+    IsAny<X> extends 1
+        ? [X, Txt["is_any"], Test] & T
+        : [X, Txt["is_not_any"], Test] | F
 
 export type IsAny<Subject, T = 1, F = 0> = Any extends Subject
     ? [Subject] extends [Any]

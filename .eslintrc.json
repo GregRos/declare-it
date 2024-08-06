@@ -1,0 +1,14 @@
+{
+  "root": true,
+  // Let's not use @typescript-eslint because it's a bit too strict.
+  // eslint:recommended is good though.
+  "extends": ["@gregros/eslint-config"],
+  "parserOptions": {
+    "project": ["src/lib/tsconfig.esm.json", "src/test/tsconfig.json"],
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "rules": {
+    "@typescript-eslint/no-namespace": "off"
+  }
+}
