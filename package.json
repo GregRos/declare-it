@@ -1,19 +1,23 @@
 {
   "name": "declare-it",
-  "version": "2.0.4",
-  "description": "Compile-time test framework for TypeScript. Integrates with your favorite test runner.",
+  "version": "2.1.0",
+  "description": "Compile-time type test framework that integrates with your favorite test runner.",
   "keywords": [
     "typescript",
+    "typings",
+    "type-check",
+    "type-test",
+    "test",
+    "tdd",
+    "unit",
+    "assert",
+    "expect-type",
+    "ts-expect",
     "jest",
     "ava",
     "jasmine",
     "mocha",
-    "types",
-    "testing",
-    "assert",
-    "expect",
-    "type",
-    "typing"
+    "expect"
   ],
   "homepage": "https://github.com/GregRos/declare-it#readme",
   "repository": "github:gregros/declare-it",
@@ -58,7 +62,7 @@
     "src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}": "node_modules/.bin/prettier --write"
   },
   "dependencies": {
-    "what-the-test": "^0.1.2"
+    "what-the-test": "^1.2.0"
   },
   "devDependencies": {
     "@gregros/eslint-config": "^0.6.0",

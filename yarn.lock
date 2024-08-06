@@ -1947,7 +1947,7 @@ __metadata:
     ts-jest: "npm:^29.1.2"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.5.4"
-    what-the-test: "npm:^0.1.2"
+    what-the-test: "npm:^1.2.0"
   languageName: unknown
   linkType: soft
 
@@ -6188,12 +6188,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"what-the-test@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "what-the-test@npm:0.1.2"
+"what-the-test@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "what-the-test@npm:1.2.0"
   dependencies:
     semver-try-require: "npm:^7.0.0"
-  checksum: 10c0/f8afeb0a0d5e9aa934ab5f80502790485cf765577b36d00937f6c32e0f591a6d209edbdcba26deb61e00eb546d34a96be6955da48e76a99ddfd27ee0ebe183d0
+  checksum: 10c0/e39076ad81850a5abff40c8e5566b9592f8b7ba3877e3dd7cc31fa75d82e488d7879b3517ca256597a3a319d9166513bb88a3bc9913a8b65c734ae094f5738ae
   languageName: node
   linkType: hard
 
