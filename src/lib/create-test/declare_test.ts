@@ -3,12 +3,14 @@ import { logToConsole } from "./log-test.js"
 
 import type { TestFrameworkName } from "what-the-test"
 import { findTestFramework, getTestFramework } from "what-the-test"
-import type { ExpectType } from "../type-assertions/expect_type.js"
+import type { ExpectFunction } from "../type-assertions/expect_type.js"
 import { unknownSetupSpecifier } from "./errors.js"
 import { FwWrapper } from "./fw-wrapper.js"
 
+/** Asdasdasd */
 export interface OutputType {
-    <T>(): T
+    <T>(): (_: never) => T
+    <T>(_: never): T
 }
 
 export const type: OutputType = function type<T>() {
@@ -24,9 +26,7 @@ export namespace declare {
 
     export function setup(mode: false): void
     export function setup(mode: TestFrameworkName | "console" | "auto"): void
-    export function setup(
-        setupValue: false | TestFrameworkName | "console" | "auto"
-    ): void {
+    export function setup(setupValue: false | TestFrameworkName | "console" | "auto"): void {
         if (!setupValue) {
             fwWrapper = false
         } else if (setupValue === "auto") {
@@ -47,7 +47,7 @@ export namespace declare {
     const testFunctionInterface = {
         skip<TestText extends string>(
             title: TestText,
-            test: (check: ExpectType<TestText>) => void
+            test: (check: ExpectFunction<TestText>) => void
         ): void {
             if (fwWrapper) {
                 fwWrapper.skip(title)
@@ -62,7 +62,7 @@ export namespace declare {
 
     function test_func<TestText extends string>(
         title: TestText,
-        test: (check: ExpectType<TestText>) => void | Promise<void>
+        test: (check: ExpectFunction<TestText>) => void | Promise<void>
     ): void {
         if (fwWrapper) {
             fwWrapper.test(title)

@@ -1,4 +1,4 @@
-import { FancyTestTitleText } from "../type-assertions/texts.js"
+import type { Txt } from "../type-assertions/messages.js"
 
 export interface AssertionInfo {
     name: string
@@ -6,15 +6,9 @@ export interface AssertionInfo {
 }
 export type TestFunction = <TestText extends string>(
     title: TestText,
-    ...assertions: [
-        FancyTestTitleText<TestText>,
-        ...FancyTestTitleText<TestText>[]
-    ]
+    ...assertions: [Txt.FancyTestTitleText<TestText>, ...Txt.FancyTestTitleText<TestText>[]]
 ) => void
 
-export type RegisterTestFunction = (
-    title: string,
-    assertionCount: number
-) => void
+export type RegisterTestFunction = (title: string, assertionCount: number) => void
 
 export type FrameworkTestFunction = (title: string, f: () => void) => void

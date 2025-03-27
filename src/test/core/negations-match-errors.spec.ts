@@ -23,7 +23,6 @@ declare.test("A ⊂ B", expect => {
     expect(type<1>).to_equal(type<1 | 2>)
 
     expect(type<1>).not.to_supertype(type<1 | 2>)
-    // @ts-expect-error inverse error check
     expect(type<1>).to_supertype(type<1 | 2>)
 
     expect(type<1>).to_strictly_subtype(type<1 | 2>)
