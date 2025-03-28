@@ -17,10 +17,6 @@ yarn add -D declare-it
 
 -   A ⊇ B — `to_supertype` — Type **A** is a supertype of **B**.
 
--   A ⊂ B — `to_strictly_subtype` — Type **A** is a subtype of **B**, but not equal to it.
-
--   A ⊃ B — `to_strictly_supertype` — Type **A** is a supertype of **B**, but not equal to it.
-
 Here is how using it looks like:
 
 ```ts

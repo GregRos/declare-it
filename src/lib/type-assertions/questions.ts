@@ -11,8 +11,7 @@ type Msg = Txt.Msg
  * Asks whether `L` is assignable to `R` and vice versa.
  *
  * - ✅ Overcomes most _common_ false positives.
- * - ✅ Based on TypeScript's loose assignability rules. Use {@link Ask_Left_EqualTo_Right} for a
- *   stricter check.
+ * - ✅ Based on TypeScript's loose assignability rules. Use {@link Ask_Left_EqualTo_Right} for a stricter check.
  * - ❗ Considers `any` to only be assignable to itself.
  * - ⚠️ **May error** on expressions with unbound type parameters.
  * - ℹ️ Produces a compile-time message explaining the result.
@@ -28,15 +27,15 @@ type Msg = Txt.Msg
 export type Ask_Left_Resembles_Right<L, R, T, F, Test extends string | 0 = 0> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? T | [Test, Msg["the_types"], L, R, Msg["are_both_any"], Msg[">>"]]
-            : F | [Test, Msg["the_type"], L, Msg["is_any_unlike"], R, Msg[">>"]]
+            ? T | [Msg["SPACE"], `${Test} ${Msg["the_types"]}`, L, R, Msg["are_both_any"], Msg[">>"]]
+            : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_any_unlike"], R, Msg[">>"]]
         : IsAny<R> extends 1
-          ? F | [Test, Msg["the_type"], L, Msg["is_not_any_unlike"], R, Msg[">>"]]
+          ? F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_not_any_unlike"], R, Msg[">>"]]
           : [L, Is_Recursive_Subtype_Considering_Any<L, R>] extends [R, 1]
             ? [R, Is_Recursive_Subtype_Considering_Any<R, L>] extends [L, 1]
-                ? T | [Test, Msg["the_type"], L, Msg["resembles"], R, Msg[">>"]]
-                : F | [Test, Msg["the_type"], L, Msg["not_assignable_from"], R, Msg[">>"]]
-            : F | [Test, Msg["the_type"], L, Msg["not_assignable_to"], R, Msg[">>"]]
+                ? T | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_resemble"], R, Msg[">>"]]
+                : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["doeS_not_supertype"], R, Msg[">>"]]
+            : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_subtype"], R, Msg[">>"]]
 
 /**
  * # L ≡ R❔
@@ -60,17 +59,17 @@ export type Ask_Left_Resembles_Right<L, R, T, F, Test extends string | 0 = 0> =
 export type Ask_Left_EqualTo_Right<L, R, T, F, Test extends string | 0 = 0> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? T | [Test, Msg["the_types"], L, R, Msg["are_both_any"], Msg[">>"]]
-            : F | [Test, Msg["the_type"], L, Msg["is_any_unlike"], R, Msg[">>"]]
+            ? T | [Msg["SPACE"], `${Test} ${Msg["the_types"]}`, L, R, Msg["are_both_any"], Msg[">>"]]
+            : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_any_unlike"], R, Msg[">>"]]
         : IsAny<R> extends 1
-          ? F | [Test, Msg["the_type"], L, Msg["is_not_any_unlike"], R, Msg[">>"]]
+          ? F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_not_any_unlike"], R, Msg[">>"]]
           : [L, null] extends [R, null]
             ? [R, null] extends [L, null]
                 ? [1, 1] extends [Are_Types_Identical<L, R>, Are_Types_Key_Identical<L, R>]
-                    ? T | [Test, Msg["the_type"], L, Msg["equals"], R, Msg[">>"]]
-                    : F | [Test, Msg["the_type"], L, Msg["not_exactly"], R, Msg[">>"]]
-                : F | [Test, Msg["the_type"], L, Msg["not_assignable_from"], R, Msg[">>"]]
-            : F | [Test, Msg["the_type"], L, Msg["not_assignable_to"], R, Msg[">>"]]
+                    ? T | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["equals"], R, Msg[">>"]]
+                    : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["not_exactly"], R, Msg[">>"]]
+                : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["doeS_not_supertype"], R, Msg[">>"]]
+            : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_subtype"], R, Msg[">>"]]
 
 /**
  * # L ⊇ R❔
@@ -93,15 +92,15 @@ export type Ask_Left_EqualTo_Right<L, R, T, F, Test extends string | 0 = 0> =
 export type Ask_Left_SupertypeOf_Right<L, R, T, F, Test extends string | 0 = 0> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
-            ? T | [Test, Msg["the_types"], L, Msg["are_both_any"], R, Msg[">>"]]
-            : F | [Test, Msg["the_type"], L, Msg["is_any_unlike"], R, Msg[">>"]]
+            ? T | [Msg["SPACE"], `${Test} ${Msg["the_types"]}`, L, Msg["are_both_any"], R, Msg[">>"]]
+            : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_any_unlike"], R, Msg[">>"]]
         : IsAny<R> extends 1
-          ? F | [Test, Msg["the_type"], L, Msg["is_not_any_unlike"], R, Msg[">>"]]
+          ? F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_not_any_unlike"], R, Msg[">>"]]
           : [R, null] extends [L, null]
             ? [R, Is_Recursive_Subtype_Considering_Any<R, L>] extends [L, 1]
-                ? T | [Test, Msg["the_type"], L, Msg["assignable_from"], R, Msg[">>"]]
-                : F | [Test, Msg["the_type"], L, Msg["not_assignable_from"], R, Msg[">>"]]
-            : F | [Test, Msg["the_type"], L, Msg["not_assignable_from"], R, Msg[">>"]]
+                ? T | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_supertype"], R, Msg[">>"]]
+                : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["doeS_not_supertype"], R, Msg[">>"]]
+            : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["doeS_not_supertype"], R, Msg[">>"]]
 /**
  * # L ⊆ R❔
  *
@@ -122,12 +121,23 @@ export type Ask_Left_SupertypeOf_Right<L, R, T, F, Test extends string | 0 = 0> 
 export type Ask_Left_SubtypeOf_Right<L, R, T, F, Test extends string | 0 = 0> =
     IsAny<R> extends 1
         ? IsAny<L> extends 1
-            ? [Test, Msg["the_types"], L, R, Msg["are_both_any"], Msg[">>"]] | T
-            : [Test, Msg["the_type"], L, Msg["is_not_any_unlike"], R, Msg[">>"]] | F
+            ? [Msg["SPACE"], `${Test} ${Msg["the_types"]}`, L, R, Msg["are_both_any"], Msg[">>"]] | T
+            : [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_not_any_unlike"], R, Msg[">>"]] | F
         : IsAny<L> extends 1
-          ? [Test, Msg["the_type"], L, Msg["is_not_any_unlike"], R, Msg[">>"]] | F
+          ? [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_not_any_unlike"], R, Msg[">>"]] | F
           : [L, null] extends [R, null]
             ? [L, Is_Recursive_Subtype_Considering_Any<L, R>] extends [R, 1]
-                ? [Test, Msg["the_type"], L, Msg["assignable_to"], R, Msg[">>"]] | T
-                : [Test, Msg["the_type"], L, Msg["not_assignable_to"], R, Msg[">>"]] | F
-            : [Test, Msg["the_type"], L, Msg["not_assignable_to"], R, Msg[">>"]] | F
+                ? [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_subtype"], R, Msg[">>"]] | T
+                : [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_subtype"], R, Msg[">>"]] | F
+            : [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_subtype"], R, Msg[">>"]] | F
+
+export type Ask_Left_Subtype_Of_Right_WithoutRecursiveCheck<L, R, T, F, Test extends string | 0 = 0> =
+    IsAny<R> extends 1
+        ? IsAny<L> extends 1
+            ? [Msg["SPACE"], `${Test} ${Msg["the_types"]}`, L, R, Msg["are_both_any"], Msg[">>"]] | T
+            : [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_not_any_unlike"], R, Msg[">>"]] | F
+        : IsAny<L> extends 1
+          ? [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["is_not_any_unlike"], R, Msg[">>"]] | F
+          : [L, null] extends [R, null]
+            ? [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_subtype"], R, Msg[">>"]] | T
+            : [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_subtype"], R, Msg[">>"]] | F
