@@ -8,12 +8,12 @@ import { unknownSetupSpecifier } from "./errors.js"
 import { FwWrapper } from "./fw-wrapper.js"
 
 /** Asdasdasd */
-export interface OutputType {
+export interface TypeSpecifier {
     <T>(): (_: never) => T
     <T>(_: never): T
 }
 
-export const type: OutputType = function type<T>() {
+export const type: TypeSpecifier = function type<T>() {
     return null! as T
 }
 
