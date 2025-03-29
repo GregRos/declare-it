@@ -1,7 +1,7 @@
 {
   "name": "declare-it",
-  "version": "3.0.2",
-  "description": "Compile-time type test framework that integrates with your favorite test runner.",
+  "version": "3.0.3",
+  "description": "Test your types with style! Plugs into your favorite test framework.",
   "keywords": [
     "typescript",
     "typings",

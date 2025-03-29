@@ -1,10 +1,9 @@
 # declare-it
 [![npm version](https://img.shields.io/npm/v/declare-it.svg)](https://www.npmjs.com/package/declare-it)
 [![npm downloads](https://img.shields.io/npm/dm/declare-it.svg)](https://www.npmjs.com/package/declare-it)
-[![Build Status](https://travis-ci.org/gregros/declare-it.svg?branch=master)](https://travis-ci.org/gregros/declare-it)
+[![GitHub Workflow Status](https://github.com/gregros/declare-it/actions/workflows/push.yaml/badge.svg)](https://github.com/gregros/declare-it/actions/workflows/push.yaml)
 
-Test your types with style, while plugging into your favorite test framework.
-
+Test your types with style! Plugs into your favorite test framework.
 ```bash
 yarn add -D declare-it
 ```
@@ -24,27 +23,25 @@ npm install --save-dev declare-it
 - 🪄 Keeps track of tests by registering them with your test framework!
 
 Here’s what it looks like:
+
 ```ts
 import {declare, type, type_of} from "declare-it"
 
 declare.it("tests basic math", expect => {
-	
-	expect( type<1> ).to_subtype( type<number> )
+    
+    expect( type<1> ).to_subtype( type<number> )
 
-	expect(
-	//  ↓ type being compared:
-		type<1> 
-		
-	).to_subtype( 
-	//  ↓ comparing against:
-		type<number> 
-	
-	// ↓ chain another assertion:
-	).and.to_subtype(
-	
-	//  ↓ infer the type of a value:
-		type_of(val)
-	)
+    expect(
+    //  ↓ type being compared:
+        type<1> 
+    ).to_subtype( 
+    //  ↓ comparing against:
+        type<number> 
+    // ↓ chain another assertion:
+    ).and.to_subtype(
+    //  ↓ infer the type of a value:
+        type_of(val)
+    )
 })
 ```
 # Declaring test cases
@@ -54,7 +51,7 @@ This is your `expect` function. It’s what you use to make assertions about typ
 
 ```ts
 declare.it("your test title", expect => {
-	expect(...).to_equal(...)
+    expect(...).to_equal(...)
 })
 ```
 
@@ -64,9 +61,9 @@ That also means these test cases can contain any code you want. They can be asyn
 
 ```ts
 declare.it("side-effects?", async expect => {
-	let x = await callSomeFunction()
-	
-	expect(type_of(x)).to_equal(type<1>)
+    let x = await callSomeFunction()
+    
+    expect(type_of(x)).to_equal(type<1>)
 })
 ```
 # Referencing types
@@ -103,7 +100,7 @@ Literals don’t have declared types, so the type you get might not be what you 
 
 ```ts
 expect( 
-	type<SomeType> 
+    type<SomeType> 
 )
 ```
 
@@ -111,9 +108,9 @@ They all start with `to_`, such as:
 ```ts
 // Inside a declare.it clause:
 expect( 
-	type<1> 
+    type<1> 
 ).to_subtype( 
-	type<number> 
+    type<number> 
 )
 ```
 
@@ -122,9 +119,9 @@ They can all be inverted by using `.not`, like this:
 ```ts
 // Inside a declare.it clause:
 expect( 
-	type<1> 
+    type<1> 
 ).not.to_subtype( 
-	type<string> 
+    type<string> 
 )
 ```
 
@@ -133,11 +130,11 @@ And you can also chain them by tacking `.and` like this:
 ```ts
 // Inside a declare.it clause:
 expect( 
-	type<1> 
+    type<1> 
 ).to_subtype( 
-	type<number> 
+    type<number> 
 ).and.to_subtype( 
-	type<unknown> 
+    type<unknown> 
 )
 ```
 
@@ -146,11 +143,11 @@ You can do both, but you’ll need to prefix every inverted assertion with `not.
 ```ts
 // Inside a declare.it clause:
 expect( 
-	type<1> 
+    type<1> 
 ).not.to_subtype(
-	type<2> 
+    type<2> 
 ).and.not.to_subtype( 
-	type<3> 
+    type<3> 
 )
 ```
 
@@ -163,29 +160,29 @@ It will only pass if you can replace one type with another *in all contexts*. An
 That means identical modifiers on properties:
 ```ts
 expect(
-	type<{a: 1}>
+    type<{a: 1}>
 ).not.to_equal(
-	type<{readonly a: 1}>
+    type<{readonly a: 1}>
 ).and.not.to_equal(
-	type<{a: 1}>
+    type<{a: 1}>
 )
 ```
 
 Identical key declarations:
 ```ts
 expect(
-	type<{1: 1}>
+    type<{1: 1}>
 ).not.to_equal(
-	type<{"1": 1}>
+    type<{"1": 1}>
 )
 ```
 
 Identical call signatures:
 ```ts
 expect(
-	type<() => 1>
+    type<() => 1>
 ).not.to_equal(
-	type< <T>() => 1 >
+    type< <T>() => 1 >
 )
 ```
 
@@ -215,9 +212,9 @@ For example, you can check your type has a specific property using:
 
 ```ts
 expect(
-	type<TestedType>
+    type<TestedType>
 ).to_subtype(
-	type< {yourKey: YourValue } >
+    type< {yourKey: YourValue } >
 )
 ```
 ## Negation
@@ -225,9 +222,9 @@ The negation is also quite useful, as it lets you make sure a type *doesn’t* h
 
 ```ts
 expect(...).not.to_subtype(
-	type<{
-		[x: string]: unknown
-	}>
+    type<{
+        [x: string]: unknown
+    }>
 )
 ```
 
@@ -235,11 +232,11 @@ You can also use it to make sure one of your methods *isn’t* callable with a s
 
 ```ts
 expect(
-	type<TestedType>
+    type<TestedType>
 ).not.to_subtype(
-	type<{
-		method(x: number): unknown
-	}>
+    type<{
+        method(x: number): unknown
+    }>
 )
 ```
 # $L \stackrel{?}{\supseteq} R$ to_supertype
@@ -259,11 +256,11 @@ Or as:
 
 ```ts
 expect(
-	type<YourType>
+    type<YourType>
 ).to_subtype(
-	type<OtherType>
+    type<OtherType>
 ).and.to_supertype(
-	type<OtherType>
+    type<OtherType>
 )
 ```
 
@@ -289,9 +286,9 @@ The negation — `not.to_resemble` — means two types aren’t the same. One wa
 
 ```ts
 expect(
-	type<X>
+    type<X>
 ).not.to_resemble(
-	type<any>
+    type<any>
 )
 ```
 # Dealing with failure
@@ -370,8 +367,8 @@ Just prefix the test case declaration with `.skip`:
 
 ```ts
 declare.it.skip(
-	"this is a skipped test, so no error", expect => {
-	expect(type<number>).to_equal(type<string>)
+    "this is a skipped test, so no error", expect => {
+    expect(type<number>).to_equal(type<string>)
 })
 ```
 
