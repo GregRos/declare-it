@@ -1,14 +1,10 @@
-**declare-it** lets you test your types, while plugging into your favorite test framework.
+# declare-it
 
-```bash
-yarn add -D declare-it
-```
+[![npm version](https://img.shields.io/npm/v/declare-it.svg)](https://www.npmjs.com/package/declare-it)
+[![npm downloads](https://img.shields.io/npm/dm/declare-it.svg)](https://www.npmjs.com/package/declare-it)
+[![Build Status](https://travis-ci.org/gregros/declare-it.svg?branch=master)](https://travis-ci.org/gregros/declare-it)
 
-```bash
-npm install --save-dev declare-it
-```
-
-# Features
+Write tests for your types!
 
 -   👷‍♂️ Write actual test cases, with titles and everything!
 -   📐 **Simple** but **incredibly accurate** type assertions
@@ -16,7 +12,7 @@ npm install --save-dev declare-it
 -   📜 Legible and distinctive compile-time errors, including the test case that failed.
 -   🪄 Keeps track of tests by registering them with your test framework!
 
-Here’s what it looks like:
+Here’s what using it looks like:
 
 ```ts
 import { declare, type, type_of } from "declare-it"
@@ -39,6 +35,16 @@ declare.it("tests basic math", expect => {
             type_of(val)
         )
 })
+```
+
+Get it now!
+
+```bash
+yarn add -D declare-it
+```
+
+```bash
+npm install --save-dev declare-it
 ```
 
 # Declaring test cases
