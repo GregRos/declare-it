@@ -4,13 +4,6 @@
 [![GitHub Workflow Status](https://github.com/gregros/declare-it/actions/workflows/push.yaml/badge.svg)](https://github.com/gregros/declare-it/actions/workflows/push.yaml)
 
 Test your types with style! Plugs into your favorite test framework.
-```bash
-yarn add -D declare-it
-```
-
-```bash
-npm install --save-dev declare-it
-```
 
 - 👷‍♂️ Write actual test cases, with titles and everything!
 
@@ -22,6 +15,8 @@ npm install --save-dev declare-it
 
 - 🪄 Keeps track of tests by registering them with your test framework!
 
+- 💁‍♀️ No plugins or configuration required!
+
 Here’s what it looks like:
 
 ```ts
@@ -30,19 +25,30 @@ import {declare, type, type_of} from "declare-it"
 declare.it("tests basic math", expect => {
     
     expect( type<1> ).to_subtype( type<number> )
-
+    const val = 1 as number
     expect(
-    //  ↓ type being compared:
+//  ↓ type being compared:
         type<1> 
+//  ↓ type assertion:
     ).to_subtype( 
-    //  ↓ comparing against:
+//  ↓ comparing against:
         type<number> 
-    // ↓ chain another assertion:
+//  ↓ chain another assertion:
     ).and.to_subtype(
-    //  ↓ infer the type of a value:
+//  ↓ infer the type of a value:
         type_of(val)
     )
 })
+```
+
+Get it now!
+
+```bash
+yarn add -D declare-it
+```
+
+```bash
+npm install --save-dev declare-it
 ```
 # Declaring test cases
 You declare test cases using the `declare.it` function, which takes a callback that has one parameter.
@@ -152,7 +158,7 @@ expect(
 ```
 
 Let’s take a look at the assertions you can make.
-## $L \stackrel{?}{\equiv} R$ to_equal  
+# to_equal [ L ≡ R ]
 This the strictest assertion **declare-it** has in its arsenal. It checks if two types are **interchangeable**. 
 
 It will only pass if you can replace one type with another *in all contexts*. Any code that compiles using one of them has to also compile with the other. 
@@ -187,7 +193,7 @@ expect(
 ```
 
 And everything else!
-## $L \stackrel{?}{\subseteq} R$ to_subtype
+# to_subtype [ L ⊆ R ]
 This assertion checks if one type $L$ is a **subtype of** another type $R$. This means:
 
 - $L$ has all of the *structure* of $R$, like members, call signatures, and so on. 
@@ -217,7 +223,7 @@ expect(
     type< {yourKey: YourValue } >
 )
 ```
-## Negation
+## Negation [ L ⊈ R ]
 The negation is also quite useful, as it lets you make sure a type *doesn’t* have some structure you don’t want, like an indexer:
 
 ```ts
@@ -239,7 +245,7 @@ expect(
     }>
 )
 ```
-# $L \stackrel{?}{\supseteq} R$ to_supertype
+# to_supertype [ L ⊇ R ]
 This assertion checks the opposite — that $L$ is a supertype of $R$. This means:
 
 - $R$ has all of the structure of $L$
@@ -247,7 +253,7 @@ This assertion checks the opposite — that $L$ is a supertype of $R$. This mean
 - You can use $R$ instead of $L$ to satisfy type constraints.
 
 It’s basically the same check as `to_subtype`, but with the operands inverted. 
-## $L \stackrel{?}{\approx} R$ to_resemble
+# to_resemble [ L ≈ R ]
 This combines the two previous assertions. It can also be written as:
 
 $$ R \subseteq L \subseteq R$$
@@ -281,7 +287,7 @@ type R_Subtypes_L = Subtype_Of<R, L>
 ```
 
 Which tells you that the right-hand type is assignable to the left-hand one. However, it’s not as strict or accurate as `to_equal`. 
-## Negation
+## Negation [ L ≉ R ]
 The negation — `not.to_resemble` — means two types aren’t the same. One way to use it is to check that a type isn’t `any`:
 
 ```ts
@@ -295,13 +301,17 @@ expect(
 Here’s what TypeScript says when an assertion fails:
 
 ```ts
-src/test/core/primitives.spec.ts:14:33 - error TS2345: Argument of type '{ (): (_: never) => number; (_: never): number; }' is not assignable to parameter of type '["                                              ", "❌ 𝗔𝗧 𝗧𝗘𝗦𝗧 “1 ⊂ number” ❱➤ 𝗧𝗛𝗘 𝗧𝗬𝗣𝗘 (", 1, ") 𝗗𝗢𝗘𝗦 𝗡𝗢𝗧 𝗦𝗨𝗣𝗘𝗥-𝗧𝗬𝗣𝗘 (", number, ")                                                    "]'.
+src/test/core/primitives.spec.ts:14:33 - error TS2345: Argument of type '{ (): (_: never) => number; 
+(_: never): number; }' is not assignable to parameter of type 
+'["                                              ", 
+"❌ 𝗔𝗧 𝗧𝗘𝗦𝗧 “1 ⊂ number” ❱➤ 𝗧𝗛𝗘 𝗧𝗬𝗣𝗘 (", 1, ") 𝗗𝗢𝗘𝗦 𝗡𝗢𝗧 𝗦𝗨𝗣𝗘𝗥-𝗧𝗬𝗣𝗘 (", number, ")                                                    "]'.
 ```
 
 It’s a failure message with some garbage at the start! Let’s take a closer look, without the unnecessary characters:
 
 ```
-❌ 𝗔𝗧 𝗧𝗘𝗦𝗧 “1 ⊂ number” ❱➤ 𝗧𝗛𝗘 𝗧𝗬𝗣𝗘 (", 1, ") 𝗗𝗢𝗘𝗦 𝗡𝗢𝗧 𝗦𝗨𝗣𝗘𝗥-𝗧𝗬𝗣𝗘 (", number, ")
+❌ 𝗔𝗧 𝗧𝗘𝗦𝗧 “1 ⊂ number” ❱➤ 
+𝗧𝗛𝗘 𝗧𝗬𝗣𝗘 (", 1, ") 𝗗𝗢𝗘𝗦 𝗡𝗢𝗧 𝗦𝗨𝗣𝗘𝗥-𝗧𝗬𝗣𝗘 (", number, ")
 ```
 
 Here we can see:
@@ -360,7 +370,7 @@ declare.setup("ava")
 // Use jest:
 declare.setup("jest")
 ```
-# # Skipping tests
+# Skipping tests
 You can skip compile-time tests in a similar way to how you might skip runtime test. 
 
 Just prefix the test case declaration with `.skip`:
