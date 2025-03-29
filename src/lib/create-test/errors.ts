@@ -3,23 +3,23 @@ export class DeclareItError extends Error {
 }
 
 export function formatErrorText(message: string) {
-    return `⛔ EXPECT_TYPE: ${message} ⛔`
+    return `⛔ DECLARE-IT: ${message} ⛔`
 }
 
 export function unknownTestFamework(name: string) {
     return new DeclareItError(
-        formatErrorText(`Unknown test framework "${name}"`)
+        formatErrorText(`Unknown test framework "${name}".`)
     )
 }
 export function testFrameworkNotDetected(name: string) {
     return new DeclareItError(
-        formatErrorText(`Test framework "${name}" not detected`)
+        formatErrorText(`Test framework "${name}" not detected.`)
     )
 }
 
 export function unknownSetupSpecifier(name: string) {
     return new DeclareItError(
-        formatErrorText(`Unknown setup specifier "${name}"`)
+        formatErrorText(`Unknown setup specifier "${name}".`)
     )
 }
 
@@ -29,7 +29,7 @@ export function testRegistrationError(message: string) {
 
 export function noTestFunction(testTitle: string) {
     return new DeclareItError(
-        formatErrorText(`No test function provided for ${testTitle}`)
+        formatErrorText(`No test function provided for ${testTitle}.`)
     )
 }
 
