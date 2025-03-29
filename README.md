@@ -3,7 +3,9 @@
 [![npm downloads](https://img.shields.io/npm/dm/declare-it.svg)](https://www.npmjs.com/package/declare-it)
 [![GitHub Workflow Status](https://github.com/gregros/declare-it/actions/workflows/push.yaml/badge.svg)](https://github.com/gregros/declare-it/actions/workflows/push.yaml)
 
-Test your types with style! Plugs into your favorite test framework.
+Test your TypeScript type declarations with style! 
+
+Plugs into your favorite runtime test framework.
 
 - 👷‍♂️ Write actual test cases, with titles and everything!
 
@@ -11,7 +13,7 @@ Test your types with style! Plugs into your favorite test framework.
 
 - 🧼 A clean and legible API, with a dash of DevEx magic.
 
-- 📜 Legible and distinctive compile-time errors, including the test case that failed.
+- 📜 Human-readable compile-time errors!
 
 - 🪄 Keeps track of tests by registering them with your test framework!
 
@@ -23,9 +25,8 @@ Here’s what it looks like:
 import {declare, type, type_of} from "declare-it"
 
 declare.it("tests basic math", expect => {
-    
     expect( type<1> ).to_subtype( type<number> )
-    const val = 1 as number
+
     expect(
 //  ↓ type being compared:
         type<1> 
