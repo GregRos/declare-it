@@ -8,7 +8,7 @@ import { Txt } from "../type-assertions/messages.js"
 import { unknownSetupSpecifier } from "./errors.js"
 import { FwWrapper } from "./fw-wrapper.js"
 
-/** A reference to a type part of a declare-it assertion. */
+/** The type of a type reference function. */
 export interface Type_Ref {
     <T>(): (_: never) => T
     <T>(_: never): T
@@ -19,9 +19,9 @@ export interface Type_Ref {
  *
  * @template T The type to reference.
  */
-export function type<T>() {
+export const type = function type<T>() {
     return null! as T
-}
+} as Type_Ref
 
 /**
  * Infers the type of a value, to be used in a type-only test.

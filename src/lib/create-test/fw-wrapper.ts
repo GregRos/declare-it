@@ -1,13 +1,6 @@
-import type { RegisterMode, TestEnv } from "what-the-test"
+import type { TestEnv } from "what-the-test"
 
-/**
- * Builds the test title for unit tests
- *
- * @param title
- * @param mode
- * @returns
- */
-function formatAssertionCountTitle(title: string, mode: RegisterMode) {
+function formatTestTitle(title: string) {
     return `💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: ${title}`
 }
 
@@ -16,19 +9,16 @@ function getTestFunc() {
     return () => {}
 }
 
-/** Appends test messsages gives test title */
+/** Registers tests with a test framework. */
 export class FwWrapper {
     constructor(readonly fw: TestEnv) {}
 
     test(title: string) {
-        this.fw.test(formatAssertionCountTitle(title, "pass"), getTestFunc())
+        this.fw.test(formatTestTitle(title), getTestFunc())
     }
 
     skip(title: string) {
-        this.fw.test.skip(
-            formatAssertionCountTitle(title, "skip"),
-            getTestFunc()
-        )
+        this.fw.test.skip(formatTestTitle(title), getTestFunc())
     }
 
     todo(title: string) {

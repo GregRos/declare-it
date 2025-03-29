@@ -3,6 +3,11 @@ import type { IsSimplePrimitive } from "../operators/is-primitive"
 import type { IsAny, IsFunction } from "./basic-checks"
 
 type TargetDepth = 10
+/**
+ * Recursively checks whether `L` is a subtype of `R` and vice versa.
+ *
+ * - Used for overcome deeply nested `any` types.
+ */
 export type Is_Recursive_Subtype_Considering_Any<
     L,
     R,

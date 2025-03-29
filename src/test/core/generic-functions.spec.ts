@@ -19,7 +19,6 @@ declare.test("FALSE POSITIVE: only TO_EQUAL sees unused type args", expect => {
     expect(type<UnusedGeneric>).to_subtype(type<NoGeneric>)
     expect(type<UnusedGeneric>).to_supertype(type<NoGeneric>)
 })
-declare.xit()
 declare.test(
     "FALSE POSITIVE: Only TO_EQUAL tells apart different unconstrained type args",
     expect => {

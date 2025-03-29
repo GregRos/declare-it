@@ -26,8 +26,7 @@ export type Are_Types_Key_Identical<
     T = 1,
     F = never
 > = Are_Types_Identical<keyof Left, keyof Right, T, F> /**
- * The age-old TypeScript trick to find whether types are identical. Ends up
- * invoking compiler machinery that checks for that.
+ * Checks if two types are identical.
  *
  * - ℹ️ Referenced by jcalz at https://stackoverflow.com/a/53808212/1333004
  * - ⚠️ Two known false positives.
