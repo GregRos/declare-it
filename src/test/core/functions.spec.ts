@@ -1,11 +1,14 @@
 import { declare, type } from "@lib/index.js"
 
-declare.test("parameter names don't matter: ((x: 1) => void) ≡ ((y: 1) => void)", expect => {
-    expect(type<(x: 1) => void>).to_equal(type<(y: 1) => void>)
-    expect(type<(x: 1) => void>).to_resemble(type<(y: 1) => void>)
-    expect(type<(x: 1) => void>).to_subtype(type<(y: 1) => void>)
-    expect(type<(x: 1) => void>).to_supertype(type<(y: 1) => void>)
-})
+declare.test(
+    "parameter names don't matter: ((x: 1) => void) ≡ ((y: 1) => void)",
+    expect => {
+        expect(type<(x: 1) => void>).to_equal(type<(y: 1) => void>)
+        expect(type<(x: 1) => void>).to_resemble(type<(y: 1) => void>)
+        expect(type<(x: 1) => void>).to_subtype(type<(y: 1) => void>)
+        expect(type<(x: 1) => void>).to_supertype(type<(y: 1) => void>)
+    }
+)
 
 declare.test("reflexivity: (() => void) ≡ (() => void)", expect => {
     expect(type<() => void>).to_equal(type<() => void>)
@@ -54,10 +57,18 @@ declare.test("((x: number) => 1) ⊂ ((x: 1) => 1)", expect => {
 })
 
 declare.test("(this: number) => void ⊈ (this: string) => void", expect => {
-    expect(type<(this: number) => void>).not.to_equal(type<(this: string) => void>)
-    expect(type<(this: number) => void>).not.to_resemble(type<(this: string) => void>)
-    expect(type<(this: number) => void>).not.to_subtype(type<(this: string) => void>)
-    expect(type<(this: number) => void>).not.to_supertype(type<(this: string) => void>)
+    expect(type<(this: number) => void>).not.to_equal(
+        type<(this: string) => void>
+    )
+    expect(type<(this: number) => void>).not.to_resemble(
+        type<(this: string) => void>
+    )
+    expect(type<(this: number) => void>).not.to_subtype(
+        type<(this: string) => void>
+    )
+    expect(type<(this: number) => void>).not.to_supertype(
+        type<(this: string) => void>
+    )
 })
 
 declare.test("((x?: 1) => void) ≈ ((x: 1 | undefined) => void)", expect => {
@@ -91,23 +102,29 @@ declare.test("({(): 1; (): 2}) ⊂ (() => 1)", expect => {
     expect(type<CallSig>).not.to_equal(type<Func>)
 })
 
-declare.test("FALSE POSITIVE: Only TO_EQUAL tells apart call signature order", expect => {
-    type SigOrder1 = { (): 1; (): 2 }
-    type SigOrder2 = { (): 2; (): 1 }
-    expect(type<SigOrder1>).not.to_equal(type<SigOrder2>)
-    expect(type<SigOrder1>).to_resemble(type<SigOrder2>)
-    expect(type<SigOrder1>).to_subtype(type<SigOrder2>)
-    expect(type<SigOrder1>).to_supertype(type<SigOrder2>)
-})
+declare.test(
+    "FALSE POSITIVE: Only TO_EQUAL tells apart call signature order",
+    expect => {
+        type SigOrder1 = { (): 1; (): 2 }
+        type SigOrder2 = { (): 2; (): 1 }
+        expect(type<SigOrder1>).not.to_equal(type<SigOrder2>)
+        expect(type<SigOrder1>).to_resemble(type<SigOrder2>)
+        expect(type<SigOrder1>).to_subtype(type<SigOrder2>)
+        expect(type<SigOrder1>).to_supertype(type<SigOrder2>)
+    }
+)
 
-declare.test("FALSE POSITIVE≡: Order ALWAYS ignored for order-sensitive intersections of call sigs", expect => {
-    type SigOrder1 = { (): 1 } & { (): 2 }
-    type SigOrder2 = { (): 2 } & { (): 1 }
-    expect(type<SigOrder1>).to_equal(type<SigOrder2>)
-    expect(type<SigOrder1>).to_resemble(type<SigOrder2>)
-    expect(type<SigOrder1>).to_subtype(type<SigOrder2>)
-    expect(type<SigOrder1>).to_supertype(type<SigOrder2>)
-})
+declare.test(
+    "FALSE POSITIVE≡: Order ALWAYS ignored for order-sensitive intersections of call sigs",
+    expect => {
+        type SigOrder1 = { (): 1 } & { (): 2 }
+        type SigOrder2 = { (): 2 } & { (): 1 }
+        expect(type<SigOrder1>).to_equal(type<SigOrder2>)
+        expect(type<SigOrder1>).to_resemble(type<SigOrder2>)
+        expect(type<SigOrder1>).to_subtype(type<SigOrder2>)
+        expect(type<SigOrder1>).to_supertype(type<SigOrder2>)
+    }
+)
 
 declare.test("Test with const type parameter", expect => {
     type ConstArg = <const T>() => T
@@ -118,28 +135,22 @@ declare.test("Test with const type parameter", expect => {
     expect(type<ConstArg>).to_supertype(type<NonConstArg>)
 })
 
-test("without naming a test", () => {
-    declare.assert(expect => {
-        expect(type<1>).to_equal(type<1>)
-        expect(type<{ [x: string]: 1 }>).to_subtype(type<{ a: 1 }>)
-        // @ts-expect-error
-        expect(type<1>).to_equal(type<2>)
-    })
-})
-
-declare.test("FALSE NEGATIVE≡: Multiple identical call signatures and function type not equal", expect => {
-    expect(type<() => void>).not.to_equal(
-        type<{
-            (): void
-            (): void
-        }>
-    )
-    expect(type<() => void>).to_resemble(type<{ (): void; (): void }>)
-    expect(type<() => void>).to_subtype(type<{ (): void; (): void }>)
-    expect(type<() => void>).to_supertype(
-        type<{
-            (): void
-            (): void
-        }>
-    )
-})
+declare.test(
+    "FALSE NEGATIVE≡: Multiple identical call signatures and function type not equal",
+    expect => {
+        expect(type<() => void>).not.to_equal(
+            type<{
+                (): void
+                (): void
+            }>
+        )
+        expect(type<() => void>).to_resemble(type<{ (): void; (): void }>)
+        expect(type<() => void>).to_subtype(type<{ (): void; (): void }>)
+        expect(type<() => void>).to_supertype(
+            type<{
+                (): void
+                (): void
+            }>
+        )
+    }
+)

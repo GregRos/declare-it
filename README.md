@@ -1,88 +1,357 @@
-# declare-it
-
-[![Node.js CI](https://github.com/GregRos/declare-it/actions/workflows/push.yaml/badge.svg)](https://github.com/GregRos/declare-it/actions/workflows/push.yaml)
-[![npm](https://img.shields.io/npm/v/declare-it)](https://www.npmjs.com/package/declare-it)
-
-`declare-it` is a TypeScript library for writing compile-time tests for your type declarations. It helps you by registering your compile-time tests with your test framework so they appear alongside other tests.
+**declare-it** lets you test your types, while plugging into your favorite test framework.
 
 ```bash
 yarn add -D declare-it
 ```
 
-`declare-it` only supports simple, direct assertions on specific types together with their negations:
+```bash
+npm install --save-dev declare-it
+```
 
--   A ≡ B — `to_equal` — Type **A** is equal to type **B**.
+# Features
 
--   A ⊆ B — `to_subtype` — Type **A** is a subtype of **B**.
+-   👷‍♂️ Write actual test cases, with titles and everything!
+-   📐 **Simple** but **incredibly accurate** type assertions
+-   🧼 A clean and legible API, with a dash of DevEx magic.
+-   📜 Legible and distinctive compile-time errors, including the test case that failed.
+-   🪄 Keeps track of tests by registering them with your test framework!
 
--   A ⊇ B — `to_supertype` — Type **A** is a supertype of **B**.
-
-Here is how using it looks like:
+Here’s what it looks like:
 
 ```ts
-import { declare, type } from "declare-it"
-declare.it("number is number", expect => {
-    expect(type<number>).to_equal(type<number>)
-    expect(type<number>).not.to_equal(type<boolean>)
+import { declare, type, type_of } from "declare-it"
+
+declare.it("tests basic math", expect => {
+    expect(type<1>).to_subtype(type<number>)
+
+    expect(
+        //  ↓ type being compared:
+        type<1>
+    )
+        .to_subtype(
+            //  ↓ comparing against:
+            type<number>
+
+            // ↓ chain another assertion:
+        )
+        .and.to_subtype(
+            //  ↓ infer the type of a value:
+            type_of(val)
+        )
 })
 ```
 
-You declare test cases using `declare.it` or `declare.test`, just like you would with normal tests. Your code will compile only if your tests pass. You can also place your tests inside the `describe` blocks defined by other frameworks, though there is no `declare.describe` function.
+# Declaring test cases
 
-Each test case receives an `expect` function as an argument. This is what you use to make assertions. The inputs to this function are created using either `type` or `type_of`. You use `type` when you want to specify a specific type explicitly, using the following DSL-like syntax:
+You declare test cases using the `declare.it` function, which takes a callback that has one parameter.
 
-```ts
-expect(type<5>).to_subtype(type<number>)
-```
-
-Note that you don’t actually call the `type` function, you just specify its type parameter. It’s a bit weird, but it works quite well.
-
-You use `type_of` when you want to make an assertion about the type of an expression. It’s best to provide it expressions that have a predetermined type, rather than ones where the type can be inferred, such as the return types of methods.
-
-You will usually use it as an input to `expect` and compare it to an explicitly specified type:
+This is your `expect` function. It’s what you use to make assertions about types. Every `expect` function belongs to a test case and knows its title.
 
 ```ts
-expect(type_of(thing.method())).to_equal(type<string>)
+declare.it("your test title", expect => {
+	expect(...).to_equal(...)
+})
 ```
 
-If an assertion fails, the message will include the name of the test and what was the cause for the failure. It doesn’t go into too much detail, but it’s a much finer and more specific test than using `ts-expect-error` comments.
+**These test cases don’t actually execute at runtime.** Your test runner is the compiler, and it “runs” your tests by compiling your code.
 
-The error messages are a bit weird, but they’re also distinctive and concise. They’re all assignability errors, with the actual reason for the failure – as well as the name of the test – being encoded into one of the types.
-
-Here is an example, though the specific message can change and shouldn’t be considered part of the library’s API.
-
-```
-Argument of type '() => [2, 1]' is not assignable to parameter of type '["❌ 𝘁𝗵𝗲 𝘁𝘆𝗽𝗲 ❮", [1, 2], "❯ 𝗱𝗼𝗲𝘀 𝗻𝗼𝘁 𝘀𝘂𝗯𝘁𝘆𝗽𝗲 ❮", [2, 1], "❯ 𝗔𝗧 𝗧𝗘𝗦𝗧 ⸨ [1, 2] ⊈ [2, 1] ⸩"]'.
-```
-
-# Test registration
-
-`declare-it` registers its tests with whatever unit testing framework it detects. Here is how that looks like, using `jest`:
-
-```
- PASS  src/test/core/tuples.spec.ts
-  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: [1] ⊆ [1] (7 ms)
-  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: [1, 2] ⊈ [2, 1]
-  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: 1[] ⊂ readonly 1[]
-  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: readonly 1[] ≡ Readonly<1[]>
-  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: 1[] ≡ Array<1>
-  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: [1] ⊂ [1?]
-```
-
-**Note that this is a convenience feature** designed to help you keep track of tests. No testing actually takes place during runtime. Your real test runner is the TypeScript compiler and its test process is just **compiling your code.**
-
-In fact, you don’t even need to run any code for testing to take place, and doing so is purely optional.
-
-# Skipping tests
-
-You can mark tests as skipped. This is currently only possible by modifying the code – you can’t filter out specific tests dynamically.
-
-To do this, you need to replace `declare.it` calls with `declare.it.skip`. All assertions involving `declare-it`’s `expect` will automatically pass and the test will be registered as skipped with your unit testing framework.
+That also means these test cases can contain any code you want. They can be async too. It doesn’t matter; it just has to compile.
 
 ```ts
-declare.it.skip("this is not ready yet", expect => {
-    expect(type_of(obj.method())).to_equal(type<number>)
-}
+declare.it("side-effects?", async expect => {
+    let x = await callSomeFunction()
+
+    expect(type_of(x)).to_equal(type<1>)
+})
 ```
 
-Note that this doesn’t affect any other code inside the test case, so even if you do this, code might fail to compile due to other reasons.
+# Referencing types
+
+When using **declare-it**, to make assertions about types you need to reference them in a special way.
+
+There are two options:
+
+-   Using the explicit `type<YourType>`
+-   Using inferred `type_of(yourValue)`
+
+So either specify the type explicitly:
+
+```ts
+type<number>
+type<1>
+type<string>
+```
+
+Or infer it from a variable:
+
+```ts
+type_of(variable)
+```
+
+Just don’t use it with literals:
+
+```ts
+type_of("hello world")
+```
+
+Literals don’t have declared types, so the type you get might not be what you expect.
+
+# Being assertive
+
+**declare-it**’s type assertions all work and look the same. They’re methods on the `expect` object you get by calling:
+
+```ts
+expect(type<SomeType>)
+```
+
+They all start with `to_`, such as:
+
+```ts
+// Inside a declare.it clause:
+expect(type<1>).to_subtype(type<number>)
+```
+
+They can all be inverted by using `.not`, like this:
+
+```ts
+// Inside a declare.it clause:
+expect(type<1>).not.to_subtype(type<string>)
+```
+
+And you can also chain them by tacking `.and` like this:
+
+```ts
+// Inside a declare.it clause:
+expect(type<1>)
+    .to_subtype(type<number>)
+    .and.to_subtype(type<unknown>)
+```
+
+You can do both, but you’ll need to prefix every inverted assertion with `not.` for the sake of readability:
+
+```ts
+// Inside a declare.it clause:
+expect(type<1>)
+    .not.to_subtype(type<2>)
+    .and.not.to_subtype(type<3>)
+```
+
+Let’s take a look at the assertions you can make.
+
+## $L \stackrel{?}{\equiv} R$ to_equal
+
+This the strictest assertion **declare-it** has in its arsenal. It checks if two types are **interchangeable**.
+
+It will only pass if you can replace one type with another _in all contexts_. Any code that compiles using one of them has to also compile with the other.
+
+That means identical modifiers on properties:
+
+```ts
+expect(type<{ a: 1 }>)
+    .not.to_equal(type<{ readonly a: 1 }>)
+    .and.not.to_equal(type<{ a: 1 }>)
+```
+
+Identical key declarations:
+
+```ts
+expect(type<{ 1: 1 }>).not.to_equal(type<{ "1": 1 }>)
+```
+
+Identical call signatures:
+
+```ts
+expect(type<() => 1>).not.to_equal(type<<T>() => 1>)
+```
+
+And everything else!
+
+## $L \stackrel{?}{\subseteq} R$ to_subtype
+
+This assertion checks if one type $L$ is a **subtype of** another type $R$. This means:
+
+-   $L$ has all of the _structure_ of $R$, like members, call signatures, and so on.
+-   A value of type $L$ can be assigned to a variable of type $R$.
+-   And finally, you can use $L$ instead of $R$ in generic type constraints.
+
+That means this code has to compile:
+
+```ts
+const right: R = null! as L
+```
+
+But this code has to compile too:
+
+```ts
+type Subtype_Of<L extends R, R> = null
+type L_Subtypes_R = Subtype_Of<L, R>
+```
+
+This is an extremely useful assertion. By constructing the right type to compare against, you can make all kinds of complex statements about the type being tested.
+
+For example, you can check your type has a specific property using:
+
+```ts
+expect(type<TestedType>).to_subtype(type<{ yourKey: YourValue }>)
+```
+
+## Negation
+
+The negation is also quite useful, as it lets you make sure a type _doesn’t_ have some structure you don’t want, like an indexer:
+
+```ts
+expect(...).not.to_subtype(
+	type<{
+		[x: string]: unknown
+	}>
+)
+```
+
+You can also use it to make sure one of your methods _isn’t_ callable with a set of types:
+
+```ts
+expect(type<TestedType>).not.to_subtype(
+    type<{
+        method(x: number): unknown
+    }>
+)
+```
+
+# $L \stackrel{?}{\supseteq} R$ to_supertype
+
+This assertion checks the opposite — that $L$ is a supertype of $R$. This means:
+
+-   $R$ has all of the structure of $L$
+-   A value of type $R$ is assignable to a variable of type $L$
+-   You can use $R$ instead of $L$ to satisfy type constraints.
+
+It’s basically the same check as `to_subtype`, but with the operands inverted.
+
+## $L \stackrel{?}{\approx} R$ to_resemble
+
+This combines the two previous assertions. It can also be written as:
+
+$$ R \subseteq L \subseteq R$$
+
+Or as:
+
+```ts
+expect(type<YourType>)
+    .to_subtype(type<OtherType>)
+    .and.to_supertype(type<OtherType>)
+```
+
+In other words, it lets you check whether two types **are mutual subtypes of each other**, having the same structure.
+
+In particular, the following code has to compile:
+
+```ts
+const right: R = null! as L
+const left: L = null! as R
+```
+
+As well as the following code:
+
+```ts
+type L_Subtypes_R = Subtype_Of<L, R>
+type R_Subtypes_L = Subtype_Of<R, L>
+```
+
+Which tells you that the right-hand type is assignable to the left-hand one. However, it’s not as strict or accurate as `to_equal`.
+
+## Negation
+
+The negation — `not.to_resemble` — means two types aren’t the same. One way to use it is to check that a type isn’t `any`:
+
+```ts
+expect(type<X>).not.to_resemble(type<any>)
+```
+
+# Dealing with failure
+
+Here’s what TypeScript says when an assertion fails:
+
+```ts
+src/test/core/primitives.spec.ts:14:33 - error TS2345: Argument of type '{ (): (_: never) => number; (_: never): number; }' is not assignable to parameter of type '["                                              ", "❌ 𝗔𝗧 𝗧𝗘𝗦𝗧 “1 ⊂ number” ❱➤ 𝗧𝗛𝗘 𝗧𝗬𝗣𝗘 (", 1, ") 𝗗𝗢𝗘𝗦 𝗡𝗢𝗧 𝗦𝗨𝗣𝗘𝗥-𝗧𝗬𝗣𝗘 (", number, ")                                                    "]'.
+```
+
+It’s a failure message with some garbage at the start! Let’s take a closer look, without the unnecessary characters:
+
+```
+❌ 𝗔𝗧 𝗧𝗘𝗦𝗧 “1 ⊂ number” ❱➤ 𝗧𝗛𝗘 𝗧𝗬𝗣𝗘 (", 1, ") 𝗗𝗢𝗘𝗦 𝗡𝗢𝗧 𝗦𝗨𝗣𝗘𝗥-𝗧𝗬𝗣𝗘 (", number, ")
+```
+
+Here we can see:
+
+1. A big red ❌, always reassuring.
+2. Bold text 😮
+3. The name of the test where the failure happened.
+4. Badass Unicode arrow thingy.
+5. The `L` type — the one that went into the `expect` function.
+6. The `R` type — the one that went into the assertion function.
+7. A description of the problem.
+
+And of course, you also have the trace pointing to the line where the failure occurred.
+
+Use this information wisely!
+
+# Automagic registration
+
+**declare-it** comes with a bonus feature. It will actually talk to your test framework — provided you have one — and tell it about the tests you’re making.
+
+The tests still run as part of compilation, but you’ll have a pretty list so you can feel proud of yourself for writing them. Here’s how it looks like in Jest:
+
+```
+ PASS  src/test/core/any.spec.ts
+  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: any is only equal to any (1 ms)
+  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: {a: any} ≡ {a: any}
+  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: {a: any} ⊈ {a: 1}
+  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: {a: any, b: any} ⊂ {a: any}
+  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: 3 level nested
+  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: 5 level nested
+  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: two identical disj types
+  √ 💭 𝗧𝗬𝗣𝗘-𝗢𝗡𝗟𝗬 𝗧𝗘𝗦𝗧: two differnt disj types
+```
+
+Automagic registration will examine your environment, try to import various packages, and generally look around. If it doesn’t find anything, it will print the same messages to the console.
+
+Automagic registration uses the [what-the-test](https://github.com/gregros/what-the-test) package, which currently supports:
+
+-   Jasmine
+-   Mocha
+-   Jest
+-   Ava
+
+## Manual configuration
+
+If the automagic stuff doesn’t work out, you can always configure `declare-it` manually using the `declare.setup` function:
+
+```ts
+import { declare } from "declare-it"
+
+// Emit to the console:
+declare.setup("console")
+
+// Don't emit at all:
+declare.setup(false)
+
+// Use ava:
+declare.setup("ava")
+
+// Use jest:
+declare.setup("jest")
+```
+
+# # Skipping tests
+
+You can skip compile-time tests in a similar way to how you might skip runtime test.
+
+Just prefix the test case declaration with `.skip`:
+
+```ts
+declare.it.skip("this is a skipped test, so no error", expect => {
+    expect(type<number>).to_equal(type<string>)
+})
+```
+
+It will make your assertions always pass! It will also register the test as skipped with your test framework.
