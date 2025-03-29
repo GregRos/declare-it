@@ -25,7 +25,10 @@ export class FwWrapper {
     }
 
     skip(title: string) {
-        this.fw.test.skip(formatAssertionCountTitle(title, "skip"), getTestFunc())
+        this.fw.test.skip(
+            formatAssertionCountTitle(title, "skip"),
+            getTestFunc()
+        )
     }
 
     todo(title: string) {

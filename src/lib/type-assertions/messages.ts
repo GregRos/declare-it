@@ -1,4 +1,6 @@
+/** Namespaces for formatted compiler messages. */
 export namespace Txt {
+    /** Words formatted using Unicode bold and italic characters. */
     export type w = {
         exactly: `𝗘𝗫𝗔𝗖𝗧𝗟𝗬`
         any: `𝒂𝒏𝒚`
@@ -16,11 +18,15 @@ export namespace Txt {
         types: `𝗧𝗬𝗣𝗘𝗦`
         does: `𝗗𝗢𝗘𝗦`
     }
+
+    /** Symbols used in the messages. */
     export type s = {
         ">": ")"
         "<": "("
         space: `                                                   `
     }
+
+    /** Messages. */
     export type Msg = {
         anonymous: `𝗔𝗡𝗢𝗡𝗬𝗠𝗢𝗨𝗦`
 
@@ -37,7 +43,7 @@ export namespace Txt {
         does_resemble: `${s[">"]} ${w["does"]} ${w["resemble"]} ${s["<"]}`
 
         // lower case: not a supertype of
-        doeS_not_supertype: `${s[">"]} ${w["does"]} ${w["not"]} ${w["supertype"]} ${s["<"]}`
+        does_not_supertype: `${s[">"]} ${w["does"]} ${w["not"]} ${w["supertype"]} ${s["<"]}`
         // lower case: equals any unlike, lower case sans serif bol
         is_any_unlike: `${s[">"]} ${w["does"]} ${w["equal"]} ${w["any"]} 𝘂𝗻𝗹𝗶𝗸𝗲 ${s["<"]}`
         is_not_any_unlike: `${s[">"]} ${w["does"]} ${w["not"]} 𝗲𝗾𝘂𝗮𝗹 ${w["any"]} 𝘂𝗻𝗹𝗶𝗸𝗲 ${s["<"]}`

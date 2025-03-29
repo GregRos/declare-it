@@ -3,7 +3,11 @@ import type { IsSimplePrimitive } from "../operators/is-primitive"
 import type { IsAny, IsFunction } from "./basic-checks"
 
 type TargetDepth = 10
-export type Is_Recursive_Subtype_Considering_Any<L, R, Depth extends number = TargetDepth> =
+export type Is_Recursive_Subtype_Considering_Any<
+    L,
+    R,
+    Depth extends number = TargetDepth
+> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
             ? 1 // Both are any --- equal
@@ -17,8 +21,13 @@ export type Is_Recursive_Subtype_Considering_Any<L, R, Depth extends number = Ta
               : Depth extends 0
                 ? 1 // depth is reached --- handle elsewhere
                 : {
-                      [K in keyof R & (string | number)]: K extends keyof L & (string | number)
-                          ? Is_Recursive_Subtype_Considering_Any<L[K], R[K], Decrement<Depth>>
+                      [K in keyof R & (string | number)]: K extends keyof L &
+                          (string | number)
+                          ? Is_Recursive_Subtype_Considering_Any<
+                                L[K],
+                                R[K],
+                                Decrement<Depth>
+                            >
                           : 1
                   }[keyof R & (string | number)]
 
@@ -28,7 +37,11 @@ export type Is_Recursive_Supertype_Considering_Any<
     Depth extends number = TargetDepth
 > = Is_Recursive_Subtype_Considering_Any<R, L, Depth>
 
-export type Is_Recursive_Resembles_Considering_Any<L, R, Depth extends number = TargetDepth> =
+export type Is_Recursive_Resembles_Considering_Any<
+    L,
+    R,
+    Depth extends number = TargetDepth
+> =
     IsAny<L> extends 1
         ? IsAny<R> extends 1
             ? 1 // Both are any --- equal
@@ -42,7 +55,11 @@ export type Is_Recursive_Resembles_Considering_Any<L, R, Depth extends number = 
               : {
                     [K in keyof (L | R)]: K extends keyof L
                         ? K extends keyof R
-                            ? Is_Recursive_Resembles_Considering_Any<L[K], R[K], Decrement<Depth>>
+                            ? Is_Recursive_Resembles_Considering_Any<
+                                  L[K],
+                                  R[K],
+                                  Decrement<Depth>
+                              >
                             : 0
                         : 0
                 }[keyof (L | R)]

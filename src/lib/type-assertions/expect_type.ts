@@ -1,18 +1,33 @@
 import { Txt } from "./messages.js"
-import type { Ask_Left_EqualTo_Right, Ask_Left_Resembles_Right, Ask_Left_SubtypeOf_Right, Ask_Left_SupertypeOf_Right } from "./questions.js"
+import type {
+    Ask_Left_EqualTo_Right,
+    Ask_Left_Resembles_Right,
+    Ask_Left_SubtypeOf_Right,
+    Ask_Left_SupertypeOf_Right
+} from "./questions.js"
 export type Type_Ref<T> = {
     (_: never): T
 }
-export interface ExpectFunction<Test extends string, Skipped extends 1 | 0 = 0> {
-    <L>(subjType: Type_Ref<L>): __expect<Test, L, Skipped extends 1 ? unknown : never>
+export interface ExpectFunction<
+    Test extends string,
+    Skipped extends 1 | 0 = 0
+> {
+    <L>(
+        subjType: Type_Ref<L>
+    ): __expect<Test, L, Skipped extends 1 ? unknown : never>
 }
 
-export declare abstract class __and<Test extends string, L, R, Skipped extends never | unknown = never> {
+export declare abstract class __and<
+    Test extends string,
+    L,
+    Skipped extends never | unknown = never
+> {
     readonly and: __expect<Test, L, Skipped>
 }
 
 /**
- * Compile-time construct for making positive type assertions on `L` in a type-only test.
+ * Compile-time construct for making positive type assertions on `L` in a
+ * type-only test.
  *
  * - ℹ️ Returned by the `expect` function when defining a test using `declare.it`.
  * - ⚠️ Can only be used within the `declare.it` callback.
@@ -22,14 +37,19 @@ export declare abstract class __and<Test extends string, L, R, Skipped extends n
  * @template Test The title of the test where the assertion is made.
  * @template L The type to be checked.
  */
-export declare abstract class __expect<Test extends string, L, Skipped extends never | unknown = never> {
+export declare abstract class __expect<
+    Test extends string,
+    L,
+    Skipped extends never | unknown = never
+> {
     private constructor()
     static DOES_NOT_EXIST_AT_RUNTIME: true
     static COMPILE_TIME_ONLY: true
     /**
      * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
-     * Returns a compile-time construct with the same members as {@link __expect}, for making negative type assertions.
+     * Returns a compile-time construct with the same members as
+     * {@link __expect}, for making negative type assertions.
      *
      * @example
      *     expect(type<string>).not.to_equal(type<number>)
@@ -38,14 +58,16 @@ export declare abstract class __expect<Test extends string, L, Skipped extends n
     /**
      * # L ≡ R❔
      *
-     * Asserts that the `L` type is **equal and interchangeable with** the `R` type.
+     * Asserts that the `L` type is **equal and interchangeable with** the `R`
+     * type.
      *
      * - ✅ Very strict. Use {@link to_resemble} for a looser check.
      * - ✅ Practically no false positives.
      * - ✅ Symmetric – if `L ≡ R` then `R ≡ L`.
      * - ⚠️ **May error** on expressions with unbound type parameters.
      * - ℹ️ If the assertion fails, a formatted compile-time error is produced.
-     * - ℹ️ The message is a tuple that includes the test title and the types involved.
+     * - ℹ️ The message is a tuple that includes the test title and the types
+     *   involved.
      *
      * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
@@ -65,20 +87,31 @@ export declare abstract class __expect<Test extends string, L, Skipped extends n
      *
      * @param r_type A {@link TypeSpecifier}
      */
-    to_equal<R>(type_ref: Ask_Left_EqualTo_Right<L, R, Type_Ref<R>, Skipped, Txt.FancyTestTitleText<Test>>): __and<Test, L, Skipped>
+    to_equal<R>(
+        type_ref: Ask_Left_EqualTo_Right<
+            L,
+            R,
+            Type_Ref<R>,
+            Skipped,
+            Txt.FancyTestTitleText<Test>
+        >
+    ): __and<Test, L, Skipped>
 
     /**
      * # L ≈ R❔
      *
-     * Asserts that the `L` type **does_resemble** the `R` type. That means they're assignable to each other.
+     * Asserts that the `L` type **does_resemble** the `R` type. That means
+     * they're assignable to each other.
      *
      * - ✅ Overcomes most _common_ false positives.
-     * - ✅ Based on TypeScript's loose assignability rules. Use {@link to_equal} for a stricter check.
+     * - ✅ Based on TypeScript's loose assignability rules. Use {@link to_equal}
+     *   for a stricter check.
      * - ✅ Symmetric – if `L ≈ R` then `R ≈ L`.
      * - ❗ Considers `any` to only be assignable to itself.
      * - ⚠️ **May error** on expressions with unbound type parameters.
      * - ℹ️ If the assertion fails, a formatted compile-time error is produced.
-     * - ℹ️ The message is a tuple that includes the test title and the types involved.
+     * - ℹ️ The message is a tuple that includes the test title and the types
+     *   involved.
      *
      * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
@@ -95,19 +128,29 @@ export declare abstract class __expect<Test extends string, L, Skipped extends n
      *     expect(type<any>).to_resemble(type<1>)
      *     expect(type<{ a: any }>).to_resemble(type<{ a: 1 }>)
      */
-    to_resemble<R>(type_ref: Ask_Left_Resembles_Right<L, R, Type_Ref<R>, Skipped, Txt.FancyTestTitleText<Test>>): __and<Test, L, Skipped>
+    to_resemble<R>(
+        type_ref: Ask_Left_Resembles_Right<
+            L,
+            R,
+            Type_Ref<R>,
+            Skipped,
+            Txt.FancyTestTitleText<Test>
+        >
+    ): __and<Test, L, Skipped>
 
     /**
      * # L ⊆ R❔
      *
-     * Asserts that the `L` type is **a subtype and assignable to** the `R` type.
+     * Asserts that the `L` type is **a subtype and assignable to** the `R`
+     * type.
      *
      * - ✅ Overcomes most _common_ false positives.
      * - ✅ Based on TypeScript's loose assignability rules.
      * - ❗ Considers `any` to only be assignable to itself.
      * - ⚠️ **May error** on expressions with unbound type parameters.
      * - ℹ️ If the assertion fails, a formatted compile-time error is produced.
-     * - ℹ️ The message is a tuple that includes the test title and the types involved.
+     * - ℹ️ The message is a tuple that includes the test title and the types
+     *   involved.
      *
      *   🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
@@ -128,19 +171,29 @@ export declare abstract class __expect<Test extends string, L, Skipped extends n
      *     expect(type<{ a: 1; b: 1 }>).to_subtype(type<{ a: 1 }>)
      *     expect(type<{ a: any }>).to_subtype(type<{ a: 1 }>)
      */
-    to_subtype<R>(type_ref: Ask_Left_SubtypeOf_Right<L, R, Type_Ref<R>, Skipped, Txt.FancyTestTitleText<Test>>): __and<Test, L, Skipped>
+    to_subtype<R>(
+        type_ref: Ask_Left_SubtypeOf_Right<
+            L,
+            R,
+            Type_Ref<R>,
+            Skipped,
+            Txt.FancyTestTitleText<Test>
+        >
+    ): __and<Test, L, Skipped>
 
     /**
      * # L ⊇ R❔
      *
-     * Asserts that the `L` type is **a supertype and assignable from** the `R` type.
+     * Asserts that the `L` type is **a supertype and assignable from** the `R`
+     * type.
      *
      * - ✅ Overcomes most _common_ false positives.
      * - ✅ Based on TypeScript's loose assignability rules.
      * - ❗ Considers `any` to only be assignable to itself.
      * - ⚠️ **May error** on expressions with unbound type parameters.
      * - ℹ️ If the assertion fails, a formatted compile-time error is produced.
-     * - ℹ️ The message is a tuple that includes the test title and the types involved.
+     * - ℹ️ The message is a tuple that includes the test title and the types
+     *   involved.
      *
      *   🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
@@ -160,10 +213,19 @@ export declare abstract class __expect<Test extends string, L, Skipped extends n
      *     expect(type<1>).to_supertype(type<any>)
      *     expect(type<{ a: any }>).to_supertype(type<{ a: 1 }>)
      */
-    to_supertype<R>(type_ref: Ask_Left_SupertypeOf_Right<L, R, Type_Ref<R>, Skipped, Txt.FancyTestTitleText<Test>>): __and<Test, L, Skipped>
+    to_supertype<R>(
+        type_ref: Ask_Left_SupertypeOf_Right<
+            L,
+            R,
+            Type_Ref<R>,
+            Skipped,
+            Txt.FancyTestTitleText<Test>
+        >
+    ): __and<Test, L, Skipped>
 }
 /**
- * Compile-time construct for making negative type assertions on `L` in a type-only test.
+ * Compile-time construct for making negative type assertions on `L` in a
+ * type-only test.
  *
  * - ℹ️ Returned by the `not` property of {@link __expect}.
  * - ⚠️ Can only be used within the `declare.it` callback.
@@ -173,21 +235,27 @@ export declare abstract class __expect<Test extends string, L, Skipped extends n
  * @template Test The title of the test where the assertion is made.
  * @template L The type to be checked.
  */
-export declare abstract class __expect_not<Test extends string, L, Skipped extends never | unknown = never> {
+export declare abstract class __expect_not<
+    Test extends string,
+    L,
+    Skipped extends never | unknown = never
+> {
     private constructor()
     static DOES_NOT_EXIST_AT_RUNTIME: true
     static COMPILE_TIME_ONLY: true
     /**
      * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
-     * Returns a compile-time construct with the same members as {@link __expect_not}, for making positive type assertions.
+     * Returns a compile-time construct with the same members as
+     * {@link __expect_not}, for making positive type assertions.
      */
     readonly not: __and<Test, L, Skipped>
 
     /**
      * # L !≡ R❔
      *
-     * Asserts that the `L` type is **not equal or interchangeable with** the `R` type.
+     * Asserts that the `L` type is **not equal or interchangeable with** the
+     * `R` type.
      *
      * - ✅ Inverted form of {@link __expect.to_equal}.
      * - ✅ Fails only for identical types.
@@ -195,7 +263,8 @@ export declare abstract class __expect_not<Test extends string, L, Skipped exten
      * - ✅ Symmetric: if `L !≡ R` then `R !≡ L`.
      * - ⚠️ **May error** on expressions with unbound type parameters.
      * - ℹ️ If the assertion fails, a formatted compile-time error is produced.
-     * - ℹ️ The message is a tuple that includes the test title and the types involved.
+     * - ℹ️ The message is a tuple that includes the test title and the types
+     *   involved.
      *
      * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
@@ -214,12 +283,21 @@ export declare abstract class __expect_not<Test extends string, L, Skipped exten
      *     expect(type<{ a: 1 }>).not.to_equal(type<{ a: 1; b: 1 }>)
      *     expect(type<() => number>).not.to_equal(type<() => number>)
      */
-    to_equal<R>(type_ref: Ask_Left_EqualTo_Right<L, R, Skipped, Type_Ref<R>, Txt.FancyTestTitleText<Test>>): __and<Test, L, Skipped>
+    to_equal<R>(
+        type_ref: Ask_Left_EqualTo_Right<
+            L,
+            R,
+            Skipped,
+            Type_Ref<R>,
+            Txt.FancyTestTitleText<Test>
+        >
+    ): __and<Test, L, Skipped>
 
     /**
      * # L !≈ R❔
      *
-     * Asserts that the `L` type **does not resemble** the `R` type. That means one isn't assignable to the other.
+     * Asserts that the `L` type **does not resemble** the `R` type. That means
+     * one isn't assignable to the other.
      *
      * - ✅ Inverted form of {@link __expect.to_resemble}.
      * - ✅ Overcomes most _common_ false positives.
@@ -227,7 +305,8 @@ export declare abstract class __expect_not<Test extends string, L, Skipped exten
      * - ❗ Considers `any` to only be assignable to itself.
      * - ⚠️ **May error** on expressions with unbound type parameters.
      * - ℹ️ If the assertion fails, a formatted compile-time error is produced.
-     * - ℹ️ The message is a tuple that includes the test title and the types involved.
+     * - ℹ️ The message is a tuple that includes the test title and the types
+     *   involved.
      *
      * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
@@ -242,14 +321,25 @@ export declare abstract class __expect_not<Test extends string, L, Skipped exten
      *     expect(type<1>).not.to_resemble(type<1>)
      *     expect(type<any>).not.to_resemble(type<any>)
      *     expect(type<{ readonly a: 1 }>).not.to_resemble(type<{ a: 1 }>)
-     *     expect(type<() => number>).not.to_resemble(type<(x?: number) => number>)
+     *     expect(type<() => number>).not.to_resemble(
+     *         type<(x?: number) => number>
+     *     )
      */
-    to_resemble<R>(type_ref: Ask_Left_Resembles_Right<L, R, Skipped, Type_Ref<R>, Txt.FancyTestTitleText<Test>>): __and<Test, L, Skipped>
+    to_resemble<R>(
+        type_ref: Ask_Left_Resembles_Right<
+            L,
+            R,
+            Skipped,
+            Type_Ref<R>,
+            Txt.FancyTestTitleText<Test>
+        >
+    ): __and<Test, L, Skipped>
 
     /**
      * # L ⊈ R❔
      *
-     * Asserts that the `L` type is **not a subtype or assignable to** the `R` type.
+     * Asserts that the `L` type is **not a subtype or assignable to** the `R`
+     * type.
      *
      * - ✅ Inverted form of {@link __expect.to_subtype}.
      * - ✅ Overcomes most _common_ false positives.
@@ -257,7 +347,8 @@ export declare abstract class __expect_not<Test extends string, L, Skipped exten
      * - ❗ Considers `any` to only be assignable to itself.
      * - ⚠️ **May error** on expressions with unbound type parameters.
      * - ℹ️ If the assertion fails, a formatted compile-time error is produced.
-     * - ℹ️ The message is a tuple that includes the test title and the types involved.
+     * - ℹ️ The message is a tuple that includes the test title and the types
+     *   involved.
      *
      * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
@@ -273,12 +364,21 @@ export declare abstract class __expect_not<Test extends string, L, Skipped exten
      *     expect(type<1>).not.to_subtype(type<1 | 2>)
      *     expect(type<1 | 2>).not.to_subtype(type<number>)
      */
-    to_subtype<R>(type_ref: Ask_Left_SubtypeOf_Right<L, R, Skipped, Type_Ref<R>, Txt.FancyTestTitleText<Test>>): __and<Test, L, Skipped>
+    to_subtype<R>(
+        type_ref: Ask_Left_SubtypeOf_Right<
+            L,
+            R,
+            Skipped,
+            Type_Ref<R>,
+            Txt.FancyTestTitleText<Test>
+        >
+    ): __and<Test, L, Skipped>
 
     /**
      * # L ⊉ R❔
      *
-     * Asserts that the `L` type is **not a supertype or assignable from** the `R` type.
+     * Asserts that the `L` type is **not a supertype or assignable from** the
+     * `R` type.
      *
      * - ✅ Inverted form of {@link __expect.to_supertype}.
      * - ✅ Overcomes most _common_ false positives.
@@ -286,7 +386,8 @@ export declare abstract class __expect_not<Test extends string, L, Skipped exten
      * - ❗ Considers `any` to only be assignable to itself.
      * - ⚠️ **May error** on expressions with unbound type parameters.
      * - ℹ️ If the assertion fails, a formatted compile-time error is produced.
-     * - ℹ️ The message is a tuple that includes the test title and the types involved.
+     * - ℹ️ The message is a tuple that includes the test title and the types
+     *   involved.
      *
      * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
      *
@@ -302,5 +403,13 @@ export declare abstract class __expect_not<Test extends string, L, Skipped exten
      *     expect(type<1 | 2>).not.to_supertype(type<1>)
      *     expect(type<number>).not.to_supertype(type<1 | 2>)
      */
-    to_supertype<R>(type_ref: Ask_Left_SupertypeOf_Right<L, R, Skipped, Type_Ref<R>, Txt.FancyTestTitleText<Test>>): __and<Test, L, Skipped>
+    to_supertype<R>(
+        type_ref: Ask_Left_SupertypeOf_Right<
+            L,
+            R,
+            Skipped,
+            Type_Ref<R>,
+            Txt.FancyTestTitleText<Test>
+        >
+    ): __and<Test, L, Skipped>
 }

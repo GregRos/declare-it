@@ -6,9 +6,15 @@ export interface AssertionInfo {
 }
 export type TestFunction = <TestText extends string>(
     title: TestText,
-    ...assertions: [Txt.FancyTestTitleText<TestText>, ...Txt.FancyTestTitleText<TestText>[]]
+    ...assertions: [
+        Txt.FancyTestTitleText<TestText>,
+        ...Txt.FancyTestTitleText<TestText>[]
+    ]
 ) => void
 
-export type RegisterTestFunction = (title: string, assertionCount: number) => void
+export type RegisterTestFunction = (
+    title: string,
+    assertionCount: number
+) => void
 
 export type FrameworkTestFunction = (title: string, f: () => void) => void

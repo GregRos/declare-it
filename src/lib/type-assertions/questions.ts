@@ -34,7 +34,7 @@ export type Ask_Left_Resembles_Right<L, R, T, F, Test extends string | 0 = 0> =
           : [L, Is_Recursive_Subtype_Considering_Any<L, R>] extends [R, 1]
             ? [R, Is_Recursive_Subtype_Considering_Any<R, L>] extends [L, 1]
                 ? T | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_resemble"], R, Msg[">>"]]
-                : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["doeS_not_supertype"], R, Msg[">>"]]
+                : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_supertype"], R, Msg[">>"]]
             : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_subtype"], R, Msg[">>"]]
 
 /**
@@ -68,7 +68,7 @@ export type Ask_Left_EqualTo_Right<L, R, T, F, Test extends string | 0 = 0> =
                 ? [1, 1] extends [Are_Types_Identical<L, R>, Are_Types_Key_Identical<L, R>]
                     ? T | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["equals"], R, Msg[">>"]]
                     : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["not_exactly"], R, Msg[">>"]]
-                : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["doeS_not_supertype"], R, Msg[">>"]]
+                : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_supertype"], R, Msg[">>"]]
             : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_subtype"], R, Msg[">>"]]
 
 /**
@@ -99,8 +99,8 @@ export type Ask_Left_SupertypeOf_Right<L, R, T, F, Test extends string | 0 = 0> 
           : [R, null] extends [L, null]
             ? [R, Is_Recursive_Subtype_Considering_Any<R, L>] extends [L, 1]
                 ? T | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_supertype"], R, Msg[">>"]]
-                : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["doeS_not_supertype"], R, Msg[">>"]]
-            : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["doeS_not_supertype"], R, Msg[">>"]]
+                : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_supertype"], R, Msg[">>"]]
+            : F | [Msg["SPACE"], `${Test} ${Msg["the_type"]}`, L, Msg["does_not_supertype"], R, Msg[">>"]]
 /**
  * # L ⊆ R❔
  *

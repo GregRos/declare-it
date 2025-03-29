@@ -11,8 +11,7 @@ declare.test("1 ⊂ number", expect => {
     expect(type<1>).to_subtype(type<number>)
     expect(type<1>).not.to_supertype(type<number>)
 
-    // @ts-expect-error
-    expect(type<1>).to_resemble(type<number>)
+    expect(type<1>).not.to_resemble(type<number>)
     expect(type<1>).not.to_equal(type<number>)
 })
 
