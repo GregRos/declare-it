@@ -194,11 +194,11 @@ expect(
 
 And everything else!
 # to_subtype [ L ⊆ R ]
-This assertion checks if one type $L$ is a **subtype of** another type $R$. This means:
+This assertion checks if one type `L` is a **subtype of** another type `R`. This means:
 
-- $L$ has all of the *structure* of $R$, like members, call signatures, and so on. 
-- A value of type $L$ can be assigned to a variable of type $R$.
-- And finally, you can use $L$ instead of $R$ in generic type constraints.
+- `L` has all of the *structure* of `R`, like members, call signatures, and so on. 
+- A value of type `L` can be assigned to a variable of type `R`.
+- And finally, you can use `L` instead of `R` in generic type constraints.
 
 That means this code has to compile:
 
@@ -246,17 +246,15 @@ expect(
 )
 ```
 # to_supertype [ L ⊇ R ]
-This assertion checks the opposite — that $L$ is a supertype of $R$. This means:
+This assertion checks the opposite — that `L` is a supertype of `R`. This means:
 
-- $R$ has all of the structure of $L$
-- A value of type $R$ is assignable to a variable of type $L$
-- You can use $R$ instead of $L$ to satisfy type constraints.
+- `R` has all of the structure of `L`
+- A value of type `R` is assignable to a variable of type `L`
+- You can use `R` instead of `L` to satisfy type constraints.
 
 It’s basically the same check as `to_subtype`, but with the operands inverted. 
 # to_resemble [ L ≈ R ]
 This combines the two previous assertions. It can also be written as:
-
-$$ R \subseteq L \subseteq R$$
 
 Or as:
 
@@ -300,11 +298,14 @@ expect(
 # Dealing with failure
 Here’s what TypeScript says when an assertion fails:
 
-```ts
-src/test/core/primitives.spec.ts:14:33 - error TS2345: Argument of type '{ (): (_: never) => number; 
-(_: never): number; }' is not assignable to parameter of type 
+```
+src/test/core/primitives.spec.ts:14:33 - error TS2345: 
+Argument of type 
+'{ (): (_: never) => number; (_: never): number; }' 
+is not assignable to parameter of type 
 '["                                              ", 
-"❌ 𝗔𝗧 𝗧𝗘𝗦𝗧 “1 ⊂ number” ❱➤ 𝗧𝗛𝗘 𝗧𝗬𝗣𝗘 (", 1, ") 𝗗𝗢𝗘𝗦 𝗡𝗢𝗧 𝗦𝗨𝗣𝗘𝗥-𝗧𝗬𝗣𝗘 (", number, ")                                                    "]'.
+"❌ 𝗔𝗧 𝗧𝗘𝗦𝗧 “1 ⊂ number” ❱➤ 
+𝗧𝗛𝗘 𝗧𝗬𝗣𝗘 (", 1, ") 𝗗𝗢𝗘𝗦 𝗡𝗢𝗧 𝗦𝗨𝗣𝗘𝗥-𝗧𝗬𝗣𝗘 (", number, ")                                                    "]'.
 ```
 
 It’s a failure message with some garbage at the start! Let’s take a closer look, without the unnecessary characters:
