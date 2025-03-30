@@ -8,6 +8,7 @@ import type {
 export type Type_Ref<T> = {
     (_: never): T
 }
+/** The type of `declare-it`'s `expect` function. */
 export interface ExpectFunction<
     Test extends string,
     Skipped extends 1 | 0 = 0
@@ -17,6 +18,13 @@ export interface ExpectFunction<
     ): __expect<Test, L, Skipped extends 1 ? unknown : never>
 }
 
+/**
+ * Used to combine multiple assertions on the same type.
+ *
+ * @template Test Keeps track of the test title.
+ * @template L The type to be checked.
+ * @template Skipped Keeps track of skipped test.
+ */
 export declare abstract class __and<
     Test extends string,
     L,
@@ -32,7 +40,7 @@ export declare abstract class __and<
  * - ℹ️ Returned by the `expect` function when defining a test using `declare.it`.
  * - ⚠️ Can only be used within the `declare.it` callback.
  *
- * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+ * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
  *
  * @template Test The title of the test where the assertion is made.
  * @template L The type to be checked.
@@ -42,11 +50,12 @@ export declare abstract class __expect<
     L,
     Skipped extends never | unknown = never
 > {
+    /** 🚨 **NOT CALLABLE** 🚨 */
     private constructor()
     static DOES_NOT_EXIST_AT_RUNTIME: true
     static COMPILE_TIME_ONLY: true
     /**
-     * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * Returns a compile-time construct with the same members as
      * {@link __expect}, for making negative type assertions.
@@ -56,7 +65,7 @@ export declare abstract class __expect<
      */
     readonly not: __expect_not<Test, L>
     /**
-     * # L ≡ R❔
+     * # L ≡ R❕
      *
      * Asserts that the `L` type is **equal and interchangeable with** the `R`
      * type.
@@ -69,7 +78,7 @@ export declare abstract class __expect<
      * - ℹ️ The message is a tuple that includes the test title and the types
      *   involved.
      *
-     * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * @example
      *     // ☑️ PASSING
@@ -98,7 +107,7 @@ export declare abstract class __expect<
     ): __and<Test, L, Skipped>
 
     /**
-     * # L ≈ R❔
+     * # L ≈ R❕
      *
      * Asserts that the `L` type **does_resemble** the `R` type. That means
      * they're assignable to each other.
@@ -113,7 +122,7 @@ export declare abstract class __expect<
      * - ℹ️ The message is a tuple that includes the test title and the types
      *   involved.
      *
-     * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * @example
      *     // ☑️ PASSING
@@ -139,7 +148,7 @@ export declare abstract class __expect<
     ): __and<Test, L, Skipped>
 
     /**
-     * # L ⊆ R❔
+     * # L ⊆ R❕
      *
      * Asserts that the `L` type is **a subtype and assignable to** the `R`
      * type.
@@ -152,7 +161,7 @@ export declare abstract class __expect<
      * - ℹ️ The message is a tuple that includes the test title and the types
      *   involved.
      *
-     *   🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     *   🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * @example
      *     // ☑️ PASSING
@@ -182,7 +191,7 @@ export declare abstract class __expect<
     ): __and<Test, L, Skipped>
 
     /**
-     * # L ⊇ R❔
+     * # L ⊇ R❕
      *
      * Asserts that the `L` type is **a supertype and assignable from** the `R`
      * type.
@@ -195,7 +204,7 @@ export declare abstract class __expect<
      * - ℹ️ The message is a tuple that includes the test title and the types
      *   involved.
      *
-     *   🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     *   🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * @example
      *     // ☑️ PASSING
@@ -230,7 +239,7 @@ export declare abstract class __expect<
  * - ℹ️ Returned by the `not` property of {@link __expect}.
  * - ⚠️ Can only be used within the `declare.it` callback.
  *
- * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+ * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
  *
  * @template Test The title of the test where the assertion is made.
  * @template L The type to be checked.
@@ -244,7 +253,7 @@ export declare abstract class __expect_not<
     static DOES_NOT_EXIST_AT_RUNTIME: true
     static COMPILE_TIME_ONLY: true
     /**
-     * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * Returns a compile-time construct with the same members as
      * {@link __expect_not}, for making positive type assertions.
@@ -252,7 +261,7 @@ export declare abstract class __expect_not<
     readonly not: __and<Test, L, Skipped>
 
     /**
-     * # L !≡ R❔
+     * # L !≡ R❕
      *
      * Asserts that the `L` type is **not equal or interchangeable with** the
      * `R` type.
@@ -266,7 +275,7 @@ export declare abstract class __expect_not<
      * - ℹ️ The message is a tuple that includes the test title and the types
      *   involved.
      *
-     * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * @example
      *     // ☑️ PASSING
@@ -294,7 +303,7 @@ export declare abstract class __expect_not<
     ): __and<Test, L, Skipped>
 
     /**
-     * # L !≈ R❔
+     * # L !≈ R❕
      *
      * Asserts that the `L` type **does not resemble** the `R` type. That means
      * one isn't assignable to the other.
@@ -308,7 +317,7 @@ export declare abstract class __expect_not<
      * - ℹ️ The message is a tuple that includes the test title and the types
      *   involved.
      *
-     * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * @example
      *     // ☑️ PASSING
@@ -336,7 +345,7 @@ export declare abstract class __expect_not<
     ): __and<Test, L, Skipped>
 
     /**
-     * # L ⊈ R❔
+     * # L ⊈ R❕
      *
      * Asserts that the `L` type is **not a subtype or assignable to** the `R`
      * type.
@@ -350,7 +359,7 @@ export declare abstract class __expect_not<
      * - ℹ️ The message is a tuple that includes the test title and the types
      *   involved.
      *
-     * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * @example
      *     // ☑️ PASSING
@@ -375,7 +384,7 @@ export declare abstract class __expect_not<
     ): __and<Test, L, Skipped>
 
     /**
-     * # L ⊉ R❔
+     * # L ⊉ R❕
      *
      * Asserts that the `L` type is **not a supertype or assignable from** the
      * `R` type.
@@ -389,7 +398,7 @@ export declare abstract class __expect_not<
      * - ℹ️ The message is a tuple that includes the test title and the types
      *   involved.
      *
-     * 🚨 **DOES NOT EXIST AT RUNTIME** 🚨
+     * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
      *
      * @example
      *     // ☑️ PASSING
