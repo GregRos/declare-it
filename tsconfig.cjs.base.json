@@ -3,6 +3,7 @@
     "composite": true,
     "module": "CommonJS",
     "target": "ES2022",
+    "isolatedModules": true,
     "lib": ["ES2022"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
