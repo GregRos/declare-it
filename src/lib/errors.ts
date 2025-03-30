@@ -17,7 +17,7 @@ export function testFrameworkNotDetected(name: string) {
     )
 }
 
-export function unknownSetupSpecifier(name: string) {
+export function unknownFrameworkSpecifier(name: string) {
     return new DeclareItError(
         formatErrorText(`Unknown setup specifier "${name}".`)
     )

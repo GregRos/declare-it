@@ -1,3 +1,4 @@
+import { Type_Ref } from "../type-ref/reference.js"
 import { Txt } from "./messages.js"
 import type {
     Ask_Left_EqualTo_Right,
@@ -5,10 +6,12 @@ import type {
     Ask_Left_SubtypeOf_Right,
     Ask_Left_SupertypeOf_Right
 } from "./questions.js"
-export type Type_Ref<T> = {
-    (_: never): T
-}
-/** The type of `declare-it`'s `expect` function. */
+/**
+ * The type of `declare-it`'s `expect` function.
+ *
+ * @example
+ *     expect(type<string>).to_equal(type<string>)
+ */
 export interface ExpectFunction<
     Test extends string,
     Skipped extends 1 | 0 = 0
@@ -20,6 +23,8 @@ export interface ExpectFunction<
 
 /**
  * Used to combine multiple assertions on the same type.
+ *
+ * 🚨 **DO USE OUTSIDE OF TYPE-ONLY TEST** 🚨
  *
  * @template Test Keeps track of the test title.
  * @template L The type to be checked.
@@ -40,7 +45,7 @@ export declare abstract class __and<
  * - ℹ️ Returned by the `expect` function when defining a test using `declare.it`.
  * - ⚠️ Can only be used within the `declare.it` callback.
  *
- * 🚨 **DO NOT CALL OUTSIDE OF TYPE-ONLY TEST** 🚨
+ * 🚨 **DO USE OUTSIDE OF TYPE-ONLY TEST** 🚨
  *
  * @template Test The title of the test where the assertion is made.
  * @template L The type to be checked.

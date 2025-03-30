@@ -4,7 +4,7 @@ class Any {
     private _!: true
 }
 /** Checks whether `Subject` is `any`. */
-export type IsAny<Subject, T = 1, F = 0> = Any extends Subject
+export type Is_Any<Subject, T = 1, F = 0> = Any extends Subject
     ? [Subject] extends [Any]
         ? T
         : F
@@ -41,4 +41,12 @@ export type Are_Types_Identical<Left, Right, T = 1, F = never> =
     (<U>() => U extends Left ? 1 : 0) extends <U>() => U extends Right ? 1 : 0
         ? T
         : F
-export type IsFunction<T> = [T] extends [Function] ? 1 : 0
+/** Checks if `T` is a function. */
+export type Is_Function<T> = [T] extends [Function] ? 1 : 0
+
+type Primitive = string | number | boolean | null | undefined | symbol | bigint
+
+export type IsSimplePrimitive<Subject, T = 1, F = 0> = Subject extends Subject &
+    Primitive
+    ? T
+    : F

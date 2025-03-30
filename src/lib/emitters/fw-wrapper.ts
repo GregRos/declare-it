@@ -22,6 +22,6 @@ export class FwWrapper {
     }
 
     todo(title: string) {
-        this.fw.test.todo(title, () => {})
+        this.fw.test.todo(formatTestTitle(title), () => {})
     }
 }

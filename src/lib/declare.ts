@@ -1,38 +1,12 @@
 /* eslint-disable no-inner-declarations */
-import { logToConsole } from "./log-test.js"
+import { logToConsole } from "./emitters/console-emitter.js"
 
 import type { TestFrameworkName } from "what-the-test"
 import { findTestFramework, getTestFramework } from "what-the-test"
-import type { ExpectFunction } from "../type-assertions/expect_type.js"
-import { Txt } from "../type-assertions/messages.js"
-import { unknownSetupSpecifier } from "./errors.js"
-import { FwWrapper } from "./fw-wrapper.js"
-
-/** The type of a type reference function. */
-export interface Type_Ref {
-    <T>(): (_: never) => T
-    <T>(_: never): T
-}
-
-/**
- * Explicitly references a type to be used in a type-only test.
- *
- * @template T The type to reference.
- */
-export const type = function type<T>() {
-    return null! as T
-} as Type_Ref
-
-/**
- * Infers the type of a value, to be used in a type-only test.
- *
- * @template T The type of the value. Normally inferred from the argument.
- * @param value The value to infer the type of.
- * @returns A declare-it reference to the type of the value.
- */
-export function type_of<T>(_: T) {
-    return null! as (_: never) => T
-}
+import { FwWrapper } from "./emitters/fw-wrapper.js"
+import { unknownFrameworkSpecifier } from "./errors.js"
+import type { ExpectFunction } from "./type-assertions/expect_type.js"
+import { Txt } from "./type-assertions/messages.js"
 
 /** The main namespace for declare-it tests and configuration. */
 export namespace declare {
@@ -53,24 +27,21 @@ export namespace declare {
      */
     export function setup(
         mode: TestFrameworkName | "console" | "auto" | false
-    ): void
-    export function setup(
-        setupValue: false | TestFrameworkName | "console" | "auto"
     ): void {
-        if (!setupValue) {
+        if (!mode) {
             fwWrapper = false
-        } else if (setupValue === "auto") {
+        } else if (mode === "auto") {
             fwWrapper = new FwWrapper(findTestFramework()!)
-        } else if (setupValue === "console") {
+        } else if (mode === "console") {
             fwWrapper = {
                 test: logToConsole("pass"),
                 skip: logToConsole("skip"),
                 todo: logToConsole("todo")
             } as any
-        } else if (typeof setupValue === "string") {
-            fwWrapper = new FwWrapper(getTestFramework(setupValue)!)
+        } else if (typeof mode === "string") {
+            fwWrapper = new FwWrapper(getTestFramework(mode)!)
         } else {
-            throw unknownSetupSpecifier(setupValue)
+            throw unknownFrameworkSpecifier(mode)
         }
     }
 
@@ -135,7 +106,7 @@ export namespace declare {
      * @param test A test environment that can make type assertions.
      */
     function assert_(
-        test: (expect: ExpectFunction<Txt.Msg["anonymous"]>) => void
+        _: (expect: ExpectFunction<Txt.Msg["anonymous"]>) => void
     ): void {}
 
     export const test = Object.assign(test_, testFunctionInterface)
