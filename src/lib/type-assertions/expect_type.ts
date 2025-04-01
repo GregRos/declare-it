@@ -11,11 +11,21 @@ import type {
  *
  * @example
  *     expect(type<string>).to_equal(type<string>)
+ *
+ * @template Test Keeps track of the test title.
+ * @template Skipped Keeps track of whether the test was skipped.
  */
 export interface ExpectFunction<
     Test extends string,
     Skipped extends 1 | 0 = 0
 > {
+    /**
+     * Produces an assertion on the type `L`, given a {@link Type_Ref}.
+     *
+     * @example
+     *     expect(type<string>).to_equal(type<string>)
+     *     //     ↑ Type_Ref             ↑ Type_Ref
+     */
     <L>(
         subjType: Type_Ref<L>
     ): __expect<Test, L, Skipped extends 1 ? unknown : never>
@@ -28,7 +38,7 @@ export interface ExpectFunction<
  *
  * @template Test Keeps track of the test title.
  * @template L The type to be checked.
- * @template Skipped Keeps track of skipped test.
+ * @template Skipped Keeps track of whether the test was skipped.
  */
 export declare abstract class __and<
     Test extends string,
